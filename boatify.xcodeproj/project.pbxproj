@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE6975121D55481900D91587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975111D55481900D91587 /* AppDelegate.swift */; };
+		EE6975141D55481900D91587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* ViewController.swift */; };
+		EE6975171D55481900D91587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE6975151D55481900D91587 /* Main.storyboard */; };
+		EE6975191D55481900D91587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6975181D55481900D91587 /* Assets.xcassets */; };
+		EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE69751A1D55481900D91587 /* LaunchScreen.storyboard */; };
+		EE6975271D55481900D91587 /* boatifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975261D55481900D91587 /* boatifyTests.swift */; };
+		EE6975321D55481900D91587 /* boatifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975311D55481900D91587 /* boatifyUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE6975231D55481900D91587 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE6975061D55481900D91587 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE69750D1D55481900D91587;
+			remoteInfo = boatify;
+		};
+		EE69752E1D55481900D91587 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE6975061D55481900D91587 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE69750D1D55481900D91587;
+			remoteInfo = boatify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE69750E1D55481900D91587 /* boatify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boatify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE6975111D55481900D91587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EE6975131D55481900D91587 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE6975161D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE6975181D55481900D91587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE69751B1D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EE69751D1D55481900D91587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE6975221D55481900D91587 /* boatifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = boatifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE6975261D55481900D91587 /* boatifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boatifyTests.swift; sourceTree = "<group>"; };
+		EE6975281D55481900D91587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE69752D1D55481900D91587 /* boatifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = boatifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE6975311D55481900D91587 /* boatifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boatifyUITests.swift; sourceTree = "<group>"; };
+		EE6975331D55481900D91587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE69750B1D55481900D91587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE69751F1D55481900D91587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE69752A1D55481900D91587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE6975051D55481900D91587 = {
+			isa = PBXGroup;
+			children = (
+				EE6975101D55481900D91587 /* boatify */,
+				EE6975251D55481900D91587 /* boatifyTests */,
+				EE6975301D55481900D91587 /* boatifyUITests */,
+				EE69750F1D55481900D91587 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE69750F1D55481900D91587 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE69750E1D55481900D91587 /* boatify.app */,
+				EE6975221D55481900D91587 /* boatifyTests.xctest */,
+				EE69752D1D55481900D91587 /* boatifyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE6975101D55481900D91587 /* boatify */ = {
+			isa = PBXGroup;
+			children = (
+				EE6975111D55481900D91587 /* AppDelegate.swift */,
+				EE6975131D55481900D91587 /* ViewController.swift */,
+				EE6975151D55481900D91587 /* Main.storyboard */,
+				EE6975181D55481900D91587 /* Assets.xcassets */,
+				EE69751A1D55481900D91587 /* LaunchScreen.storyboard */,
+				EE69751D1D55481900D91587 /* Info.plist */,
+			);
+			path = boatify;
+			sourceTree = "<group>";
+		};
+		EE6975251D55481900D91587 /* boatifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE6975261D55481900D91587 /* boatifyTests.swift */,
+				EE6975281D55481900D91587 /* Info.plist */,
+			);
+			path = boatifyTests;
+			sourceTree = "<group>";
+		};
+		EE6975301D55481900D91587 /* boatifyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EE6975311D55481900D91587 /* boatifyUITests.swift */,
+				EE6975331D55481900D91587 /* Info.plist */,
+			);
+			path = boatifyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE69750D1D55481900D91587 /* boatify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE6975361D55481900D91587 /* Build configuration list for PBXNativeTarget "boatify" */;
+			buildPhases = (
+				EE69750A1D55481900D91587 /* Sources */,
+				EE69750B1D55481900D91587 /* Frameworks */,
+				EE69750C1D55481900D91587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = boatify;
+			productName = boatify;
+			productReference = EE69750E1D55481900D91587 /* boatify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE6975211D55481900D91587 /* boatifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE6975391D55481900D91587 /* Build configuration list for PBXNativeTarget "boatifyTests" */;
+			buildPhases = (
+				EE69751E1D55481900D91587 /* Sources */,
+				EE69751F1D55481900D91587 /* Frameworks */,
+				EE6975201D55481900D91587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE6975241D55481900D91587 /* PBXTargetDependency */,
+			);
+			name = boatifyTests;
+			productName = boatifyTests;
+			productReference = EE6975221D55481900D91587 /* boatifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EE69752C1D55481900D91587 /* boatifyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE69753C1D55481900D91587 /* Build configuration list for PBXNativeTarget "boatifyUITests" */;
+			buildPhases = (
+				EE6975291D55481900D91587 /* Sources */,
+				EE69752A1D55481900D91587 /* Frameworks */,
+				EE69752B1D55481900D91587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE69752F1D55481900D91587 /* PBXTargetDependency */,
+			);
+			name = boatifyUITests;
+			productName = boatifyUITests;
+			productReference = EE69752D1D55481900D91587 /* boatifyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE6975061D55481900D91587 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Derik Flanary";
+				TargetAttributes = {
+					EE69750D1D55481900D91587 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					EE6975211D55481900D91587 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = EE69750D1D55481900D91587;
+					};
+					EE69752C1D55481900D91587 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = EE69750D1D55481900D91587;
+					};
+				};
+			};
+			buildConfigurationList = EE6975091D55481900D91587 /* Build configuration list for PBXProject "boatify" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE6975051D55481900D91587;
+			productRefGroup = EE69750F1D55481900D91587 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE69750D1D55481900D91587 /* boatify */,
+				EE6975211D55481900D91587 /* boatifyTests */,
+				EE69752C1D55481900D91587 /* boatifyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE69750C1D55481900D91587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */,
+				EE6975191D55481900D91587 /* Assets.xcassets in Resources */,
+				EE6975171D55481900D91587 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE6975201D55481900D91587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE69752B1D55481900D91587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE69750A1D55481900D91587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
+				EE6975121D55481900D91587 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE69751E1D55481900D91587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE6975271D55481900D91587 /* boatifyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE6975291D55481900D91587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE6975321D55481900D91587 /* boatifyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE6975241D55481900D91587 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE69750D1D55481900D91587 /* boatify */;
+			targetProxy = EE6975231D55481900D91587 /* PBXContainerItemProxy */;
+		};
+		EE69752F1D55481900D91587 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE69750D1D55481900D91587 /* boatify */;
+			targetProxy = EE69752E1D55481900D91587 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EE6975151D55481900D91587 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE6975161D55481900D91587 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE69751A1D55481900D91587 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE69751B1D55481900D91587 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE6975341D55481900D91587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE6975351D55481900D91587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE6975371D55481900D91587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = boatify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EE6975381D55481900D91587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = boatify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EE69753A1D55481900D91587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = boatifyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/boatify.app/boatify";
+			};
+			name = Debug;
+		};
+		EE69753B1D55481900D91587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = boatifyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/boatify.app/boatify";
+			};
+			name = Release;
+		};
+		EE69753D1D55481900D91587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = boatifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = boatify;
+			};
+			name = Debug;
+		};
+		EE69753E1D55481900D91587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = boatifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = boatify;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE6975091D55481900D91587 /* Build configuration list for PBXProject "boatify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE6975341D55481900D91587 /* Debug */,
+				EE6975351D55481900D91587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE6975361D55481900D91587 /* Build configuration list for PBXNativeTarget "boatify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE6975371D55481900D91587 /* Debug */,
+				EE6975381D55481900D91587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EE6975391D55481900D91587 /* Build configuration list for PBXNativeTarget "boatifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE69753A1D55481900D91587 /* Debug */,
+				EE69753B1D55481900D91587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EE69753C1D55481900D91587 /* Build configuration list for PBXNativeTarget "boatifyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE69753D1D55481900D91587 /* Debug */,
+				EE69753E1D55481900D91587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE6975061D55481900D91587 /* Project object */;
+}
