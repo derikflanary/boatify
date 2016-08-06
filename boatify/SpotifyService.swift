@@ -13,6 +13,8 @@ struct SessionLoaded: Action {
     let session: SPTSession
 }
 
+struct AppLaunched: Action { }
+
 struct SpotifyService {
     
     // MARK: - Properties
@@ -24,6 +26,9 @@ struct SpotifyService {
     
     // MARK: - Main function
     
+    func checkForSession() -> Action {
+        return AppLaunched()
+    }
     
     func loginToSpotify() {
         SPTAuth.defaultInstance().clientID = SpotifyService.kClientId

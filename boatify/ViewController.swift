@@ -43,14 +43,13 @@ class ViewController: UIViewController {
         store.unsubscribe(self)
     }
 
-    func updateAfterLogin() {
+    func login() {
         guard let session = session else { return }
         
-        requestPermissionToRecord()
-        spotifyLoginButton.hidden = true
         do {
             try player.startWithClientId(SpotifyService.kClientId)
             player.loginWithAccessToken(session.accessToken)
+            
         } catch {
             print(error)
         }
@@ -135,6 +134,9 @@ class ViewController: UIViewController {
 extension ViewController: SPTAudioStreamingDelegate {
 
     func audioStreamingDidLogin(audioStreaming: SPTAudioStreamingController!) {
+        spotifyLoginButton.hidden = true
+        requestPermissionToRecord()
+        
         guard let url = NSURL(string: "spotify:track:58s6EuEYJdlb0kO7awm3Vp") else { return }
         
         player.playURIs([url], withOptions: SPTPlayOptions()) { error in
@@ -159,7 +161,7 @@ extension ViewController: StoreSubscriber {
     func newState(state: AppState) {
         guard let session = state.session else { return }
         self.session = session
-        updateAfterLogin()
+        login()
     }
 }
 

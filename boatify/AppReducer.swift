@@ -25,8 +25,13 @@ struct AppReducer: Reducer {
         var state = state ?? AppState()
         
         switch action {
+        case _ as AppLaunched:
+            guard let sessionData = NSUserDefaults.standardUserDefaults().objectForKey("SpotifySession") as? NSData, session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession else { break }
+            state.session = session
         case let action as SessionLoaded:
             state.session = action.session
+            let sessionData = NSKeyedArchiver.archivedDataWithRootObject(action.session)
+            NSUserDefaults.standardUserDefaults().setObject(sessionData, forKey:"SpotifySession")
         default:
             break
         }
