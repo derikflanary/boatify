@@ -7,51 +7,61 @@
 //
 
 import UIKit
+import ReSwift
 
 class ViewController: UIViewController {
 
-    let kClientId = "08e656aa8c444173ab066eb4a3ca7bf7"
-    let kCallbackURL = "boatify-login://callback"
+    // MARK: -  Properties
+    
+    let spotifyService = SpotifyService()
+    var store = AppState.sharedStore
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
     
     @IBOutlet weak var spotifyLoginButton: UIButton!
     
+    
+    // MARK: - View cycle overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         player.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateAfterLogin), name: "loginSuccessful", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        store.subscribe(self)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        store.unsubscribe(self)
     }
 
     func updateAfterLogin() {
-        guard let sessionData = NSUserDefaults.standardUserDefaults().objectForKey("SpotifySession") as? NSData, sesh = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession else { return }
-        session = sesh
+        guard let session = session else { return }
+        
         spotifyLoginButton.hidden = true
         do {
-            try player.startWithClientId(kClientId)
-            player.loginWithAccessToken(sesh.accessToken)
+            try player.startWithClientId(SpotifyService.kClientId)
+            player.loginWithAccessToken(session.accessToken)
         } catch {
             print(error)
         }
         print("login success")
     }
 
-    @IBAction func spotifyLoginTapped(sender: AnyObject) {
-        SPTAuth.defaultInstance().clientID = kClientId
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: kCallbackURL)
-        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
-        let loginURL = SPTAuth.defaultInstance().loginURL
-        UIApplication.sharedApplication().openURL(loginURL)
-    }
     
+    // MARK: - Interface actions
+    
+    @IBAction func spotifyLoginTapped(sender: AnyObject) {
+        spotifyService.loginToSpotify()
+    }
 
 }
 
+
+// MARK: Streaming delegate
 
 extension ViewController: SPTAudioStreamingDelegate {
 
@@ -62,10 +72,21 @@ extension ViewController: SPTAudioStreamingDelegate {
             if error != nil {
                 print(error)
             }
-            
         }
     }
     
+}
+
+
+// MARK: - Store subscriber
+
+extension ViewController: StoreSubscriber {
+    
+    func newState(state: AppState) {
+        guard let session = state.session else { return }
+        self.session = session
+        updateAfterLogin()
+    }
 }
 
 

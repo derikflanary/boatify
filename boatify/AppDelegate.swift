@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import ReSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var spotifyService = SpotifyService()
+    var store = AppState.sharedStore
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -43,15 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         // Ask SPTAuth if the URL given is a Spotify authentication callback
         if SPTAuth.defaultInstance().canHandleURL(url) {
-            SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: { error, session in
-                if error != nil {
-                    print(error)
-                } else {
-                    let sessionData = NSKeyedArchiver.archivedDataWithRootObject(session)
-                    NSUserDefaults.standardUserDefaults().setObject(sessionData, forKey:"SpotifySession")
-                    NSNotificationCenter.defaultCenter().postNotificationName("loginSuccessful", object: nil)
-                }
-            })
+            store.dispatch(spotifyService.handleAuth(for: url))
             return true
         }
         return false
