@@ -33,9 +33,25 @@ struct SpotifyService {
     func loginToSpotify() {
         SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
         SPTAuth.defaultInstance().redirectURL = NSURL(string: kCallbackURL)
-        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope]
+        SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserLibraryReadScope]
         let loginURL = SPTAuth.defaultInstance().loginURL
         UIApplication.sharedApplication().openURL(loginURL)
+    }
+    
+    func refresh(session: SPTSession) -> AppActionCreator {
+        return { state, store in
+            SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
+            SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserLibraryReadScope]
+            SPTAuth.defaultInstance().renewSession(session) { (error, newSession) in
+                if error == nil {
+                    store.dispatch(SessionLoaded(session: newSession))
+                } else {
+                    print(error)
+                }
+            }
+            return nil
+        }
+
     }
     
     func handleAuth(for url: NSURL) -> Store<AppState>.ActionCreator {
@@ -51,4 +67,16 @@ struct SpotifyService {
         }
     }
     
+    func getPlaylistsWithSession(session: SPTSession) -> Store<AppState>.ActionCreator {
+        return { state, store in
+            SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, playlistList in
+                guard let playlists = playlistList as? SPTPlaylistList else { return }
+                
+            })
+            return nil
+        }
+    }
+    
 }
+
+

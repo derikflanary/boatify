@@ -9,6 +9,7 @@
 import UIKit
 import ReSwift
 import AVFoundation
+import MediaPlayer
 
 class ViewController: UIViewController {
 
@@ -31,6 +32,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         player.delegate = self
+        let command = MPRemoteCommandCenter.sharedCommandCenter()
+        command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.playCommand.addTarget(self, action: #selector(playPauseTapped))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,14 +50,17 @@ class ViewController: UIViewController {
     func login() {
         guard let session = session else { return }
         
-        do {
-            try player.startWithClientId(SpotifyService.kClientId)
-            player.loginWithAccessToken(session.accessToken)
-            
-        } catch {
-            print(error)
+        if session.isValid() {
+            do {
+                try player.startWithClientId(SpotifyService.kClientId)
+                player.loginWithAccessToken(session.accessToken)
+                print("login success")
+            } catch {
+                print(error)
+            }
+        } else if session.encryptedRefreshToken != nil {
+            store.dispatch(spotifyService.refresh(session))
         }
-        print("login success")
     }
     
     func requestPermissionToRecord() {
@@ -118,6 +125,21 @@ class ViewController: UIViewController {
         player.setVolume(volume) { error in }
         print(player.volume)
     }
+    
+    func playPauseTapped() {
+        if player.isPlaying {
+            MPRemoteCommandCenter.sharedCommandCenter().playCommand.enabled = false
+            MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.enabled = true
+        } else {
+            MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.enabled = true
+            MPRemoteCommandCenter.sharedCommandCenter().playCommand.enabled = false
+        }
+        player.setIsPlaying(!player.isPlaying) { error in
+            if error != nil {
+                print(error)
+            }
+        }
+    }
 
     
     // MARK: - Interface actions
@@ -138,7 +160,6 @@ extension ViewController: SPTAudioStreamingDelegate {
         requestPermissionToRecord()
         
         guard let url = NSURL(string: "spotify:track:58s6EuEYJdlb0kO7awm3Vp") else { return }
-        
         player.playURIs([url], withOptions: SPTPlayOptions()) { error in
             if error != nil {
                 print(error)
