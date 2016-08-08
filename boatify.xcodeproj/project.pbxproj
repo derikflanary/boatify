@@ -12,6 +12,7 @@
 		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
 		EE550E831D56507100C19603 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E821D56507100C19603 /* SpotifyService.swift */; };
 		EE550E851D5650B300C19603 /* SpotifyNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */; };
+		EE550E8B1D58DCF000C19603 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E8A1D58DCEF00C19603 /* Alamofire.framework */; };
 		EE6975121D55481900D91587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975111D55481900D91587 /* AppDelegate.swift */; };
 		EE6975141D55481900D91587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* ViewController.swift */; };
 		EE6975171D55481900D91587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE6975151D55481900D91587 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		EE550E821D56507100C19603 /* SpotifyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyNetworkAccess.swift; sourceTree = "<group>"; };
+		EE550E8A1D58DCEF00C19603 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		EE69750E1D55481900D91587 /* boatify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boatify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6975111D55481900D91587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE6975131D55481900D91587 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				EE6975441D55492300D91587 /* SystemConfiguration.framework in Frameworks */,
 				EE6975421D55491C00D91587 /* AVFoundation.framework in Frameworks */,
 				EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */,
+				EE550E8B1D58DCF000C19603 /* Alamofire.framework in Frameworks */,
 				EE6975401D55490200D91587 /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +190,7 @@
 		EE6975491D554A4A00D91587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE550E8A1D58DCEF00C19603 /* Alamofire.framework */,
 				EE550E7B1D564E2C00C19603 /* ReSwift.framework */,
 				EE6975431D55492300D91587 /* SystemConfiguration.framework */,
 				EE69753F1D55490200D91587 /* Spotify.framework */,
@@ -336,6 +340,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)//Carthage/Build/iOS/ReSwift.framework",
+				"$(SRCROOT)//Carthage/Build/iOS/Alamofire.framework",
 			);
 			outputPaths = (
 			);

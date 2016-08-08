@@ -69,9 +69,11 @@ struct SpotifyService {
     
     func getPlaylistsWithSession(session: SPTSession) -> Store<AppState>.ActionCreator {
         return { state, store in
-            SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, playlistList in
-                guard let playlists = playlistList as? SPTPlaylistList else { return }
-                
+            
+            SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
+                if let playlists = list as? SPTPlaylistList {
+                    playlists.tracksForPlayback()
+                }
             })
             return nil
         }

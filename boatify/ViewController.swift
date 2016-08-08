@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         player.delegate = self
         let command = MPRemoteCommandCenter.sharedCommandCenter()
+        command.pauseCommand.enabled = true
         command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.playCommand.addTarget(self, action: #selector(playPauseTapped))
     }
@@ -58,7 +59,7 @@ class ViewController: UIViewController {
             } catch {
                 print(error)
             }
-        } else if session.encryptedRefreshToken != nil {
+        } else if SPTAuth.defaultInstance().hasTokenRefreshService {
             store.dispatch(spotifyService.refresh(session))
         }
     }
@@ -120,20 +121,18 @@ class ViewController: UIViewController {
         guard let audioRecorder = audioRecorder else { return }
         audioRecorder.updateMeters()
         let averagePower = audioRecorder.averagePowerForChannel(0)
-        let volume: Double = -15 / Double(averagePower)
+        if averagePower < -30 {
+            player.setVolume(0.5) { error in }
+        } else if averagePower < -22.5 {
+            player.setVolume(0.75) { error in}
+        } else {
+            player.setVolume(1.0) { error in }
+        }
         print("average: \(averagePower)")
-        player.setVolume(volume) { error in }
         print(player.volume)
     }
     
     func playPauseTapped() {
-        if player.isPlaying {
-            MPRemoteCommandCenter.sharedCommandCenter().playCommand.enabled = false
-            MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.enabled = true
-        } else {
-            MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.enabled = true
-            MPRemoteCommandCenter.sharedCommandCenter().playCommand.enabled = false
-        }
         player.setIsPlaying(!player.isPlaying) { error in
             if error != nil {
                 print(error)
