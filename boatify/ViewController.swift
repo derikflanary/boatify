@@ -60,16 +60,15 @@ class ViewController: UIViewController {
     
     func requestPermissionToRecord() {
         if AVAudioSession.sharedInstance().recordPermission() == .Granted {
-            startRecording()
+            print("already granted")
         } else {
-            AVAudioSession.sharedInstance().requestRecordPermission() { [unowned self] (allowed: Bool) -> Void in
+            AVAudioSession.sharedInstance().requestRecordPermission({ allowed in
                 if allowed {
                     print("allowed")
-                    self.startRecording()
                 } else {
                     print("failed to record")
                 }
-            }
+            })
         }
     }
     
@@ -130,6 +129,11 @@ class ViewController: UIViewController {
     // MARK: - Remote command
     
     func playPauseTapped() {
+        if player.isPlaying {
+            audioRecorder?.stop()
+        } else {
+            startRecording()
+        }
         player.setIsPlaying(!player.isPlaying) { error in
             if error != nil {
                 print(error)
@@ -177,7 +181,8 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: PlaylistCellDelegate {
     
     func play(uri: NSURL) {
-        player.playURI(uri, callback: nil)
+        player.playURIs([uri], withOptions: SPTPlayOptions(), callback: nil)
+        self.startRecording()
     }
 }
 

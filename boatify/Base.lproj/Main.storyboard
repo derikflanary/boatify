@@ -124,7 +124,7 @@
                         <outlet property="playlistsDataSource" destination="rbx-Sx-lNJ" id="GmN-DT-pPj"/>
                         <outlet property="spotifyLoginButton" destination="gFp-Ze-5tu" id="q5Z-yG-Ox8"/>
                         <outlet property="tableView" destination="cHa-u4-SXV" id="GCh-od-Gs5"/>
-                        <segue destination="usf-0c-iKc" kind="showDetail" action="showViewController:sender:" id="gPl-lJ-2r0"/>
+                        <segue destination="usf-0c-iKc" kind="showDetail" identifier="ShowPlaylistDetails" action="showViewController:sender:" id="gPl-lJ-2r0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
