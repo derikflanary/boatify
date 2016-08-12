@@ -38,6 +38,7 @@ class SettingsViewController: UIViewController {
     @IBAction func maxSliderChangedValue(sender: AnyObject) {
         if maxSlider.value <= minSlider.value + 0.1 {
             maxSlider.value = minSlider.value + 0.1
+            showTemporaryMessage("Max volume must be higher than minimum")
         }
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
     }
@@ -45,6 +46,7 @@ class SettingsViewController: UIViewController {
     @IBAction func minSliderChangedValue(sender: AnyObject) {
         if minSlider.value >= maxSlider.value - 0.1 {
             minSlider.value = maxSlider.value - 0.1
+            showTemporaryMessage("Minimum volume must be lower than max")
         }
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
     }
@@ -67,11 +69,4 @@ extension SettingsViewController: StoreSubscriber {
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
     }
     
-}
-
-extension Float {
-    var percentForm: String {
-        let percent = self * 100
-        return String(format: "%.0f", percent)
-    }
 }

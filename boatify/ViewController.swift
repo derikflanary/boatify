@@ -159,7 +159,7 @@ extension ViewController: SPTAudioStreamingDelegate {
     func audioStreamingDidLogin(audioStreaming: SPTAudioStreamingController!) {
         spotifyLoginButton.hidden = true
         tableView.hidden = false
-        
+        player.setVolume(minVolume, callback: nil)
         requestPermissionToRecord()
     }
     

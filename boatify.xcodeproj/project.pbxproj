@@ -12,6 +12,8 @@
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
 		EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */; };
 		EC6C3BDB1D5E84180083ECF1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */; };
+		EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */; };
+		EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */; };
 		EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E7B1D564E2C00C19603 /* ReSwift.framework */; };
 		EE550E7F1D564F7100C19603 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E7E1D564F7100C19603 /* AppState.swift */; };
 		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
@@ -53,6 +55,8 @@
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
+		EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		EE550E7B1D564E2C00C19603 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
 		EE550E7E1D564F7100C19603 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -108,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC6C3BDC1D5E8A7B0083ECF1 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */,
+				EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
 		EE550E861D56517A00C19603 /* State */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +189,7 @@
 				EE550E871D56518500C19603 /* UI */,
 				EE550E881D56518A00C19603 /* Service */,
 				EE550E891D56519500C19603 /* Data */,
+				EC6C3BDC1D5E8A7B0083ECF1 /* Infrastructure */,
 				EE6975181D55481900D91587 /* Assets.xcassets */,
 				EE69751A1D55481900D91587 /* LaunchScreen.storyboard */,
 				EE69751D1D55481900D91587 /* Info.plist */,
@@ -356,6 +370,7 @@
 			inputPaths = (
 				"$(SRCROOT)//Carthage/Build/iOS/ReSwift.framework",
 				"$(SRCROOT)//Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)//Carthage/Build/iOS/Whisper.framework",
 			);
 			outputPaths = (
 			);
@@ -371,9 +386,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE550E831D56507100C19603 /* SpotifyService.swift in Sources */,
+				EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */,
 				EE550E7F1D564F7100C19603 /* AppState.swift in Sources */,
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
 				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
+				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
 				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,
 				EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */,
