@@ -23,6 +23,12 @@ class ViewController: UIViewController {
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
     var timer: NSTimer?
+    var maxVolume: Double = 1.0
+    var minVolume: Double = 0.5
+    
+    var midVolume: Double {
+        return (maxVolume + minVolume) / 2
+    }
     
     
     // MARK: - Interface properties
@@ -110,11 +116,11 @@ class ViewController: UIViewController {
         audioRecorder.updateMeters()
         let averagePower = audioRecorder.averagePowerForChannel(0)
         if averagePower < -30 {
-            player.setVolume(0.5) { error in }
+            player.setVolume(minVolume) { error in }
         } else if averagePower < -22.5 {
-            player.setVolume(0.75) { error in}
+            player.setVolume(midVolume) { error in }
         } else {
-            player.setVolume(1.0) { error in }
+            player.setVolume(maxVolume) { error in }
         }
         print("average: \(averagePower)")
         print(player.volume)
@@ -192,6 +198,8 @@ extension ViewController: StoreSubscriber {
     func newState(state: AppState) {
         guard let session = state.session else { return }
         self.session = session
+        minVolume = state.minVolume
+        maxVolume = state.maxVolume
 
         if !player.loggedIn && session.isValid() {
             do {

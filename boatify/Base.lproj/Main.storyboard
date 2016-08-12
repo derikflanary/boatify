@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Settings-->
         <scene sceneID="cru-va-DAF">
             <objects>
-                <viewController id="TNe-dB-jk6" sceneMemberID="viewController">
+                <viewController id="TNe-dB-jk6" customClass="SettingsViewController" customModule="boatify" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="B7h-BY-vle"/>
                         <viewControllerLayoutGuide type="bottom" id="H2h-d6-NT5"/>
@@ -18,9 +18,87 @@
                     <view key="view" contentMode="scaleToFill" id="V8n-DL-IeS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
+                                <rect key="frame" x="20" y="94" width="560" height="223"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set maximum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-CO-5pd">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6u-XN-ofv">
+                                        <rect key="frame" x="0.0" y="30" width="560" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="o0V-jS-xZw">
+                                        <rect key="frame" x="-2" y="57" width="564" height="31"/>
+                                        <connections>
+                                            <action selector="maxSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="UCK-a7-RlH"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Set minimum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDG-3a-V1b">
+                                        <rect key="frame" x="0.0" y="97" width="560" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Y-rE-qch">
+                                        <rect key="frame" x="0.0" y="126" width="560" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="P9B-Pk-XeU">
+                                        <rect key="frame" x="-2" y="153" width="564" height="31"/>
+                                        <connections>
+                                            <action selector="minSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="Vot-Go-ck6"/>
+                                        </connections>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7f-gV-VKh">
+                                        <rect key="frame" x="0.0" y="193" width="560" height="30"/>
+                                        <state key="normal" title="Rate This App"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="igG-uo-y5C" firstAttribute="top" secondItem="B7h-BY-vle" secondAttribute="bottom" constant="30" id="BMw-QO-HC0"/>
+                            <constraint firstAttribute="trailing" secondItem="igG-uo-y5C" secondAttribute="trailing" id="CbK-uC-c3x"/>
+                            <constraint firstItem="igG-uo-y5C" firstAttribute="leading" secondItem="V8n-DL-IeS" secondAttribute="leading" id="RXa-yS-jNn"/>
+                            <constraint firstItem="H2h-d6-NT5" firstAttribute="top" secondItem="igG-uo-y5C" secondAttribute="bottom" constant="20" id="Sc3-7k-mbg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="igG-uo-y5C" secondAttribute="trailing" id="TB4-0u-jHL"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="igG-uo-y5C" secondAttribute="leading" id="em9-t3-lWO"/>
+                            <constraint firstItem="igG-uo-y5C" firstAttribute="top" secondItem="B7h-BY-vle" secondAttribute="bottom" id="evr-6S-mi2"/>
+                            <constraint firstItem="igG-uo-y5C" firstAttribute="bottom" secondItem="H2h-d6-NT5" secondAttribute="top" id="wjt-Xp-e72"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CbK-uC-c3x"/>
+                                <exclude reference="RXa-yS-jNn"/>
+                                <exclude reference="evr-6S-mi2"/>
+                                <exclude reference="wjt-Xp-e72"/>
+                                <exclude reference="Sc3-7k-mbg"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="w0g-T9-pdb"/>
+                    <navigationItem key="navigationItem" title="Settings" id="w0g-T9-pdb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="x3b-lw-iTm">
+                            <connections>
+                                <action selector="doneTapped:" destination="TNe-dB-jk6" id="wmR-jq-wob"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="maxPercentLabel" destination="d6u-XN-ofv" id="Nsa-fA-OpO"/>
+                        <outlet property="maxSlider" destination="o0V-jS-xZw" id="vo4-6g-vQZ"/>
+                        <outlet property="minPercentLabel" destination="Z3Y-rE-qch" id="oE4-9F-G6B"/>
+                        <outlet property="minSlider" destination="P9B-Pk-XeU" id="2jp-nP-Lqw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ydf-xi-ZvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

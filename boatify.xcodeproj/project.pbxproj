@@ -10,6 +10,8 @@
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
+		EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */; };
+		EC6C3BDB1D5E84180083ECF1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */; };
 		EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E7B1D564E2C00C19603 /* ReSwift.framework */; };
 		EE550E7F1D564F7100C19603 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E7E1D564F7100C19603 /* AppState.swift */; };
 		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
@@ -49,6 +51,8 @@
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
+		EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		EE550E7B1D564E2C00C19603 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
 		EE550E7E1D564F7100C19603 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				EE6975131D55481900D91587 /* ViewController.swift */,
 				EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */,
 				EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */,
+				EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 			children = (
 				EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */,
 				EE550E821D56507100C19603 /* SpotifyService.swift */,
+				EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -367,9 +373,11 @@
 				EE550E831D56507100C19603 /* SpotifyService.swift in Sources */,
 				EE550E7F1D564F7100C19603 /* AppState.swift in Sources */,
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
+				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
 				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,
 				EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */,
+				EC6C3BDB1D5E84180083ECF1 /* SettingsService.swift in Sources */,
 				EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */,
 				EE6975121D55481900D91587 /* AppDelegate.swift in Sources */,
 				EE550E851D5650B300C19603 /* SpotifyNetworkAccess.swift in Sources */,

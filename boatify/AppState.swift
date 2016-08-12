@@ -33,6 +33,8 @@ struct AppState: StateType {
     var playlists = [SPTPartialPlaylist]()
     var playlistImages = [UIImage]()
     var selectedPlaylist: SPTPartialPlaylist?
+    var maxVolume: Double = 1.0
+    var minVolume: Double = 0.5
 
 }
 
