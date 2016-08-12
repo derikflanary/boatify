@@ -29,6 +29,9 @@ struct AppState: StateType {
     // MARK: - State components
     
     var session: SPTSession?
+    var user: SPTUser?
+    var playlists = [SPTPartialPlaylist]()
+    var selectedPlaylist: SPTPartialPlaylist?
 
 }
 

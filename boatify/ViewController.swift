@@ -13,7 +13,7 @@ import MediaPlayer
 
 class ViewController: UIViewController {
 
-    // MARK: -  Properties
+    // MARK: - Properties
     
     let spotifyService = SpotifyService()
     var store = AppState.sharedStore
@@ -24,14 +24,21 @@ class ViewController: UIViewController {
     var audioSession: AVAudioSession?
     var timer: NSTimer?
     
+    
+    // MARK: - Interface properties
+    
     @IBOutlet weak var spotifyLoginButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var playlistsDataSource: PlaylistsDataSource!
     
     
     // MARK: - View cycle overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.hidden = true
         player.delegate = self
+        playlistsDataSource.delegate = self
         let command = MPRemoteCommandCenter.sharedCommandCenter()
         command.pauseCommand.enabled = true
         command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
@@ -47,22 +54,9 @@ class ViewController: UIViewController {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
     }
-
-    func login() {
-        guard let session = session else { return }
-        
-        if session.isValid() {
-            do {
-                try player.startWithClientId(SpotifyService.kClientId)
-                player.loginWithAccessToken(session.accessToken)
-                print("login success")
-            } catch {
-                print(error)
-            }
-        } else if SPTAuth.defaultInstance().hasTokenRefreshService {
-            store.dispatch(spotifyService.refresh(session))
-        }
-    }
+    
+    
+    // MARK: - Recording
     
     func requestPermissionToRecord() {
         if AVAudioSession.sharedInstance().recordPermission() == .Granted {
@@ -132,6 +126,9 @@ class ViewController: UIViewController {
         print(player.volume)
     }
     
+    
+    // MARK: - Remote command
+    
     func playPauseTapped() {
         player.setIsPlaying(!player.isPlaying) { error in
             if error != nil {
@@ -156,14 +153,9 @@ extension ViewController: SPTAudioStreamingDelegate {
 
     func audioStreamingDidLogin(audioStreaming: SPTAudioStreamingController!) {
         spotifyLoginButton.hidden = true
-        requestPermissionToRecord()
+        tableView.hidden = false
         
-        guard let url = NSURL(string: "spotify:track:58s6EuEYJdlb0kO7awm3Vp") else { return }
-        player.playURIs([url], withOptions: SPTPlayOptions()) { error in
-            if error != nil {
-                print(error)
-            }
-        }
+        requestPermissionToRecord()
     }
     
 }
@@ -171,6 +163,22 @@ extension ViewController: SPTAudioStreamingDelegate {
 
 extension ViewController: AVAudioRecorderDelegate {
     
+}
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let playlist = playlistsDataSource.playlists[indexPath.row]
+        store.dispatch(spotifyService.selectPlaylist(playlist))
+    }
+    
+}
+
+extension ViewController: PlaylistCellDelegate {
+    
+    func play(uri: NSURL) {
+        player.playURI(uri, callback: nil)
+    }
 }
 
 
@@ -181,7 +189,24 @@ extension ViewController: StoreSubscriber {
     func newState(state: AppState) {
         guard let session = state.session else { return }
         self.session = session
-        login()
+
+        if !player.loggedIn && session.isValid() {
+            do {
+                try player.startWithClientId(SpotifyService.kClientId)
+                player.loginWithAccessToken(session.accessToken)
+                store.dispatch(spotifyService.getPlaylistsWithSession(session))
+            } catch {
+                print(error)
+            }
+
+        }
+        
+        if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
+            store.dispatch(spotifyService.refresh(session))
+        }
+        
+        playlistsDataSource.playlists = state.playlists
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
     }
 }
 

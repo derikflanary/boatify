@@ -9,9 +9,6 @@
 import Foundation
 import ReSwift
 
-struct SessionLoaded: Action {
-    let session: SPTSession
-}
 
 struct AppLaunched: Action { }
 
@@ -38,13 +35,14 @@ struct SpotifyService {
         UIApplication.sharedApplication().openURL(loginURL)
     }
     
+    // TODO: - Get refresh working
     func refresh(session: SPTSession) -> AppActionCreator {
         return { state, store in
             SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
             SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserLibraryReadScope]
             SPTAuth.defaultInstance().renewSession(session) { (error, newSession) in
                 if error == nil {
-                    store.dispatch(SessionLoaded(session: newSession))
+                    store.dispatch(Retrieved(item: newSession))
                 } else {
                     print(error)
                 }
@@ -60,23 +58,57 @@ struct SpotifyService {
                 if error != nil {
                     print(error)
                 } else {
-                    store.dispatch(SessionLoaded(session: session))
+                    store.dispatch(Retrieved(item: session))
                 }
             })
             return nil
         }
     }
     
+    func getUserObject(state: AppState, store: Store<AppState>) -> Action? {
+        guard let session = state.session else { return nil }
+        
+        SPTUser.requestCurrentUserWithAccessToken(session.accessToken, callback: { (error, user) in
+            if error != nil {
+                print(error)
+            } else {
+                if let user = user as? SPTUser {
+                    store.dispatch(Retrieved(item: user))
+                }
+            }
+        })
+        return nil
+    }
+    
     func getPlaylistsWithSession(session: SPTSession) -> Store<AppState>.ActionCreator {
         return { state, store in
             
             SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
-                if let playlists = list as? SPTPlaylistList {
-                    playlists.tracksForPlayback()
-                }
+                guard let playlists = list as? SPTPlaylistList else { return }
+                guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
+                store.dispatch(Loaded(items: partialPlaylists))
             })
             return nil
         }
+    }
+    
+    func getPlaylistDetails(state: AppState, store: Store<AppState>) -> Action? {
+        guard let playlist = state.selectedPlaylist, session = state.session else { return nil }
+        
+        SPTPlaylistSnapshot.playlistWithURI(playlist.uri, session: session) { error, snapshot in
+            if error != nil {
+                print(error)
+            } else {
+                guard let playlistSnapShot = snapshot as? SPTPlaylistSnapshot else { return }
+                playlistSnapShot.firstTrackPage
+            }
+        }
+        
+        return nil
+    }
+    
+    func selectPlaylist(playlist: SPTPartialPlaylist) -> Action {
+        return Selected(item: playlist)
     }
     
 }
