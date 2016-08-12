@@ -86,7 +86,15 @@ struct SpotifyService {
             SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
                 guard let playlists = list as? SPTPlaylistList else { return }
                 guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
+                let imageURIs = partialPlaylists.map { $0.smallestImage.imageURL }
+                var images = [UIImage]()
+                for uri in imageURIs {
+                    if let imageData = NSData(contentsOfURL: uri), image = UIImage(data: imageData) {
+                        images.append(image)
+                    }
+                }
                 store.dispatch(Loaded(items: partialPlaylists))
+                store.dispatch(Loaded(items: images))
             })
             return nil
         }

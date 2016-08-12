@@ -11,6 +11,7 @@ import UIKit
 class PlaylistsDataSource: NSObject, UITableViewDataSource {
 
     var playlists = [SPTPartialPlaylist]()
+    var images = [UIImage]()
     var delegate: PlaylistCellDelegate?
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -21,7 +22,8 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(String(PlaylistCell), forIndexPath: indexPath) as? PlaylistCell else { fatalError() }
         
         let playlist = playlists[indexPath.row]
-        cell.configure(playlist)
+        let image = images[indexPath.row]
+        cell.configure(playlist, image: image)
         cell.delegate = delegate
         return cell
     }

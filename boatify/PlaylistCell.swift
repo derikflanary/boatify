@@ -28,11 +28,9 @@ class PlaylistCell: UITableViewCell {
         print("play pressed")
     }
     
-    func configure(playlist: SPTPartialPlaylist) {
+    func configure(playlist: SPTPartialPlaylist, image: UIImage) {
         self.playlist = playlist
-        if playlist.smallestImage.imageURL != nil, let imageData = NSData(contentsOfURL: playlist.smallestImage.imageURL) {
-            playlistImageView.image = UIImage(data: imageData)
-        }
+        playlistImageView.image = image
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
     }

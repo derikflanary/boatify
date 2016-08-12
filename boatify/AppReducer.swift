@@ -6,14 +6,6 @@
 //  Copyright © 2016 Derik Flanary. All rights reserved.
 //
 
-//
-//  AppReducer.swift
-//  greatwork
-//
-//  Created by Tim on 4/7/16.
-//  Copyright © 2016 OC Tanner Company, Inc. All rights reserved.
-//
-
 import Foundation
 import ReSwift
 import UIKit
@@ -34,6 +26,8 @@ struct AppReducer: Reducer {
             NSUserDefaults.standardUserDefaults().setObject(sessionData, forKey:"SpotifySession")
         case let action as Loaded<SPTPartialPlaylist>:
             state.playlists = action.items
+        case let action as Loaded<UIImage>:
+            state.playlistImages = action.items
         case let action as Selected<SPTPartialPlaylist>:
             state.selectedPlaylist = action.item
         default:

@@ -88,26 +88,21 @@ class ViewController: UIViewController {
                                                     AVLinearPCMBitDepthKey:16,
                                                     AVEncoderAudioQualityKey:AVAudioQuality.Low.rawValue]
             
-            do {
-                audioRecorder = try AVAudioRecorder(URL: soundURL, settings: settings)
-                guard let audioRecorder = audioRecorder else { return }
-                audioRecorder.delegate = self
-                audioRecorder.meteringEnabled = true
-                audioRecorder.record()
-                audioRecorder.updateMeters()
-                startMeter()
-                
-            } catch {
-                print(error)
-            }
-
+            
+            audioRecorder = try AVAudioRecorder(URL: soundURL, settings: settings)
+            guard let audioRecorder = audioRecorder else { return }
+            
+            audioRecorder.meteringEnabled = true
+            audioRecorder.record()
+            audioRecorder.updateMeters()
+            startMeter()
         } catch {
             print(error)
         }
     }
     
     func startMeter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
     }
     
     func updateMeter() {
@@ -165,18 +160,21 @@ extension ViewController: SPTAudioStreamingDelegate {
 }
 
 
-extension ViewController: AVAudioRecorderDelegate {
-    
-}
+// MARK: - Table view delegate
 
 extension ViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowPlaylistDetails", sender: self)
         let playlist = playlistsDataSource.playlists[indexPath.row]
         store.dispatch(spotifyService.selectPlaylist(playlist))
+        store.dispatch(spotifyService.getPlaylistDetails)
     }
     
 }
+
+
+// MARK: - Playlist cell delegate
 
 extension ViewController: PlaylistCellDelegate {
     
@@ -203,7 +201,6 @@ extension ViewController: StoreSubscriber {
             } catch {
                 print(error)
             }
-
         }
         
         if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
@@ -211,7 +208,10 @@ extension ViewController: StoreSubscriber {
         }
         
         playlistsDataSource.playlists = state.playlists
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        if state.playlistImages.count != 0 {
+            playlistsDataSource.images = state.playlistImages
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        }
     }
 }
 

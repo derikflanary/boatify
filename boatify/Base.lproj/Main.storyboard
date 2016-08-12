@@ -7,6 +7,25 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="cru-va-DAF">
+            <objects>
+                <viewController id="TNe-dB-jk6" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B7h-BY-vle"/>
+                        <viewControllerLayoutGuide type="bottom" id="H2h-d6-NT5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V8n-DL-IeS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="w0g-T9-pdb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ydf-xi-ZvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2094" y="-514"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="boatify" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,7 +48,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp">
                                                     <rect key="frame" x="8" y="5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="JHh-h2-O9g"/>
@@ -118,13 +137,17 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mS3-xk-qu8">
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="F3Z-iR-Elq"/>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="F3Z-iR-Elq">
+                            <connections>
+                                <segue destination="TMN-Cz-1vr" kind="presentation" id="m7b-BR-i37"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="playlistsDataSource" destination="rbx-Sx-lNJ" id="GmN-DT-pPj"/>
                         <outlet property="spotifyLoginButton" destination="gFp-Ze-5tu" id="q5Z-yG-Ox8"/>
                         <outlet property="tableView" destination="cHa-u4-SXV" id="GCh-od-Gs5"/>
-                        <segue destination="usf-0c-iKc" kind="showDetail" identifier="ShowPlaylistDetails" action="showViewController:sender:" id="gPl-lJ-2r0"/>
+                        <segue destination="usf-0c-iKc" kind="show" identifier="ShowPlaylistDetails" id="gPl-lJ-2r0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -166,10 +189,29 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qth-rH-js6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="430" y="-391"/>
+            <point key="canvasLocation" x="498" y="301"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="J8B-cz-ite">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TMN-Cz-1vr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bRf-5P-knO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TNe-dB-jk6" kind="relationship" relationship="rootViewController" id="Ta0-XD-ifI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cx7-2L-Htz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1282" y="-514"/>
         </scene>
     </scenes>
     <resources>
+        <image name="settings" width="28" height="28"/>
         <image name="spotifyIcon" width="709" height="709"/>
     </resources>
 </document>
