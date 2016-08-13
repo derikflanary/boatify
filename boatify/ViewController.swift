@@ -157,10 +157,10 @@ class ViewController: UIViewController {
 extension ViewController: SPTAudioStreamingDelegate {
 
     func audioStreamingDidLogin(audioStreaming: SPTAudioStreamingController!) {
-        spotifyLoginButton.hidden = true
         tableView.hidden = false
         player.setVolume(minVolume, callback: nil)
         requestPermissionToRecord()
+        dismissBanner()
     }
     
 }
@@ -175,6 +175,10 @@ extension ViewController: UITableViewDelegate {
         let playlist = playlistsDataSource.playlists[indexPath.row]
         store.dispatch(spotifyService.selectPlaylist(playlist))
         store.dispatch(spotifyService.getPlaylistDetails)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
     }
     
 }
@@ -202,6 +206,8 @@ extension ViewController: StoreSubscriber {
         maxVolume = state.maxVolume
 
         if !player.loggedIn && session.isValid() {
+            showLoadingBanner("Loading your playlists...")
+            spotifyLoginButton.hidden = true
             do {
                 try player.startWithClientId(SpotifyService.kClientId)
                 player.loginWithAccessToken(session.accessToken)

@@ -127,16 +127,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp">
-                                                    <rect key="frame" x="8" y="5" width="50" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp">
+                                                    <rect key="frame" x="16" y="5" width="50" height="50"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="GUz-pd-KFA"/>
                                                         <constraint firstAttribute="width" constant="50" id="JHh-h2-O9g"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="OPg-Ze-fsE"/>
                                                         <constraint firstAttribute="height" constant="50" id="PRY-yR-jkA"/>
+                                                        <constraint firstAttribute="width" secondItem="Ie7-FB-6gp" secondAttribute="height" multiplier="1:1" id="auH-Wy-8jl"/>
                                                         <constraint firstAttribute="width" secondItem="Ie7-FB-6gp" secondAttribute="height" multiplier="1:1" id="eBG-5B-LYW"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JHh-h2-O9g"/>
+                                                            <exclude reference="OPg-Ze-fsE"/>
+                                                            <exclude reference="PRY-yR-jkA"/>
+                                                            <exclude reference="eBG-5B-LYW"/>
+                                                        </mask>
+                                                    </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCE-hO-3uf">
-                                                    <rect key="frame" x="75" y="32" width="50" height="15"/>
+                                                    <rect key="frame" x="83" y="32" width="50" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -149,7 +160,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-SW-DXV">
-                                                    <rect key="frame" x="75" y="14" width="49" height="17"/>
+                                                    <rect key="frame" x="83" y="14" width="49" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -158,17 +169,33 @@
                                             <constraints>
                                                 <constraint firstAttribute="topMargin" secondItem="Rqq-SW-DXV" secondAttribute="top" constant="-10" id="0tJ-vN-lik"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="YJc-F7-xQi" secondAttribute="trailing" id="1Wy-Wq-38N"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Ie7-FB-6gp" secondAttribute="leading" id="2Bl-Vq-a0o"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="Ie7-FB-6gp" secondAttribute="leading" id="73g-Mh-eMV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ie7-FB-6gp" secondAttribute="bottom" constant="-3.5" id="84v-RC-39u"/>
+                                                <constraint firstItem="Ie7-FB-6gp" firstAttribute="top" secondItem="uGX-MY-t1G" secondAttribute="topMargin" constant="-3" id="HFg-jx-q7W"/>
                                                 <constraint firstItem="Rqq-SW-DXV" firstAttribute="top" secondItem="uGX-MY-t1G" secondAttribute="topMargin" constant="6" id="ILc-Tq-kKb"/>
                                                 <constraint firstItem="YJc-F7-xQi" firstAttribute="centerY" secondItem="uGX-MY-t1G" secondAttribute="centerY" id="VOd-oU-iXe"/>
                                                 <constraint firstItem="Rqq-SW-DXV" firstAttribute="leading" secondItem="Ie7-FB-6gp" secondAttribute="trailing" constant="17" id="Vb9-1d-y89"/>
+                                                <constraint firstItem="Ie7-FB-6gp" firstAttribute="leading" secondItem="uGX-MY-t1G" secondAttribute="leadingMargin" id="cYM-7m-yfI"/>
                                                 <constraint firstItem="eCE-hO-3uf" firstAttribute="top" secondItem="Rqq-SW-DXV" secondAttribute="bottom" constant="1" id="htt-cF-YfL"/>
                                                 <constraint firstItem="Ie7-FB-6gp" firstAttribute="centerY" secondItem="uGX-MY-t1G" secondAttribute="centerY" id="jyC-Iu-pPz"/>
+                                                <constraint firstItem="Rqq-SW-DXV" firstAttribute="leading" secondItem="Ie7-FB-6gp" secondAttribute="trailing" constant="17" id="mZQ-7Q-6NN"/>
+                                                <constraint firstItem="eCE-hO-3uf" firstAttribute="leading" secondItem="Rqq-SW-DXV" secondAttribute="leading" id="psQ-Bt-IEG"/>
+                                                <constraint firstItem="Ie7-FB-6gp" firstAttribute="centerY" secondItem="uGX-MY-t1G" secondAttribute="centerY" id="thI-Ri-pb8"/>
                                                 <constraint firstItem="eCE-hO-3uf" firstAttribute="leading" secondItem="Ie7-FB-6gp" secondAttribute="trailing" constant="17" id="ttj-az-lUr"/>
+                                                <constraint firstItem="Rqq-SW-DXV" firstAttribute="leading" secondItem="uGX-MY-t1G" secondAttribute="leadingMargin" constant="75" id="xdY-Mj-qrv"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="2Bl-Vq-a0o"/>
+                                                    <exclude reference="73g-Mh-eMV"/>
+                                                    <exclude reference="84v-RC-39u"/>
+                                                    <exclude reference="HFg-jx-q7W"/>
+                                                    <exclude reference="cYM-7m-yfI"/>
+                                                    <exclude reference="jyC-Iu-pPz"/>
                                                     <exclude reference="0tJ-vN-lik"/>
+                                                    <exclude reference="Vb9-1d-y89"/>
+                                                    <exclude reference="ttj-az-lUr"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -291,6 +318,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="playlist" width="50" height="50"/>
         <image name="settings" width="28" height="28"/>
         <image name="spotifyIcon" width="709" height="709"/>
     </resources>
