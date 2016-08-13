@@ -20,6 +20,8 @@ struct AppReducer: Reducer {
         case _ as AppLaunched:
             guard let sessionData = NSUserDefaults.standardUserDefaults().objectForKey("SpotifySession") as? NSData, session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession else { break }
             state.session = session
+        case let action as RecordingSetup:
+            state.audioRecorder = action.audioRecorder
         case let action as Retrieved<SPTSession!>:
             state.session = action.item
             let sessionData = NSKeyedArchiver.archivedDataWithRootObject(action.item)

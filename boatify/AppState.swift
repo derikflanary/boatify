@@ -17,6 +17,7 @@
 import Foundation
 import ReSwift
 import UIKit
+import AVFoundation
 
 
 struct AppState: StateType {
@@ -37,6 +38,7 @@ struct AppState: StateType {
     var selectedTrack: SPTPartialTrack?
     var maxVolume: Double = 1.0
     var minVolume: Double = 0.5
+    var audioRecorder: AVAudioRecorder?
 
 }
 

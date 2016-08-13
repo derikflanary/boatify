@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     let spotifyService = SpotifyService()
+    let recordingService = RecordingService()
     var store = AppState.sharedStore
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
@@ -69,10 +70,12 @@ class ViewController: UIViewController {
     
     func requestPermissionToRecord() {
         if AVAudioSession.sharedInstance().recordPermission() == .Granted {
+            store.dispatch(recordingService.setupRecording)
             print("already granted")
         } else {
             AVAudioSession.sharedInstance().requestRecordPermission({ allowed in
                 if allowed {
+                    self.store.dispatch(self.recordingService.setupRecording)
                     print("allowed")
                 } else {
                     print("failed to record")
@@ -82,36 +85,20 @@ class ViewController: UIViewController {
     }
     
     func startRecording() {
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.setActive(true)
-            
-            let fileManager = NSFileManager.defaultManager()
-            let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-            let documentDirectory = urls[0] as NSURL
-            let soundURL = documentDirectory.URLByAppendingPathComponent("sound.caf")
-            
-            let settings: [String : AnyObject] = [  AVSampleRateKey:44100.0,
-                                                    AVNumberOfChannelsKey:1,AVEncoderBitRateKey:12800,
-                                                    AVLinearPCMBitDepthKey:16,
-                                                    AVEncoderAudioQualityKey:AVAudioQuality.Low.rawValue]
-            
-            
-            audioRecorder = try AVAudioRecorder(URL: soundURL, settings: settings)
-            guard let audioRecorder = audioRecorder else { return }
-            
-            audioRecorder.meteringEnabled = true
-            audioRecorder.record()
-            audioRecorder.updateMeters()
-            startMeter()
-        } catch {
-            print(error)
-        }
+        guard let audioRecorder = audioRecorder else { return }
+        audioRecorder.meteringEnabled = true
+        audioRecorder.record()
+        audioRecorder.updateMeters()
+        startMeter()
+    }
+    
+    func stopRecording() {
+        audioRecorder?.stop()
+        timer?.invalidate()
     }
     
     func startMeter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
     }
     
     func updateMeter() {
@@ -134,7 +121,7 @@ class ViewController: UIViewController {
     
     func playPauseTapped() {
         if player.isPlaying {
-            audioRecorder?.stop()
+            stopRecording()
         } else {
             startRecording()
         }
@@ -151,6 +138,12 @@ class ViewController: UIViewController {
     @IBAction func spotifyLoginTapped(sender: AnyObject) {
         spotifyService.loginToSpotify()
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard segue.identifier == "PresentSettings", let destinationNavigationController = segue.destinationViewController as? UINavigationController, targetController = destinationNavigationController.topViewController as? SettingsViewController else { return }
+        targetController.delegate = self
+    }
+
 
 }
 
@@ -208,6 +201,15 @@ extension ViewController: PlaylistCellDelegate {
 }
 
 
+extension ViewController: SettingsDelegate {
+    
+    func volumeChanged(minVolume: Double, maxVolume: Double) {
+        self.minVolume = minVolume
+        self.maxVolume = maxVolume
+    }
+}
+
+
 // MARK: - Store subscriber
 
 extension ViewController: StoreSubscriber {
@@ -215,6 +217,7 @@ extension ViewController: StoreSubscriber {
     func newState(state: AppState) {
         guard let session = state.session else { return }
         self.session = session
+        audioRecorder = state.audioRecorder
         minVolume = state.minVolume
         maxVolume = state.maxVolume
 

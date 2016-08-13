@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
-                                <rect key="frame" x="20" y="94" width="560" height="223"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
+                                <rect key="frame" x="20" y="94" width="560" height="220"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set maximum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-CO-5pd">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="20"/>
@@ -58,9 +58,13 @@
                                             <action selector="minSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="Vot-Go-ck6"/>
                                         </connections>
                                     </slider>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7f-gV-VKh">
-                                        <rect key="frame" x="0.0" y="193" width="560" height="30"/>
-                                        <state key="normal" title="Rate This App"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpQ-Et-fWh">
+                                        <rect key="frame" x="0.0" y="193" width="560" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Reset"/>
+                                        <connections>
+                                            <action selector="resetButtonTapped" destination="TNe-dB-jk6" eventType="touchUpInside" id="iFC-HR-oD0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -87,7 +91,12 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="w0g-T9-pdb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="x3b-lw-iTm">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="68G-2u-AjW">
+                            <connections>
+                                <action selector="cancelTapped:" destination="TNe-dB-jk6" id="ndR-ss-2kJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="x3b-lw-iTm">
                             <connections>
                                 <action selector="doneTapped:" destination="TNe-dB-jk6" id="wmR-jq-wob"/>
                             </connections>
@@ -300,7 +309,7 @@
                     <navigationItem key="navigationItem" id="mS3-xk-qu8">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="F3Z-iR-Elq">
                             <connections>
-                                <segue destination="TMN-Cz-1vr" kind="presentation" id="m7b-BR-i37"/>
+                                <segue destination="TMN-Cz-1vr" kind="presentation" identifier="PresentSettings" id="m7b-BR-i37"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

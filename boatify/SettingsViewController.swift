@@ -9,10 +9,17 @@
 import UIKit
 import ReSwift
 
+protocol SettingsDelegate {
+    func volumeChanged(minVolume: Double, maxVolume: Double)
+}
+
 class SettingsViewController: UIViewController {
 
     let settingsService = SettingsService()
     var store = AppState.sharedStore
+    var originalMinVolume: Double?
+    var originalMaxVolume: Double?
+    var delegate: SettingsDelegate?
     
     @IBOutlet weak var maxSlider: UISlider!
     @IBOutlet weak var minSlider: UISlider!
@@ -21,6 +28,10 @@ class SettingsViewController: UIViewController {
     
     
     // MARK: - View life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,6 +52,7 @@ class SettingsViewController: UIViewController {
             showTemporaryMessage("Max volume must be higher than minimum")
         }
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
+        delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
     }
     
     @IBAction func minSliderChangedValue(sender: AnyObject) {
@@ -49,12 +61,30 @@ class SettingsViewController: UIViewController {
             showTemporaryMessage("Minimum volume must be lower than max")
         }
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
+        delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
     }
     
     @IBAction func doneTapped(sender: UIBarButtonItem) {
         store.dispatch(settingsService.updateVolumes(minVolume: minSlider.value, maxVolume: maxSlider.value))
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func cancelTapped(sender: UIBarButtonItem) {
+        guard let minVolume = originalMinVolume, maxVolume = originalMaxVolume else { return }
+        
+        store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func resetButtonTapped() {
+        guard let minVolume = originalMinVolume, maxVolume = originalMaxVolume else { return }
+        delegate?.volumeChanged(minVolume, maxVolume: maxVolume)
+        minSlider.setValue(Float(minVolume), animated: true)
+        maxSlider.setValue(Float(maxVolume), animated: true)
+        minPercentLabel.text = "\(minSlider.value.percentForm)%"
+        maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
+    }
+    
 }
 
 
@@ -67,6 +97,8 @@ extension SettingsViewController: StoreSubscriber {
         minSlider.setValue(Float(state.minVolume), animated: true)
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
+        originalMaxVolume = state.maxVolume
+        originalMinVolume = state.minVolume
     }
     
 }
