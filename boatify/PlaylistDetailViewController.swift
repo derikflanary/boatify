@@ -13,6 +13,7 @@ import AVFoundation
 class PlaylistDetailViewController: UIViewController {
     
     var store = AppState.sharedStore
+    var spotifyService = SpotifyService()
     var trackURIs = [NSURL]()
     var player = SPTAudioStreamingController.sharedInstance()
     var audioRecorder: AVAudioRecorder?
@@ -84,12 +85,14 @@ class PlaylistDetailViewController: UIViewController {
 extension PlaylistDetailViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let track = tracksDataSource.tracks[indexPath.row]
         let options = SPTPlayOptions()
         options.trackIndex = Int32(indexPath.row)
         player.setVolume(minVolume, callback: nil)
         player.playURIs(trackURIs, withOptions: options, callback: nil)
         startRecording()
+        store.dispatch(spotifyService.select(track))
     }
 }
 
@@ -105,6 +108,7 @@ extension PlaylistDetailViewController: StoreSubscriber {
         
         trackURIs = state.tracks.map { $0.playableUri }
         tracksDataSource.tracks = state.tracks
+        tracksDataSource.selectedTrack = state.selectedTrack
         tableView.reloadData()
     }
     
