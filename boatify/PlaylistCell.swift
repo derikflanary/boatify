@@ -33,5 +33,6 @@ class PlaylistCell: UITableViewCell {
         playlistImageView.image = image
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
+        layoutIfNeeded()
     }
 }

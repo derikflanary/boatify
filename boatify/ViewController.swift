@@ -36,6 +36,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var spotifyLoginButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var playlistsDataSource: PlaylistsDataSource!
+    @IBOutlet weak var trackNameLabel: UILabel!
+    @IBOutlet weak var artistLabel: UILabel!
     
     
     // MARK: - View cycle overrides
@@ -44,6 +46,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tableView.hidden = true
         player.delegate = self
+        player.playbackDelegate = self
         playlistsDataSource.delegate = self
         let command = MPRemoteCommandCenter.sharedCommandCenter()
         command.pauseCommand.enabled = true
@@ -165,6 +168,16 @@ extension ViewController: SPTAudioStreamingDelegate {
     
 }
 
+extension ViewController: SPTAudioStreamingPlaybackDelegate {
+    
+    func audioStreaming(audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: NSURL!) {
+        guard let trackName = player.currentTrackMetadata[SPTAudioStreamingMetadataTrackName] as? String, artistName = player.currentTrackMetadata[SPTAudioStreamingMetadataArtistName] as? String else { return }
+        
+        trackNameLabel.text = trackName
+        artistLabel.text = artistName
+    }
+}
+
 
 // MARK: - Table view delegate
 
@@ -173,7 +186,7 @@ extension ViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("ShowPlaylistDetails", sender: self)
         let playlist = playlistsDataSource.playlists[indexPath.row]
-        store.dispatch(spotifyService.selectPlaylist(playlist))
+        store.dispatch(spotifyService.select(playlist))
         store.dispatch(spotifyService.getPlaylistDetails)
     }
     

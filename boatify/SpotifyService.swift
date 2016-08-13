@@ -108,15 +108,22 @@ struct SpotifyService {
                 print(error)
             } else {
                 guard let playlistSnapShot = snapshot as? SPTPlaylistSnapshot else { return }
-                playlistSnapShot.firstTrackPage
+                let trackList = playlistSnapShot.firstTrackPage
+                if let tracks = trackList.items as? [SPTPartialTrack] {
+                    store.dispatch(Loaded(items: tracks))
+                }
             }
         }
         
         return nil
     }
     
-    func selectPlaylist(playlist: SPTPartialPlaylist) -> Action {
+    func select(playlist: SPTPartialPlaylist) -> Action {
         return Selected(item: playlist)
+    }
+    
+    func select(track: SPTPartialTrack) -> Action {
+        return Selected(item: track)
     }
     
 }

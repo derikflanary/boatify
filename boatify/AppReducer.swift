@@ -30,6 +30,10 @@ struct AppReducer: Reducer {
             state.playlistImages = action.items
         case let action as Selected<SPTPartialPlaylist>:
             state.selectedPlaylist = action.item
+        case let action as Loaded<SPTPartialTrack>:
+            state.tracks = action.items
+        case let action as Selected<SPTPartialTrack>:
+            state.selectedTrack = action.item
         case let action as VolumesUpdated:
             state.maxVolume = action.maxVolume
             state.minVolume = action.minVolume
