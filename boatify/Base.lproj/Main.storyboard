@@ -126,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-u4-SXV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistCell" rowHeight="60" id="83a-5c-ScB" customClass="PlaylistCell" customModule="boatify" customModuleProvider="target">
@@ -238,48 +238,40 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9R-fp-AD0">
-                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                                <rect key="frame" x="0.0" y="600" width="600" height="0.0"/>
                                 <subviews>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mjt-fW-633">
-                                        <rect key="frame" x="11" y="0.0" width="578" height="2"/>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mjt-fW-633">
+                                        <rect key="frame" x="11" y="4" width="578" height="2"/>
                                         <color key="tintColor" red="0.45096153846153841" green="0.45096153846153841" blue="0.45096153846153841" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auk-dx-g48">
-                                        <rect key="frame" x="11" y="24" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="11" y="12" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-SN-s2m">
-                                        <rect key="frame" x="25" y="24" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZxU-Re-UqK">
+                                        <rect key="frame" x="11" y="12" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" translatesAutoresizingMaskIntoConstraints="NO" id="tY1-PO-aWd">
-                                        <rect key="frame" x="15" y="21" width="6" height="6"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="6" id="Ctw-j8-Eft"/>
-                                            <constraint firstAttribute="width" constant="6" id="JUy-mC-a7R"/>
-                                        </constraints>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="tY1-PO-aWd" firstAttribute="leading" secondItem="Auk-dx-g48" secondAttribute="trailing" constant="4" id="FSl-gl-b0M"/>
-                                    <constraint firstItem="QYk-SN-s2m" firstAttribute="leading" secondItem="tY1-PO-aWd" secondAttribute="trailing" constant="4" id="Fcu-u4-n7v"/>
+                                    <constraint firstAttribute="height" id="4ue-vD-3gO"/>
+                                    <constraint firstItem="ZxU-Re-UqK" firstAttribute="top" secondItem="Auk-dx-g48" secondAttribute="bottom" id="6m2-gn-SbM"/>
+                                    <constraint firstItem="Auk-dx-g48" firstAttribute="top" secondItem="Mjt-fW-633" secondAttribute="bottom" constant="6" id="Bkb-07-Zqq"/>
                                     <constraint firstItem="Auk-dx-g48" firstAttribute="leading" secondItem="Mjt-fW-633" secondAttribute="leading" id="IZl-Iy-ZAj"/>
-                                    <constraint firstItem="tY1-PO-aWd" firstAttribute="centerY" secondItem="QYk-SN-s2m" secondAttribute="centerY" id="JMU-rQ-qMO"/>
                                     <constraint firstAttribute="trailing" secondItem="Mjt-fW-633" secondAttribute="trailing" constant="11" id="JSZ-Ah-2ck"/>
-                                    <constraint firstItem="QYk-SN-s2m" firstAttribute="leading" secondItem="Auk-dx-g48" secondAttribute="trailing" constant="14" id="PET-rp-M3e"/>
                                     <constraint firstItem="Mjt-fW-633" firstAttribute="leading" secondItem="U9R-fp-AD0" secondAttribute="leading" constant="11" id="bHZ-TY-wHD"/>
-                                    <constraint firstItem="Mjt-fW-633" firstAttribute="top" secondItem="U9R-fp-AD0" secondAttribute="top" id="d9f-Ll-ByM"/>
+                                    <constraint firstItem="Mjt-fW-633" firstAttribute="top" secondItem="U9R-fp-AD0" secondAttribute="top" constant="4" id="d9f-Ll-ByM"/>
                                     <constraint firstAttribute="bottom" secondItem="Auk-dx-g48" secondAttribute="bottom" constant="16" id="gpi-cj-fBA"/>
-                                    <constraint firstItem="QYk-SN-s2m" firstAttribute="bottom" secondItem="Auk-dx-g48" secondAttribute="bottom" id="it3-Gb-SnO"/>
+                                    <constraint firstItem="ZxU-Re-UqK" firstAttribute="leading" secondItem="Auk-dx-g48" secondAttribute="leading" id="lJA-hi-7jf"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="PET-rp-M3e"/>
+                                        <exclude reference="gpi-cj-fBA"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -287,24 +279,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cHa-u4-SXV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0ac-mN-YZn"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cHa-u4-SXV" secondAttribute="bottom" constant="44" id="12h-Fj-laO"/>
                             <constraint firstItem="gFp-Ze-5tu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1c1-NR-IL7"/>
-                            <constraint firstItem="cHa-u4-SXV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CtN-Jx-Bpc"/>
                             <constraint firstItem="cHa-u4-SXV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="KJp-lN-tgP"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="leading" secondItem="cHa-u4-SXV" secondAttribute="leading" id="PTv-eg-AcE"/>
                             <constraint firstItem="gFp-Ze-5tu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TGM-sg-xJz"/>
                             <constraint firstItem="cHa-u4-SXV" firstAttribute="centerX" secondItem="gFp-Ze-5tu" secondAttribute="centerX" id="TeO-gt-zK3"/>
-                            <constraint firstItem="cHa-u4-SXV" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="YGy-Bq-Rgi"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="YI4-my-M8F"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="trailing" secondItem="cHa-u4-SXV" secondAttribute="trailing" id="lDs-p2-3wK"/>
-                            <constraint firstItem="U9R-fp-AD0" firstAttribute="top" secondItem="cHa-u4-SXV" secondAttribute="bottom" constant="4" id="x7Y-bU-82j"/>
+                            <constraint firstItem="U9R-fp-AD0" firstAttribute="top" secondItem="cHa-u4-SXV" secondAttribute="bottom" id="x7Y-bU-82j"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="CtN-Jx-Bpc"/>
-                                <exclude reference="YGy-Bq-Rgi"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mS3-xk-qu8">
                         <barButtonItem key="rightBarButtonItem" image="settings" id="F3Z-iR-Elq">
@@ -314,8 +297,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="artistLabel" destination="QYk-SN-s2m" id="po0-nZ-2bD"/>
+                        <outlet property="artistLabel" destination="ZxU-Re-UqK" id="WkM-iY-u8A"/>
+                        <outlet property="bottomViewHeightConstraint" destination="4ue-vD-3gO" id="Ycl-PQ-rSm"/>
                         <outlet property="playlistsDataSource" destination="rbx-Sx-lNJ" id="GmN-DT-pPj"/>
+                        <outlet property="progressView" destination="Mjt-fW-633" id="oDo-Rt-lbT"/>
                         <outlet property="spotifyLoginButton" destination="gFp-Ze-5tu" id="q5Z-yG-Ox8"/>
                         <outlet property="tableView" destination="cHa-u4-SXV" id="GCh-od-Gs5"/>
                         <outlet property="trackNameLabel" destination="Auk-dx-g48" id="wVc-LH-EGv"/>
@@ -440,7 +425,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="oval" width="10" height="10"/>
         <image name="playlist" width="50" height="50"/>
         <image name="settings" width="28" height="28"/>
         <image name="spotifyIcon" width="709" height="709"/>

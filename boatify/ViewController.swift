@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
     var timer: NSTimer?
+    var progressTimer: NSTimer?
     var maxVolume: Double = 1.0
     var minVolume: Double = 0.5
     
@@ -39,6 +40,8 @@ class ViewController: UIViewController {
     @IBOutlet var playlistsDataSource: PlaylistsDataSource!
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
     
     // MARK: - View cycle overrides
@@ -63,6 +66,20 @@ class ViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
+    }
+    
+    func animateInBottomView() {
+        bottomViewHeightConstraint.constant = 44
+        UIView.animateWithDuration(0.5) { 
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func animateOutBottomView() {
+        bottomViewHeightConstraint.constant = 0
+        UIView.animateWithDuration(0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     
@@ -128,10 +145,25 @@ class ViewController: UIViewController {
         player.setIsPlaying(!player.isPlaying) { error in
             if error != nil {
                 print(error)
+            } else {
+                self.startTrackingProgress()
             }
         }
     }
 
+    // MARK: - Track progress
+    func updateProgress() {
+        let percent = player.currentPlaybackPosition / player.currentTrackDuration
+        progressView.setProgress(Float(percent), animated: true)
+    }
+    
+    func startTrackingProgress() {
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+    }
+    
+    func stopTrackingProgress() {
+        progressTimer?.invalidate()
+    }
     
     // MARK: - Interface actions
     
@@ -165,10 +197,13 @@ extension ViewController: SPTAudioStreamingPlaybackDelegate {
     
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: NSURL!) {
         guard let trackName = player.currentTrackMetadata[SPTAudioStreamingMetadataTrackName] as? String, artistName = player.currentTrackMetadata[SPTAudioStreamingMetadataArtistName] as? String else { return }
-        
+        player.currentTrackDuration
         trackNameLabel.text = trackName
         artistLabel.text = artistName
+        animateInBottomView()
+        startTrackingProgress()
     }
+
 }
 
 
