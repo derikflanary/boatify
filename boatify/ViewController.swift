@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     let spotifyService = SpotifyService()
     let recordingService = RecordingService()
+    let musicService = MusicService()
+    var musicState = MusicState.none
     var store = AppState.sharedStore
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
@@ -41,6 +43,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var playLocalButton: UIButton!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
     
@@ -49,7 +52,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.hidden = true
-        spotifyLoginButton.hidden = true
         player.delegate = self
         player.playbackDelegate = self
         playlistsDataSource.delegate = self
@@ -68,6 +70,9 @@ class ViewController: UIViewController {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
     }
+    
+    
+    // MARK: - Bottom view animations
     
     func animateInBottomView() {
         bottomViewHeightConstraint.constant = 44
@@ -139,19 +144,35 @@ class ViewController: UIViewController {
     // MARK: - Remote command
     
     func playPauseTapped() {
-        if player.isPlaying {
-            stopRecording()
-        } else {
-            startRecording()
-            startTrackingProgress()
+        switch musicState {
+        case .spotify:
+            if player.isPlaying {
+                stopRecording()
+            } else {
+                startRecording()
+                startTrackingProgress()
+            }
+            spotifyService.updateIsPlaying()
+        case .local:
+            break
+        case .none:
+            break
         }
-        spotifyService.updateIsPlaying()
     }
 
+    
     // MARK: - Track progress
+    
     func updateProgress() {
-        let percent = spotifyService.trackProgress()
-        progressView.setProgress(percent, animated: true)
+        switch musicState {
+        case .spotify:
+            let percent = spotifyService.trackProgress()
+            progressView.setProgress(percent, animated: true)
+        case .local:
+            break
+        case .none:
+            break
+        }
     }
     
     func startTrackingProgress() {
@@ -165,7 +186,7 @@ class ViewController: UIViewController {
     // MARK: - Interface actions
     
     @IBAction func spotifyLoginTapped(sender: AnyObject) {
-        spotifyService.loginToSpotify()
+        store.dispatch(spotifyService.selectSpotify())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -173,6 +194,9 @@ class ViewController: UIViewController {
         targetController.delegate = self
     }
 
+    @IBAction func playLocalButtonTapped() {
+        store.dispatch(musicService.selectLocal())
+    }
 
 }
 
@@ -209,11 +233,17 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("ShowPlaylistDetails", sender: self)
-        let playlist: SPTPartialPlaylist = playlistsDataSource.playlists[indexPath.row]
-        
-        store.dispatch(spotifyService.select(playlist))
-        store.dispatch(spotifyService.getPlaylistDetails)
-    }
+        switch musicState {
+        case .spotify:
+            let playlist: SPTPartialPlaylist = playlistsDataSource.spotifyPlaylists[indexPath.row]
+            store.dispatch(spotifyService.select(playlist))
+            store.dispatch(spotifyService.getPlaylistDetails)
+        case .local:
+            break
+        case .none:
+            break
+        }
+            }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
@@ -226,10 +256,15 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: PlaylistCellDelegate {
     
-    func play(uri: NSURL) {
+    func playSpotify(uri: NSURL) {
         spotifyService.play(uri: uri)
         self.startRecording()
     }
+    
+    func playLocal(url: NSURL) {
+        print("play local pressed")
+    }
+    
 }
 
 
@@ -247,35 +282,59 @@ extension ViewController: SettingsDelegate {
 extension ViewController: StoreSubscriber {
     
     func newState(state: AppState) {
-        guard let session = state.session else { return }
-        self.session = session
+        musicState = state.musicState
+        playlistsDataSource.musicState = state.musicState
+        
         audioRecorder = state.audioRecorder
         minVolume = state.minVolume
         maxVolume = state.maxVolume
         
-        switch state.viewState {
-        case .preLoggedIn:
-            if !player.loggedIn && session.isValid() {
-                store.dispatch(spotifyService.loginPlayer)
-            } else if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
-                store.dispatch(spotifyService.refresh(session))
-            } else {
-                spotifyLoginButton.hidden = false
+        switch musicState {
+        case .spotify:
+            guard let session = state.spotifyState.session else { return }
+            self.session = session
+            switch state.viewState {
+            case .preLoggedIn:
+                if !player.loggedIn && session.isValid() {
+                    store.dispatch(spotifyService.loginPlayer)
+                } else if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
+                    store.dispatch(spotifyService.refresh(session))
+                } else {
+                    spotifyService.loginToSpotify()
+                }
+            case .viewing:
+                dismissBanner()
+                tableView.hidden = false
+                playlistsDataSource.spotifyPlaylists = state.spotifyState.playlists
+                if state.spotifyState.playlistImages.count != 0 {
+                    playlistsDataSource.images = state.spotifyState.playlistImages
+                    tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                }
+            case let .loading(message):
+                showLoadingBanner(message)
+                spotifyLoginButton.hidden = true
+                playLocalButton.hidden = true
+            case let .error(message):
+                showErrorBanner(message)
             }
-        case .viewing:
-            dismissBanner()
+        case .local:
             tableView.hidden = false
-            playlistsDataSource.playlists = state.playlists
-            if state.playlistImages.count != 0 {
-                playlistsDataSource.images = state.playlistImages
-                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-            }
-        case let .loading(message):
-            showLoadingBanner(message)
             spotifyLoginButton.hidden = true
-        case let .error(message):
-            showErrorBanner(message)
+            playLocalButton.hidden = true
+            if MPMediaLibrary.authorizationStatus() == .Authorized && !state.localMusicState.playlistsLoaded {
+                store.dispatch(musicService.getPlaylists())
+            } else if MPMediaLibrary.authorizationStatus() != .Authorized {
+                MPMediaLibrary.requestAuthorization({ (status) in
+                    self.store.dispatch(self.musicService.getPlaylists())
+                })
+            } else {
+                playlistsDataSource.localPlaylists = state.localMusicState.playlists
+                tableView.reloadData()
+            }
+        case .none:
+            break
         }
+        
     }
     
 }

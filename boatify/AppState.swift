@@ -26,6 +26,12 @@ enum ViewState {
     case error(message: String)
 }
 
+enum MusicState {
+    case spotify
+    case local
+    case none
+}
+
 struct AppState: StateType {
     
     // MARK: - Shared Store
@@ -35,17 +41,14 @@ struct AppState: StateType {
     
     // MARK: - State components
     
-    var session: SPTSession?
-    var user: SPTUser?
-    var playlists = [SPTPartialPlaylist]()
-    var playlistImages = [UIImage]()
-    var selectedPlaylist: SPTPartialPlaylist?
-    var tracks = [SPTPartialTrack]()
-    var selectedTrack: SPTPartialTrack?
+    var spotifyState = SpotifyState()
+    var localMusicState = LocalMusicState()
+    
     var maxVolume: Double = 1.0
     var minVolume: Double = 0.5
     var audioRecorder: AVAudioRecorder?
     var viewState = ViewState.preLoggedIn
+    var musicState = MusicState.none
 
 }
 

@@ -28,6 +28,10 @@ struct SpotifyService {
         return AppLaunched()
     }
     
+    func selectSpotify() -> Action {
+        return Selected(item: MusicState.spotify)
+    }
+    
     func loginToSpotify() {
         SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
         SPTAuth.defaultInstance().redirectURL = NSURL(string: kCallbackURL)
@@ -53,7 +57,7 @@ struct SpotifyService {
 
     }
     
-    func handleAuth(for url: NSURL) -> Store<AppState>.ActionCreator {
+    func handleAuth(for url: NSURL) -> AppActionCreator {
         return { state, store in
             SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: { error, session in
                 if error != nil {
@@ -67,7 +71,7 @@ struct SpotifyService {
     }
     
     func loginPlayer(state: AppState, store: Store<AppState>) -> Action? {
-        guard let session = state.session else { return nil }
+        guard let session = state.spotifyState.session else { return nil }
         do {
             try player.startWithClientId(SpotifyService.kClientId)
             player.loginWithAccessToken(session.accessToken)
@@ -78,24 +82,9 @@ struct SpotifyService {
         }
     }
     
-    func getUserObject(state: AppState, store: Store<AppState>) -> Action? {
-        guard let session = state.session else { return nil }
-        
-        SPTUser.requestCurrentUserWithAccessToken(session.accessToken, callback: { (error, user) in
-            if error != nil {
-                print(error)
-            } else {
-                if let user = user as? SPTUser {
-                    store.dispatch(Retrieved(item: user))
-                }
-            }
-        })
-        return nil
-    }
-    
-    func getPlaylists() -> Store<AppState>.ActionCreator {
+    func getPlaylists() -> AppActionCreator {
         return { state, store in
-            guard let session = state.session else { return nil }
+            guard let session = state.spotifyState.session else { return nil }
 
             SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
                 guard let playlists = list as? SPTPlaylistList else { return }
@@ -115,7 +104,7 @@ struct SpotifyService {
     }
     
     func getPlaylistDetails(state: AppState, store: Store<AppState>) -> Action? {
-        guard let playlist = state.selectedPlaylist, session = state.session else { return nil }
+        guard let playlist = state.spotifyState.selectedPlaylist, session = state.spotifyState.session else { return nil }
         
         SPTPlaylistSnapshot.playlistWithURI(playlist.uri, session: session) { error, snapshot in
             if error != nil {

@@ -125,7 +125,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-u4-SXV">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-u4-SXV">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -275,6 +275,13 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPt-Se-0Cu">
+                                <rect key="frame" x="246" y="390" width="109" height="30"/>
+                                <state key="normal" title="Play local music"/>
+                                <connections>
+                                    <action selector="playLocalButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="xXI-pL-caY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -285,7 +292,9 @@
                             <constraint firstItem="gFp-Ze-5tu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TGM-sg-xJz"/>
                             <constraint firstItem="cHa-u4-SXV" firstAttribute="centerX" secondItem="gFp-Ze-5tu" secondAttribute="centerX" id="TeO-gt-zK3"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="YI4-my-M8F"/>
+                            <constraint firstItem="sPt-Se-0Cu" firstAttribute="top" secondItem="gFp-Ze-5tu" secondAttribute="bottom" constant="40" id="gmU-fM-eah"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="trailing" secondItem="cHa-u4-SXV" secondAttribute="trailing" id="lDs-p2-3wK"/>
+                            <constraint firstItem="sPt-Se-0Cu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nXJ-3q-ItA"/>
                             <constraint firstItem="U9R-fp-AD0" firstAttribute="top" secondItem="cHa-u4-SXV" secondAttribute="bottom" id="x7Y-bU-82j"/>
                         </constraints>
                     </view>
@@ -299,6 +308,7 @@
                     <connections>
                         <outlet property="artistLabel" destination="ZxU-Re-UqK" id="WkM-iY-u8A"/>
                         <outlet property="bottomViewHeightConstraint" destination="4ue-vD-3gO" id="Ycl-PQ-rSm"/>
+                        <outlet property="playLocalButton" destination="sPt-Se-0Cu" id="teT-d0-bIi"/>
                         <outlet property="playlistsDataSource" destination="rbx-Sx-lNJ" id="GmN-DT-pPj"/>
                         <outlet property="progressView" destination="Mjt-fW-633" id="oDo-Rt-lbT"/>
                         <outlet property="spotifyLoginButton" destination="gFp-Ze-5tu" id="q5Z-yG-Ox8"/>

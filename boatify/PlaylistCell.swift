@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import MediaPlayer
 
 protocol PlaylistCellDelegate {
-    func play(uri: NSURL)
+    func playSpotify(uri: NSURL)
+    func playLocal(url: NSURL)
 }
 
 class PlaylistCell: UITableViewCell {
     
     var delegate: PlaylistCellDelegate?
-    var playlist: SPTPartialPlaylist?
+    var spotifyPlaylist: SPTPartialPlaylist?
+    var localPlaylist: MPMediaItemCollection?
+    var musicState = MusicState.none
     
     @IBOutlet weak var playlistImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -23,16 +27,31 @@ class PlaylistCell: UITableViewCell {
     @IBOutlet weak var playButton: UIButton!
     
     @IBAction func playButtonTapped() {
-        guard let playlist = playlist where playlist.playableUri != nil else { return }
-        delegate?.play(playlist.playableUri)
-        print("play pressed")
+        switch musicState {
+        case .spotify:
+            guard let playlist = spotifyPlaylist where playlist.playableUri != nil else { return }
+            delegate?.playSpotify(playlist.playableUri)
+        case .local:
+            break
+        case .none:
+            break
+        }
+        
     }
     
-    func configure(playlist: SPTPartialPlaylist, image: UIImage) {
-        self.playlist = playlist
+    func configureWithSpotify(playlist: SPTPartialPlaylist, image: UIImage) {
+        self.spotifyPlaylist = playlist
         playlistImageView.image = image
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
+        layoutIfNeeded()
+    }
+    
+    func configureWithLocal(playlist: MPMediaItemCollection) {
+        localPlaylist = playlist
+        playlistDetailLabel.text = "\(playlist.count) songs"
+        guard let item = playlist.representativeItem else { return }
+        nameLabel.text = item.title
         layoutIfNeeded()
     }
 }

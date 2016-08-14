@@ -106,9 +106,9 @@ extension PlaylistDetailViewController: StoreSubscriber {
         minVolume = state.minVolume
         maxVolume = state.maxVolume
         
-        trackURIs = state.tracks.map { $0.playableUri }
-        tracksDataSource.tracks = state.tracks
-        tracksDataSource.selectedTrack = state.selectedTrack
+        trackURIs = state.spotifyState.tracks.map { $0.playableUri }
+        tracksDataSource.tracks = state.spotifyState.tracks
+        tracksDataSource.selectedTrack = state.spotifyState.selectedTrack
         tableView.reloadData()
     }
     
