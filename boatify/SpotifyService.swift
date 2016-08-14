@@ -8,6 +8,7 @@
 
 import Foundation
 import ReSwift
+import UIKit
 
 
 struct AppLaunched: Action { }
@@ -19,7 +20,7 @@ struct SpotifyService {
     static let kClientId = "08e656aa8c444173ab066eb4a3ca7bf7"
     let kCallbackURL = "boatify-login://callback"
     var spotifyAccess: SpotifyNetworkAccess = SpotifyNetworkAPIAccess()
-
+    var player = SPTAudioStreamingController.sharedInstance()
     
     // MARK: - Main function
     
@@ -65,6 +66,18 @@ struct SpotifyService {
         }
     }
     
+    func loginPlayer(state: AppState, store: Store<AppState>) -> Action? {
+        guard let session = state.session else { return nil }
+        do {
+            try player.startWithClientId(SpotifyService.kClientId)
+            player.loginWithAccessToken(session.accessToken)
+            return Updated(item: ViewState.loading(message: "Loading your playlists..."))
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
     func getUserObject(state: AppState, store: Store<AppState>) -> Action? {
         guard let session = state.session else { return nil }
         
@@ -80,9 +93,10 @@ struct SpotifyService {
         return nil
     }
     
-    func getPlaylistsWithSession(session: SPTSession) -> Store<AppState>.ActionCreator {
+    func getPlaylists() -> Store<AppState>.ActionCreator {
         return { state, store in
-            
+            guard let session = state.session else { return nil }
+
             SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
                 guard let playlists = list as? SPTPlaylistList else { return }
                 guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
@@ -125,6 +139,34 @@ struct SpotifyService {
     func select(track: SPTPartialTrack) -> Action {
         return Selected(item: track)
     }
+    
+    func update(volume: Double) {
+        player.setVolume(volume, callback: nil)
+        print(player.volume)
+    }
+    
+    func updateIsPlaying() {
+        player.setIsPlaying(!player.isPlaying) { error in
+            if error != nil {
+                print(error)
+            }
+        }
+    }
+    
+    func trackProgress() -> Float {
+        let percent = player.currentPlaybackPosition / player.currentTrackDuration
+        return Float(percent)
+    }
+    
+    func play(uris uris: [NSURL]) {
+        
+    }
+    
+    func play(uri uri: NSURL) {
+        player.playURIs([uri], withOptions: SPTPlayOptions(), callback: nil)
+    }
+    
+    
     
 }
 

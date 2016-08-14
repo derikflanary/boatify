@@ -18,6 +18,7 @@
 		EC6C3BE41D5EEAC10083ECF1 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE31D5EEAC10083ECF1 /* TrackCell.swift */; };
 		EC6C3BE61D5EEBFE0083ECF1 /* TracksDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE51D5EEBFE0083ECF1 /* TracksDataSource.swift */; };
 		EC6C3BE81D5F7DFF0083ECF1 /* RecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE71D5F7DFF0083ECF1 /* RecordingService.swift */; };
+		EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */; };
 		EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E7B1D564E2C00C19603 /* ReSwift.framework */; };
 		EE550E7F1D564F7100C19603 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E7E1D564F7100C19603 /* AppState.swift */; };
 		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
@@ -65,6 +66,7 @@
 		EC6C3BE31D5EEAC10083ECF1 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		EC6C3BE51D5EEBFE0083ECF1 /* TracksDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksDataSource.swift; sourceTree = "<group>"; };
 		EC6C3BE71D5F7DFF0083ECF1 /* RecordingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingService.swift; sourceTree = "<group>"; };
+		EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
 		EE550E7B1D564E2C00C19603 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
 		EE550E7E1D564F7100C19603 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				EE550E7E1D564F7100C19603 /* AppState.swift */,
 				EE550E801D564FCC00C19603 /* AppReducer.swift */,
+				EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */,
 			);
 			name = State;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
 				EC6C3BE41D5EEAC10083ECF1 /* TrackCell.swift in Sources */,
 				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
+				EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */,
 				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
 				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,

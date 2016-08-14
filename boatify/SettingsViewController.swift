@@ -72,7 +72,9 @@ class SettingsViewController: UIViewController {
     @IBAction func cancelTapped(sender: UIBarButtonItem) {
         guard let minVolume = originalMinVolume, maxVolume = originalMaxVolume else { return }
         
-        store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
+        if minVolume != Double(minSlider.value) || maxVolume != Double(maxSlider.value) {
+            store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
+        }
         dismissViewControllerAnimated(true, completion: nil)
     }
     

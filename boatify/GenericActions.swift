@@ -24,3 +24,8 @@ struct Retrieved<T>: Action {
 struct Selected<T>: Action {
     let item: T
 }
+
+/// This updates an existing item
+struct Updated<T>: Action {
+    let item: T
+}

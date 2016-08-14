@@ -28,6 +28,7 @@ struct AppReducer: Reducer {
             NSUserDefaults.standardUserDefaults().setObject(sessionData, forKey:"SpotifySession")
         case let action as Loaded<SPTPartialPlaylist>:
             state.playlists = action.items
+            state.viewState = .viewing
         case let action as Loaded<UIImage>:
             state.playlistImages = action.items
         case let action as Selected<SPTPartialPlaylist>:
@@ -39,6 +40,8 @@ struct AppReducer: Reducer {
         case let action as VolumesUpdated:
             state.maxVolume = action.maxVolume
             state.minVolume = action.minVolume
+        case let action as Updated<ViewState>:
+            state.viewState = action.item
         default:
             break
         }

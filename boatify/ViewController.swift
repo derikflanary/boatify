@@ -49,6 +49,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.hidden = true
+        spotifyLoginButton.hidden = true
         player.delegate = self
         player.playbackDelegate = self
         playlistsDataSource.delegate = self
@@ -122,15 +123,16 @@ class ViewController: UIViewController {
         guard let audioRecorder = audioRecorder else { return }
         audioRecorder.updateMeters()
         let averagePower = audioRecorder.averagePowerForChannel(0)
+        var volume: Double
         if averagePower < -30 {
-            player.setVolume(minVolume) { error in }
+            volume = minVolume
         } else if averagePower < -22.5 {
-            player.setVolume(midVolume) { error in }
+            volume = midVolume
         } else {
-            player.setVolume(maxVolume) { error in }
+            volume = maxVolume
         }
+        spotifyService.update(volume)
         print("average: \(averagePower)")
-        print(player.volume)
     }
     
     
@@ -141,20 +143,15 @@ class ViewController: UIViewController {
             stopRecording()
         } else {
             startRecording()
+            startTrackingProgress()
         }
-        player.setIsPlaying(!player.isPlaying) { error in
-            if error != nil {
-                print(error)
-            } else {
-                self.startTrackingProgress()
-            }
-        }
+        spotifyService.updateIsPlaying()
     }
 
     // MARK: - Track progress
     func updateProgress() {
-        let percent = player.currentPlaybackPosition / player.currentTrackDuration
-        progressView.setProgress(Float(percent), animated: true)
+        let percent = spotifyService.trackProgress()
+        progressView.setProgress(percent, animated: true)
     }
     
     func startTrackingProgress() {
@@ -185,10 +182,9 @@ class ViewController: UIViewController {
 extension ViewController: SPTAudioStreamingDelegate {
 
     func audioStreamingDidLogin(audioStreaming: SPTAudioStreamingController!) {
-        tableView.hidden = false
+        store.dispatch(spotifyService.getPlaylists())
         player.setVolume(minVolume, callback: nil)
         requestPermissionToRecord()
-        dismissBanner()
     }
     
 }
@@ -213,7 +209,8 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("ShowPlaylistDetails", sender: self)
-        let playlist = playlistsDataSource.playlists[indexPath.row]
+        let playlist: SPTPartialPlaylist = playlistsDataSource.playlists[indexPath.row]
+        
         store.dispatch(spotifyService.select(playlist))
         store.dispatch(spotifyService.getPlaylistDetails)
     }
@@ -230,7 +227,7 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: PlaylistCellDelegate {
     
     func play(uri: NSURL) {
-        player.playURIs([uri], withOptions: SPTPlayOptions(), callback: nil)
+        spotifyService.play(uri: uri)
         self.startRecording()
     }
 }
@@ -255,29 +252,32 @@ extension ViewController: StoreSubscriber {
         audioRecorder = state.audioRecorder
         minVolume = state.minVolume
         maxVolume = state.maxVolume
-
-        if !player.loggedIn && session.isValid() {
-            showLoadingBanner("Loading your playlists...")
-            spotifyLoginButton.hidden = true
-            do {
-                try player.startWithClientId(SpotifyService.kClientId)
-                player.loginWithAccessToken(session.accessToken)
-                store.dispatch(spotifyService.getPlaylistsWithSession(session))
-            } catch {
-                print(error)
+        
+        switch state.viewState {
+        case .preLoggedIn:
+            if !player.loggedIn && session.isValid() {
+                store.dispatch(spotifyService.loginPlayer)
+            } else if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
+                store.dispatch(spotifyService.refresh(session))
+            } else {
+                spotifyLoginButton.hidden = false
             }
-        }
-        
-        if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
-            store.dispatch(spotifyService.refresh(session))
-        }
-        
-        playlistsDataSource.playlists = state.playlists
-        if state.playlistImages.count != 0 {
-            playlistsDataSource.images = state.playlistImages
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        case .viewing:
+            dismissBanner()
+            tableView.hidden = false
+            playlistsDataSource.playlists = state.playlists
+            if state.playlistImages.count != 0 {
+                playlistsDataSource.images = state.playlistImages
+                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            }
+        case let .loading(message):
+            showLoadingBanner(message)
+            spotifyLoginButton.hidden = true
+        case let .error(message):
+            showErrorBanner(message)
         }
     }
+    
 }
 
 
