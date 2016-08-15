@@ -11,7 +11,7 @@ import MediaPlayer
 
 protocol PlaylistCellDelegate {
     func playSpotify(uri: NSURL)
-    func playLocal(url: NSURL)
+    func playLocal(playlist: MPMediaItemCollection)
 }
 
 class PlaylistCell: UITableViewCell {
@@ -32,7 +32,8 @@ class PlaylistCell: UITableViewCell {
             guard let playlist = spotifyPlaylist where playlist.playableUri != nil else { return }
             delegate?.playSpotify(playlist.playableUri)
         case .local:
-            break
+            guard let playlist = localPlaylist else { return }
+            delegate?.playLocal(playlist)
         case .none:
             break
         }
@@ -47,11 +48,10 @@ class PlaylistCell: UITableViewCell {
         layoutIfNeeded()
     }
     
-    func configureWithLocal(playlist: MPMediaItemCollection) {
+    func configureWithLocal(playlist: MPMediaPlaylist) {
         localPlaylist = playlist
+        nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.count) songs"
-        guard let item = playlist.representativeItem else { return }
-        nameLabel.text = item.title
         layoutIfNeeded()
     }
 }

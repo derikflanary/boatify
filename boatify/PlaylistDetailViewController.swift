@@ -9,11 +9,15 @@
 import UIKit
 import ReSwift
 import AVFoundation
+import MediaPlayer
 
 class PlaylistDetailViewController: UIViewController {
     
     var store = AppState.sharedStore
     var spotifyService = SpotifyService()
+    var musicService = MusicService()
+    var musicState = MusicState.none
+    
     var trackURIs = [NSURL]()
     var player = SPTAudioStreamingController.sharedInstance()
     var audioRecorder: AVAudioRecorder?
@@ -86,13 +90,21 @@ extension PlaylistDetailViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let track = tracksDataSource.tracks[indexPath.row]
-        let options = SPTPlayOptions()
-        options.trackIndex = Int32(indexPath.row)
-        player.setVolume(minVolume, callback: nil)
-        player.playURIs(trackURIs, withOptions: options, callback: nil)
-        startRecording()
-        store.dispatch(spotifyService.select(track))
+        switch musicState {
+        case .spotify:
+            let track = tracksDataSource.spotifyTracks[indexPath.row]
+            let options = SPTPlayOptions()
+            options.trackIndex = Int32(indexPath.row)
+            player.setVolume(minVolume, callback: nil)
+            player.playURIs(trackURIs, withOptions: options, callback: nil)
+            startRecording()
+            store.dispatch(spotifyService.select(track))
+        case .local:
+            let track = tracksDataSource.localTracks[indexPath.row]
+            store.dispatch(musicService.select(track))
+        case .none:
+            break
+        }
     }
 }
 
@@ -105,11 +117,24 @@ extension PlaylistDetailViewController: StoreSubscriber {
         audioRecorder = state.audioRecorder
         minVolume = state.minVolume
         maxVolume = state.maxVolume
+        musicState = state.musicState
+        tracksDataSource.musicState = state.musicState
         
-        trackURIs = state.spotifyState.tracks.map { $0.playableUri }
-        tracksDataSource.tracks = state.spotifyState.tracks
-        tracksDataSource.selectedTrack = state.spotifyState.selectedTrack
-        tableView.reloadData()
+        switch musicState {
+        case .spotify:
+            trackURIs = state.spotifyState.tracks.map { $0.playableUri }
+            tracksDataSource.spotifyTracks = state.spotifyState.tracks
+            tracksDataSource.selectedSpotifyTrack = state.spotifyState.selectedTrack
+            tableView.reloadData()
+        case .local:
+            guard let tracks = state.localMusicState.selectedPlaylist?.items else { return }
+            tracksDataSource.localTracks = tracks
+            tracksDataSource.selectedLocalTrack = state.localMusicState.selectedTrack
+            tableView.reloadData()
+            break
+        case .none:
+            break
+        }
     }
     
 }

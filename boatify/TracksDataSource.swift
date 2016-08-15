@@ -7,21 +7,40 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class TracksDataSource: NSObject, UITableViewDataSource {
     
-    var tracks = [SPTPartialTrack]()
-    var selectedTrack: SPTPartialTrack?
+    var spotifyTracks = [SPTPartialTrack]()
+    var localTracks = [MPMediaItem]()
+    var selectedSpotifyTrack: SPTPartialTrack?
+    var selectedLocalTrack: MPMediaItem?
+    var musicState = MusicState.none
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tracks.count
+        switch musicState {
+        case .spotify:
+            return spotifyTracks.count
+        case .local:
+            return localTracks.count
+        case .none:
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(String(TrackCell), forIndexPath: indexPath) as? TrackCell else { fatalError() }
         
-        let track = tracks[indexPath.row]
-        cell.configure(track, selectedTrack: selectedTrack)
+        switch musicState {
+        case .spotify:
+            let track = spotifyTracks[indexPath.row]
+            cell.configureSpotify(track, selectedTrack: selectedSpotifyTrack)
+        case .local:
+            let track = localTracks[indexPath.row]
+            cell.configureLocal(track, selectedTrack: selectedLocalTrack)
+        case .none:
+            break
+        }
         return cell
     }
     

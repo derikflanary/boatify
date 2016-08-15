@@ -30,14 +30,17 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(String(PlaylistCell), forIndexPath: indexPath) as? PlaylistCell else { fatalError() }
+        
+        cell.musicState = musicState
         switch musicState {
         case .spotify:
             let playlist = spotifyPlaylists[indexPath.row]
             let image = images[indexPath.row]
             cell.configureWithSpotify(playlist, image: image)
         case .local:
-            let playlist = localPlaylists[indexPath.row]
-            cell.configureWithLocal(playlist)
+            if let playlist = localPlaylists[indexPath.row] as? MPMediaPlaylist {
+                cell.configureWithLocal(playlist)
+            }
         case .none:
             return cell
         }

@@ -26,4 +26,19 @@ struct MusicService {
         
     }
     
+    func select(playlist: MPMediaPlaylist) -> Action {
+        return Selected(item: playlist)
+    }
+    
+    func play(playlist: MPMediaItemCollection) {
+        let appMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        appMusicPlayer.setQueueWithItemCollection(playlist)
+        appMusicPlayer
+        appMusicPlayer.play()
+    }
+    
+    func select(track: MPMediaItem) -> Action {
+        return Selected(item: track)
+    }
+    
 }

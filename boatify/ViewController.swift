@@ -136,8 +136,15 @@ class ViewController: UIViewController {
         } else {
             volume = maxVolume
         }
-        spotifyService.update(volume)
         print("average: \(averagePower)")
+        switch musicState {
+        case .spotify:
+            spotifyService.update(volume)
+        case .local:
+            break
+        case .none:
+            break
+        }
     }
     
     
@@ -239,7 +246,8 @@ extension ViewController: UITableViewDelegate {
             store.dispatch(spotifyService.select(playlist))
             store.dispatch(spotifyService.getPlaylistDetails)
         case .local:
-            break
+            guard let playlist = playlistsDataSource.localPlaylists[indexPath.row] as? MPMediaPlaylist else { break }
+            store.dispatch(musicService.select(playlist))
         case .none:
             break
         }
@@ -258,11 +266,12 @@ extension ViewController: PlaylistCellDelegate {
     
     func playSpotify(uri: NSURL) {
         spotifyService.play(uri: uri)
-        self.startRecording()
+        startRecording()
     }
     
-    func playLocal(url: NSURL) {
-        print("play local pressed")
+    func playLocal(playlist: MPMediaItemCollection) {
+        musicService.play(playlist)
+        startRecording()
     }
     
 }
@@ -321,11 +330,14 @@ extension ViewController: StoreSubscriber {
             tableView.hidden = false
             spotifyLoginButton.hidden = true
             playLocalButton.hidden = true
+            
             if MPMediaLibrary.authorizationStatus() == .Authorized && !state.localMusicState.playlistsLoaded {
                 store.dispatch(musicService.getPlaylists())
+                requestPermissionToRecord()
             } else if MPMediaLibrary.authorizationStatus() != .Authorized {
                 MPMediaLibrary.requestAuthorization({ (status) in
                     self.store.dispatch(self.musicService.getPlaylists())
+                    self.requestPermissionToRecord()
                 })
             } else {
                 playlistsDataSource.localPlaylists = state.localMusicState.playlists

@@ -14,6 +14,8 @@ struct LocalMusicState {
     
     var playlists = [MPMediaItemCollection]()
     var playlistsLoaded = false
+    var selectedPlaylist: MPMediaPlaylist?
+    var selectedTrack: MPMediaItem?
     
     func reduce(action: Action) -> LocalMusicState {
         var state = self
@@ -22,6 +24,10 @@ struct LocalMusicState {
         case let action as Loaded<MPMediaItemCollection>:
             state.playlists = action.items
             state.playlistsLoaded = true
+        case let action as Selected<MPMediaPlaylist>:
+            state.selectedPlaylist = action.item
+        case let action as Selected<MPMediaItem>:
+            state.selectedTrack = action.item
         default:
             break
         }
