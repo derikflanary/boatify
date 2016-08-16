@@ -9,6 +9,7 @@
 import Foundation
 import ReSwift
 import MediaPlayer
+import AVFoundation
 
 struct LocalMusicState {
     
@@ -16,6 +17,9 @@ struct LocalMusicState {
     var playlistsLoaded = false
     var selectedPlaylist: MPMediaPlaylist?
     var selectedTrack: MPMediaItem?
+    var currentTrack: MPMediaItem?
+    var player = AVQueuePlayer()
+    var playback = Playback.stopped
     
     func reduce(action: Action) -> LocalMusicState {
         var state = self
@@ -28,6 +32,11 @@ struct LocalMusicState {
             state.selectedPlaylist = action.item
         case let action as Selected<MPMediaItem>:
             state.selectedTrack = action.item
+        case let action as Playing:
+            state.currentTrack = action.item
+            state.playback = .playing
+        case let action as Updated<Playback>:
+            state.playback = action.item
         default:
             break
         }

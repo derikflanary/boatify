@@ -11,14 +11,14 @@ import MediaPlayer
 
 protocol PlaylistCellDelegate {
     func playSpotify(uri: NSURL)
-    func playLocal(playlist: MPMediaItemCollection)
+    func playLocal(playlist: MPMediaPlaylist)
 }
 
 class PlaylistCell: UITableViewCell {
     
     var delegate: PlaylistCellDelegate?
     var spotifyPlaylist: SPTPartialPlaylist?
-    var localPlaylist: MPMediaItemCollection?
+    var localPlaylist: MPMediaPlaylist?
     var musicState = MusicState.none
     
     @IBOutlet weak var playlistImageView: UIImageView!

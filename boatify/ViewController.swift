@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
     
+    var selectedPlaylist: MPMediaItemCollection?
+    
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
     var timer: NSTimer?
@@ -129,9 +131,9 @@ class ViewController: UIViewController {
         audioRecorder.updateMeters()
         let averagePower = audioRecorder.averagePowerForChannel(0)
         var volume: Double
-        if averagePower < -30 {
+        if averagePower < -22.5 {
             volume = minVolume
-        } else if averagePower < -22.5 {
+        } else if averagePower < -15.0 {
             volume = midVolume
         } else {
             volume = maxVolume
@@ -141,7 +143,7 @@ class ViewController: UIViewController {
         case .spotify:
             spotifyService.update(volume)
         case .local:
-            break
+            store.dispatch(musicService.update(Float(volume)))
         case .none:
             break
         }
@@ -161,7 +163,7 @@ class ViewController: UIViewController {
             }
             spotifyService.updateIsPlaying()
         case .local:
-            break
+            store.dispatch(musicService.updatePlayPause)
         case .none:
             break
         }
@@ -189,6 +191,7 @@ class ViewController: UIViewController {
     func stopTrackingProgress() {
         progressTimer?.invalidate()
     }
+    
     
     // MARK: - Interface actions
     
@@ -269,8 +272,9 @@ extension ViewController: PlaylistCellDelegate {
         startRecording()
     }
     
-    func playLocal(playlist: MPMediaItemCollection) {
-        musicService.play(playlist)
+    func playLocal(playlist: MPMediaPlaylist) {
+        store.dispatch(musicService.select(playlist))
+        store.dispatch(musicService.playPlaylist)
         startRecording()
     }
     
