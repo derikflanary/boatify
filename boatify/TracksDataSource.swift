@@ -14,7 +14,7 @@ class TracksDataSource: NSObject, UITableViewDataSource {
     var spotifyTracks = [SPTPartialTrack]()
     var localTracks = [MPMediaItem]()
     var selectedSpotifyTrack: SPTPartialTrack?
-    var selectedLocalTrack: MPMediaItem?
+    var currentLocalTrack: MPMediaItem?
     var musicState = MusicState.none
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,7 +37,7 @@ class TracksDataSource: NSObject, UITableViewDataSource {
             cell.configureSpotify(track, selectedTrack: selectedSpotifyTrack)
         case .local:
             let track = localTracks[indexPath.row]
-            cell.configureLocal(track, selectedTrack: selectedLocalTrack)
+            cell.configureLocal(track, selectedTrack: currentLocalTrack)
         case .none:
             break
         }

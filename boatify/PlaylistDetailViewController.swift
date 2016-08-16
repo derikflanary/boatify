@@ -67,18 +67,28 @@ class PlaylistDetailViewController: UIViewController {
     }
     
     func updateMeter() {
-        guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.updateMeters()
-        let averagePower = audioRecorder.averagePowerForChannel(0)
-        if averagePower < -30 {
-            player.setVolume(minVolume) { error in }
-        } else if averagePower < -22.5 {
-            player.setVolume(midVolume) { error in }
-        } else {
-            player.setVolume(maxVolume) { error in }
+        func updateMeter() {
+            guard let audioRecorder = audioRecorder else { return }
+            audioRecorder.updateMeters()
+            let averagePower = audioRecorder.averagePowerForChannel(0)
+            var volume: Double
+            if averagePower < -22.5 {
+                volume = minVolume
+            } else if averagePower < -15.0 {
+                volume = midVolume
+            } else {
+                volume = maxVolume
+            }
+            print("average: \(averagePower)")
+            switch musicState {
+            case .spotify:
+                spotifyService.update(volume)
+            case .local:
+                store.dispatch(musicService.update(Float(volume)))
+            case .none:
+                break
+            }
         }
-        print("average: \(averagePower)")
-        print(player.volume)
     }
 
 }
@@ -102,6 +112,7 @@ extension PlaylistDetailViewController: UITableViewDelegate {
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
             store.dispatch(musicService.select(track))
+            store.dispatch(musicService.playTrack)
         case .none:
             break
         }
@@ -129,7 +140,7 @@ extension PlaylistDetailViewController: StoreSubscriber {
         case .local:
             guard let tracks = state.localMusicState.selectedPlaylist?.items else { return }
             tracksDataSource.localTracks = tracks
-            tracksDataSource.selectedLocalTrack = state.localMusicState.selectedTrack
+            tracksDataSource.currentLocalTrack = state.localMusicState.currentTrack
             tableView.reloadData()
             break
         case .none:

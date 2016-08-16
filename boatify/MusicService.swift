@@ -60,6 +60,31 @@ struct MusicService {
         return Playing(item: playlist.items.first!)
     }
     
+    func playTrack(state: AppState, store: Store<AppState>) -> Action? {
+        guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
+        guard let selectedTrack = state.localMusicState.selectedTrack else { return nil }
+        
+        let player = state.localMusicState.player
+        player.removeAllItems()
+        var advanceToNext = true
+        
+        for item in playlist.items {
+            guard let url = item.assetURL else { continue }
+            let playerItem = AVPlayerItem(URL: url)
+            player.insertItem(playerItem, afterItem: nil)
+            if item != selectedTrack && advanceToNext {
+                player.advanceToNextItem()
+            } else if item == selectedTrack {
+                advanceToNext = false
+            }
+        }
+        
+        player.volume = Float(state.minVolume)
+        player.play()
+        return Playing(item: selectedTrack)
+        
+    }
+    
     func update(volume: Float) -> AppActionCreator {
         return { state, store in
             let player = state.localMusicState.player
