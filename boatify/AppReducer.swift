@@ -26,8 +26,16 @@ struct AppReducer: Reducer {
             state.minVolume = action.minVolume
         case let action as Updated<ViewState>:
             state.viewState = action.item
-        case let action as Loaded<SPTPartialPlaylist>:
+        case _ as Loaded<SPTPartialPlaylist>:
             state.viewState = .viewing
+        case let action as Updated<MusicState>:
+            state.musicState = action.item
+            if action.item == .none {
+                state.localMusicState = LocalMusicState()
+                let session = state.spotifyState.session
+                state.spotifyState = SpotifyState()
+                state.spotifyState.session = session
+            }
         default:
             break
         }

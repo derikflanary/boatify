@@ -24,4 +24,9 @@ struct SettingsService {
         return VolumesUpdated(minVolume: Double(minVolume), maxVolume: Double(maxVolume))
     }
     
+    func resetMusicState() -> Action {
+        
+        return Updated(item: MusicState.none)
+    }
+    
 }

@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     let spotifyService = SpotifyService()
     let recordingService = RecordingService()
+    let settingsService = SettingsService()
     let musicService = MusicService()
     var musicState = MusicState.none
     var store = AppState.sharedStore
@@ -24,6 +25,8 @@ class ViewController: UIViewController {
     var player = SPTAudioStreamingController.sharedInstance()
     
     var selectedPlaylist: MPMediaItemCollection?
+    var trackPercent: Double = 0.0
+    var playback = Playback.stopped
     
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
@@ -46,6 +49,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var playLocalButton: UIButton!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
     
@@ -57,10 +62,17 @@ class ViewController: UIViewController {
         player.delegate = self
         player.playbackDelegate = self
         playlistsDataSource.delegate = self
+        bottomView.addGestureRecognizer(tapGesture)
+        tableView.tableFooterView = UIView()
+        
         let command = MPRemoteCommandCenter.sharedCommandCenter()
+        command.nextTrackCommand.enabled = true
+        command.previousTrackCommand.enabled = true
         command.pauseCommand.enabled = true
         command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.playCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
+        command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -163,7 +175,40 @@ class ViewController: UIViewController {
             }
             spotifyService.updateIsPlaying()
         case .local:
+            switch playback {
+            case .playing:
+                stopRecording()
+                stopTrackingProgress()
+            case .paused:
+                startRecording()
+                startTrackingProgress()
+            default:
+                break
+            }
             store.dispatch(musicService.updatePlayPause)
+            
+        case .none:
+            break
+        }
+    }
+    
+    func nextTrackTapped() {
+        switch musicState {
+        case .spotify:
+            spotifyService.advanceToNextTrack()
+        case .local:
+            store.dispatch(musicService.advanceToNextTrack)
+        case .none:
+            break
+        }
+    }
+    
+    func previousTrackTapped() {
+        switch musicState {
+        case .spotify:
+            spotifyService.advanceToPreviousTrack()
+        case .local:
+            store.dispatch(musicService.advanceToPreviousTrack())
         case .none:
             break
         }
@@ -178,7 +223,8 @@ class ViewController: UIViewController {
             let percent = spotifyService.trackProgress()
             progressView.setProgress(percent, animated: true)
         case .local:
-            break
+            progressView.setProgress(Float(trackPercent), animated: true)
+            store.dispatch(musicService.updateTrackProgress)
         case .none:
             break
         }
@@ -208,6 +254,11 @@ class ViewController: UIViewController {
         store.dispatch(musicService.selectLocal())
     }
 
+    @IBAction func switchMusicStateTapped(sender: AnyObject) {
+        stopRecording()
+        stopTrackingProgress()
+        store.dispatch(settingsService.resetMusicState())
+    }
 }
 
 
@@ -276,6 +327,7 @@ extension ViewController: PlaylistCellDelegate {
         store.dispatch(musicService.select(playlist))
         store.dispatch(musicService.playPlaylist)
         startRecording()
+        startTrackingProgress()
     }
     
 }
@@ -346,9 +398,24 @@ extension ViewController: StoreSubscriber {
             } else {
                 playlistsDataSource.localPlaylists = state.localMusicState.playlists
                 tableView.reloadData()
+                trackPercent = state.localMusicState.trackPercent
+                playback = state.localMusicState.playback
+                if let track = state.localMusicState.currentTrack {
+                    trackNameLabel.text = track.title
+                    artistLabel.text = track.artist
+                }
             }
         case .none:
-            break
+            tableView.hidden = true
+            spotifyLoginButton.hidden = false
+            playLocalButton.hidden = false
+            do {
+                try player.stop()
+            } catch {
+                print(error)
+            }
+            
+                
         }
         
     }

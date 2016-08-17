@@ -20,6 +20,7 @@ struct LocalMusicState {
     var currentTrack: MPMediaItem?
     var player = AVQueuePlayer()
     var playback = Playback.stopped
+    var trackPercent: Double = 0.0
     
     func reduce(action: Action) -> LocalMusicState {
         var state = self
@@ -37,6 +38,8 @@ struct LocalMusicState {
             state.playback = .playing
         case let action as Updated<Playback>:
             state.playback = action.item
+        case let action as UpdatedTrackProgress:
+            state.trackPercent = action.percent
         default:
             break
         }

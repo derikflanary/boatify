@@ -20,6 +20,12 @@ struct Playing: Action {
     let item: MPMediaItem
 }
 
+struct UpdatedTrackProgress: Action {
+    let percent: Double
+}
+
+struct StoppedPlayer: Action { }
+
 struct MusicService {
     
     func selectLocal() -> Action {
@@ -46,6 +52,7 @@ struct MusicService {
     
     func playPlaylist(state: AppState, store: Store<AppState>) -> Action? {
         guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
+        guard playlist.items.count > 0 else { return nil }
         
         let player = state.localMusicState.player
         player.removeAllItems()
@@ -107,4 +114,46 @@ struct MusicService {
         }
     }
     
+    func advanceToNextTrack(state: AppState, store: Store<AppState>) -> Action? {
+        guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
+        guard let item = state.localMusicState.currentTrack else { return nil }
+        
+        state.localMusicState.player.advanceToNextItem()
+        guard let index = playlist.items.indexOf(item) else { return nil }
+        
+        if index <= playlist.items.count - 1 {
+            let nextItem = playlist.items[index + 1]
+            return Playing(item: nextItem)
+        } else {
+            return nil
+        }
+        
+    }
+    
+    func advanceToPreviousTrack() -> AppActionCreator {
+        return { state, store in
+            guard let playlist = state.localMusicState.selectedPlaylist, item = state.localMusicState.currentTrack, index = playlist.items.indexOf(item) else { return nil }
+            if index > 0 {
+                let nextItem = playlist.items[index - 1]
+                store.dispatch(Selected(item: nextItem))
+                store.dispatch(self.playTrack)
+            }
+            return nil
+        }
+    }
+    
+    func updateTrackProgress(state: AppState, store: Store<AppState>) -> Action? {
+        guard let item = state.localMusicState.currentTrack else { return nil }
+        
+        let currentTime = state.localMusicState.player.currentTime().seconds
+        let totalTime = item.playbackDuration
+        let percent = currentTime / Double(totalTime)
+        return UpdatedTrackProgress(percent: percent)
+    }
+    
+    func stopPlayer() -> Action {
+        return StoppedPlayer()
+    }
+    
 }
+

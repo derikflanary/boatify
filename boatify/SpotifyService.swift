@@ -155,7 +155,21 @@ struct SpotifyService {
         player.playURIs([uri], withOptions: SPTPlayOptions(), callback: nil)
     }
     
+    func advanceToNextTrack() {
+        player.skipNext { error in
+            if error != nil {
+                print(error)
+            }
+        }
+    }
     
+    func advanceToPreviousTrack() {
+        player.skipPrevious { error in
+            if error != nil {
+                print(error)
+            }
+        }
+    }
     
 }
 

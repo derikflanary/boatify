@@ -126,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-u4-SXV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistCell" rowHeight="60" id="83a-5c-ScB" customClass="PlaylistCell" customModule="boatify" customModuleProvider="target">
@@ -238,42 +238,49 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9R-fp-AD0">
-                                <rect key="frame" x="0.0" y="600" width="600" height="0.0"/>
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mjt-fW-633">
-                                        <rect key="frame" x="11" y="4" width="578" height="2"/>
-                                        <color key="tintColor" red="0.45096153846153841" green="0.45096153846153841" blue="0.45096153846153841" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auk-dx-g48">
-                                        <rect key="frame" x="11" y="12" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="13" y="8" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZxU-Re-UqK">
-                                        <rect key="frame" x="11" y="12" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="13" y="8" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="4ue-vD-3gO"/>
+                                    <constraint firstAttribute="height" constant="44" id="4ue-vD-3gO"/>
                                     <constraint firstItem="ZxU-Re-UqK" firstAttribute="top" secondItem="Auk-dx-g48" secondAttribute="bottom" id="6m2-gn-SbM"/>
                                     <constraint firstItem="Auk-dx-g48" firstAttribute="top" secondItem="Mjt-fW-633" secondAttribute="bottom" constant="6" id="Bkb-07-Zqq"/>
                                     <constraint firstItem="Auk-dx-g48" firstAttribute="leading" secondItem="Mjt-fW-633" secondAttribute="leading" id="IZl-Iy-ZAj"/>
-                                    <constraint firstAttribute="trailing" secondItem="Mjt-fW-633" secondAttribute="trailing" constant="11" id="JSZ-Ah-2ck"/>
-                                    <constraint firstItem="Mjt-fW-633" firstAttribute="leading" secondItem="U9R-fp-AD0" secondAttribute="leading" constant="11" id="bHZ-TY-wHD"/>
-                                    <constraint firstItem="Mjt-fW-633" firstAttribute="top" secondItem="U9R-fp-AD0" secondAttribute="top" constant="4" id="d9f-Ll-ByM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mjt-fW-633" secondAttribute="trailing" id="JSZ-Ah-2ck"/>
+                                    <constraint firstItem="Mjt-fW-633" firstAttribute="leading" secondItem="U9R-fp-AD0" secondAttribute="leading" id="bHZ-TY-wHD"/>
+                                    <constraint firstItem="Mjt-fW-633" firstAttribute="top" secondItem="U9R-fp-AD0" secondAttribute="top" id="d9f-Ll-ByM"/>
                                     <constraint firstAttribute="bottom" secondItem="Auk-dx-g48" secondAttribute="bottom" constant="16" id="gpi-cj-fBA"/>
                                     <constraint firstItem="ZxU-Re-UqK" firstAttribute="leading" secondItem="Auk-dx-g48" secondAttribute="leading" id="lJA-hi-7jf"/>
+                                    <constraint firstItem="Auk-dx-g48" firstAttribute="leading" secondItem="U9R-fp-AD0" secondAttribute="leading" constant="13" id="mCF-h9-XJf"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="IZl-Iy-ZAj"/>
                                         <exclude reference="gpi-cj-fBA"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gI5-eS-Cuv" appends="YES" id="98x-b4-0ac"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPt-Se-0Cu">
                                 <rect key="frame" x="246" y="390" width="109" height="30"/>
@@ -299,6 +306,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mS3-xk-qu8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="UeY-hB-7fT">
+                            <connections>
+                                <action selector="switchMusicStateTapped:" destination="BYZ-38-t0r" id="p7b-Ho-t1W"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="settings" id="F3Z-iR-Elq">
                             <connections>
                                 <segue destination="TMN-Cz-1vr" kind="presentation" identifier="PresentSettings" id="m7b-BR-i37"/>
@@ -307,20 +319,54 @@
                     </navigationItem>
                     <connections>
                         <outlet property="artistLabel" destination="ZxU-Re-UqK" id="WkM-iY-u8A"/>
+                        <outlet property="bottomView" destination="U9R-fp-AD0" id="zBs-QH-hJ8"/>
                         <outlet property="bottomViewHeightConstraint" destination="4ue-vD-3gO" id="Ycl-PQ-rSm"/>
                         <outlet property="playLocalButton" destination="sPt-Se-0Cu" id="teT-d0-bIi"/>
                         <outlet property="playlistsDataSource" destination="rbx-Sx-lNJ" id="GmN-DT-pPj"/>
                         <outlet property="progressView" destination="Mjt-fW-633" id="oDo-Rt-lbT"/>
                         <outlet property="spotifyLoginButton" destination="gFp-Ze-5tu" id="q5Z-yG-Ox8"/>
                         <outlet property="tableView" destination="cHa-u4-SXV" id="GCh-od-Gs5"/>
+                        <outlet property="tapGesture" destination="gI5-eS-Cuv" id="bMj-Zj-MCI"/>
                         <outlet property="trackNameLabel" destination="Auk-dx-g48" id="wVc-LH-EGv"/>
                         <segue destination="usf-0c-iKc" kind="show" identifier="ShowPlaylistDetails" id="gPl-lJ-2r0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <customObject id="rbx-Sx-lNJ" customClass="PlaylistsDataSource" customModule="boatify" customModuleProvider="target"/>
+                <tapGestureRecognizer id="gI5-eS-Cuv">
+                    <connections>
+                        <action selector="bottomViewTapped:" destination="BYZ-38-t0r" id="ylz-Xm-Ec6"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="l6o-Eg-xNb"/>
+                        <segue destination="LY3-Ua-sJU" kind="presentation" id="0o8-0Q-L83"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1282" y="301"/>
+        </scene>
+        <!--Playback View Controller-->
+        <scene sceneID="7G6-Vh-DV5">
+            <objects>
+                <viewController id="uS1-24-sKl" customClass="PlaybackViewController" customModule="boatify" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WZC-kf-ZJz"/>
+                        <viewControllerLayoutGuide type="bottom" id="IFs-Zx-krE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E9G-SJ-gd3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rmt-mz-zv8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="ADB-FE-mU0">
+                            <connections>
+                                <action selector="dismissTapped:" destination="uS1-24-sKl" id="eoL-lw-ohR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bvg-g9-zdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2094" y="1020"/>
         </scene>
         <!--Playlist Detail View Controller-->
         <scene sceneID="NZM-Bf-NFp">
@@ -432,6 +478,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cx7-2L-Htz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1282" y="-514"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KVx-E1-3Ug">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LY3-Ua-sJU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="The-GU-Sf8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uS1-24-sKl" kind="relationship" relationship="rootViewController" id="NvL-hQ-Voo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t4e-tk-jLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1282" y="1020"/>
         </scene>
     </scenes>
     <resources>
