@@ -54,7 +54,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var playlistsDataSource: PlaylistsDataSource!
     @IBOutlet weak var playLocalButton: UIButton!
-    @IBOutlet var playBackView: PlaybackView!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var bottomView: PlaybackView!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
@@ -62,14 +61,14 @@ class ViewController: UIViewController {
     // MARK: - View cycle overrides
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         tableView.hidden = true
         player.delegate = self
         player.playbackDelegate = self
         playlistsDataSource.delegate = self
         bottomView.addGestureRecognizer(tapGesture)
         tableView.tableFooterView = UIView()
-        bottomView = playBackView
+        bottomView.delegate = self
+        bottomView.paused = true
         
         let command = MPRemoteCommandCenter.sharedCommandCenter()
         command.nextTrackCommand.enabled = true
@@ -81,6 +80,9 @@ class ViewController: UIViewController {
         command.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
         command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
+        guard let navigationController = navigationController else { return }
+        navigationController.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController.navigationBarHidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -181,9 +183,11 @@ class ViewController: UIViewController {
         case .spotify:
             if player.isPlaying {
                 stopRecording()
+                bottomView.paused = true
             } else {
                 startRecording()
                 startTrackingProgress()
+                bottomView.paused = false
             }
             spotifyService.updateIsPlaying()
         case .local:
@@ -191,9 +195,11 @@ class ViewController: UIViewController {
             case .playing:
                 stopRecording()
                 stopTrackingProgress()
+                bottomView.paused = true
             case .paused:
                 startRecording()
                 startTrackingProgress()
+                bottomView.paused = false
             default:
                 break
             }
@@ -270,7 +276,9 @@ class ViewController: UIViewController {
         stopRecording()
         stopTrackingProgress()
         store.dispatch(settingsService.resetMusicState())
+        animateOutBottomView()
     }
+    
     
     // MARK: - Background blur
     
@@ -280,6 +288,7 @@ class ViewController: UIViewController {
                 self.visualEffectView.alpha = 1.0
             })
         }
+        navigationController?.navigationBarHidden = false
     }
     
     func removeBlurFromBackground() {
@@ -360,6 +369,7 @@ extension ViewController: PlaylistCellDelegate {
     
     func playSpotify(uri: NSURL) {
         spotifyService.play(uri: uri)
+        bottomView.paused = false
         startRecording()
     }
     
@@ -368,6 +378,7 @@ extension ViewController: PlaylistCellDelegate {
         store.dispatch(musicService.playPlaylist)
         startRecording()
         startTrackingProgress()
+        bottomView.paused = false
     }
     
 }
@@ -381,6 +392,45 @@ extension ViewController: SettingsDelegate {
     }
 }
 
+
+// MARK: - Playback view delegate
+
+extension ViewController: PlaybackViewDelegate {
+    
+    func pausePlayTapped() {
+        switch musicState {
+        case .spotify:
+            if player.currentTrackURI != nil {
+                break
+            } else {
+                return
+            }
+        case .local:
+            switch playback {
+            case .playing, .paused:
+                break
+            case .stopped:
+                return
+            }
+        case .none:
+            return
+        }
+        playPauseTapped()
+    }
+    
+    func previousTapped() {
+        previousTrackTapped()
+    }
+    
+    func nextTapped() {
+        nextTrackTapped()
+    }
+    
+    func expandTapped() {
+        performSegueWithIdentifier("PresentPlayback", sender: self)
+    }
+    
+}
 
 // MARK: - Store subscriber
 
@@ -463,7 +513,6 @@ extension ViewController: StoreSubscriber {
         case .none:
             tableView.hidden = true
             removeBlurFromBackground()
-            animateOutBottomView()
             do {
                 try player.stop()
             } catch {

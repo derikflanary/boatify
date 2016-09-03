@@ -10,7 +10,7 @@ import UIKit
 
 protocol PlaybackViewDelegate {
     func nextTapped()
-    func playPauseTapped()
+    func pausePlayTapped()
     func previousTapped()
     func expandTapped()
 }
@@ -18,7 +18,21 @@ protocol PlaybackViewDelegate {
 class PlaybackView: UIView {
     
     var delegate: PlaybackViewDelegate?
+    var paused: Bool = false {
+        didSet {
+            if paused {
+                if let image = UIImage(named: "play") {
+                    playPauseButton.setImage(image, forState: .Normal)
+                }
+            } else {
+                if let image = UIImage(named: "pause") {
+                    playPauseButton.setImage(image, forState: .Normal)
+                }
+            }
+        }
+    }
 
+    @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
@@ -28,7 +42,8 @@ class PlaybackView: UIView {
     }
     
     @IBAction func playPauseTapped() {
-        delegate?.playPauseTapped()
+        
+        delegate?.pausePlayTapped()
     }
     
     @IBAction func previousButtonTapped() {
