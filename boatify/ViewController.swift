@@ -39,20 +39,25 @@ class ViewController: UIViewController {
         return (maxVolume + minVolume) / 2
     }
     
+    var blurView: UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        return UIVisualEffectView(effect: blurEffect)
+    }
     
     // MARK: - Interface properties
     
+    @IBOutlet var emptyStateView: UIView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    @IBOutlet weak var spotifyLogo: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var spotifyLoginButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var playlistsDataSource: PlaylistsDataSource!
-    @IBOutlet weak var trackNameLabel: UILabel!
-    @IBOutlet weak var artistLabel: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var playLocalButton: UIButton!
+    @IBOutlet var playBackView: PlaybackView!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var bottomView: PlaybackView!
+    @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - View cycle overrides
     
@@ -64,13 +69,16 @@ class ViewController: UIViewController {
         playlistsDataSource.delegate = self
         bottomView.addGestureRecognizer(tapGesture)
         tableView.tableFooterView = UIView()
+        bottomView = playBackView
         
         let command = MPRemoteCommandCenter.sharedCommandCenter()
         command.nextTrackCommand.enabled = true
         command.previousTrackCommand.enabled = true
-        command.pauseCommand.enabled = true
-        command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.togglePlayPauseCommand.enabled = true
+        command.playCommand.enabled = true
         command.playCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.pauseCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
         command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
     }
@@ -78,6 +86,10 @@ class ViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)
+        spotifyLoginButton.layer.cornerRadius = 5
+        spotifyLoginButton.clipsToBounds = true
+        playLocalButton.layer.cornerRadius = 5
+        playLocalButton.clipsToBounds = true
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -89,14 +101,14 @@ class ViewController: UIViewController {
     // MARK: - Bottom view animations
     
     func animateInBottomView() {
-        bottomViewHeightConstraint.constant = 44
+        bottomViewBottomConstraint.constant = 0
         UIView.animateWithDuration(0.5) { 
             self.view.layoutIfNeeded()
         }
     }
     
     func animateOutBottomView() {
-        bottomViewHeightConstraint.constant = 0
+        bottomViewBottomConstraint.constant = -60
         UIView.animateWithDuration(0.5) {
             self.view.layoutIfNeeded()
         }
@@ -221,9 +233,9 @@ class ViewController: UIViewController {
         switch musicState {
         case .spotify:
             let percent = spotifyService.trackProgress()
-            progressView.setProgress(percent, animated: true)
+            bottomView.progressView.setProgress(percent, animated: true)
         case .local:
-            progressView.setProgress(Float(trackPercent), animated: true)
+            bottomView.progressView.setProgress(Float(trackPercent), animated: true)
             store.dispatch(musicService.updateTrackProgress)
         case .none:
             break
@@ -259,6 +271,35 @@ class ViewController: UIViewController {
         stopTrackingProgress()
         store.dispatch(settingsService.resetMusicState())
     }
+    
+    // MARK: - Background blur
+    
+    func blurBackground() {
+        if visualEffectView.alpha == 0 {
+            UIView.animateWithDuration(1.0, animations: {
+                self.visualEffectView.alpha = 1.0
+            })
+        }
+    }
+    
+    func removeBlurFromBackground() {
+        spotifyLoginButton.alpha = 0
+        playLocalButton.alpha = 0
+        spotifyLogo.alpha = 0
+        spotifyLoginButton.hidden = false
+        playLocalButton.hidden = false
+        spotifyLogo.hidden = false
+        if visualEffectView.alpha == 1 {
+            UIView.animateWithDuration(1.0, animations: {
+                self.visualEffectView.alpha = 0.0
+            })
+        }
+        UIView.animateWithDuration(1.0, animations: {
+            self.spotifyLoginButton.alpha = 1
+            self.playLocalButton.alpha = 1
+            self.spotifyLogo.alpha = 1
+        })
+    }
 }
 
 
@@ -279,9 +320,8 @@ extension ViewController: SPTAudioStreamingPlaybackDelegate {
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: NSURL!) {
         guard let trackName = player.currentTrackMetadata[SPTAudioStreamingMetadataTrackName] as? String, artistName = player.currentTrackMetadata[SPTAudioStreamingMetadataArtistName] as? String else { return }
         player.currentTrackDuration
-        trackNameLabel.text = trackName
-        artistLabel.text = artistName
-        animateInBottomView()
+        bottomView.trackLabel.text = trackName
+        bottomView.artistLabel.text = artistName
         startTrackingProgress()
     }
 
@@ -308,7 +348,7 @@ extension ViewController: UITableViewDelegate {
             }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 52
     }
     
 }
@@ -370,15 +410,24 @@ extension ViewController: StoreSubscriber {
             case .viewing:
                 dismissBanner()
                 tableView.hidden = false
+                spotifyLoginButton.hidden = true
+                playLocalButton.hidden = true
+                spotifyLogo.hidden = true
+                animateInBottomView()
                 playlistsDataSource.spotifyPlaylists = state.spotifyState.playlists
                 if state.spotifyState.playlistImages.count != 0 {
                     playlistsDataSource.images = state.spotifyState.playlistImages
-                    tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+                }
+                if playlistsDataSource.spotifyPlaylists.count == 0 {
+                    tableView.backgroundView = emptyStateView
                 }
             case let .loading(message):
                 showLoadingBanner(message)
                 spotifyLoginButton.hidden = true
                 playLocalButton.hidden = true
+                spotifyLogo.hidden = true
+                blurBackground()
             case let .error(message):
                 showErrorBanner(message)
             }
@@ -386,7 +435,9 @@ extension ViewController: StoreSubscriber {
             tableView.hidden = false
             spotifyLoginButton.hidden = true
             playLocalButton.hidden = true
-            
+            spotifyLogo.hidden = true
+            blurBackground()
+            animateInBottomView()
             if MPMediaLibrary.authorizationStatus() == .Authorized && !state.localMusicState.playlistsLoaded {
                 store.dispatch(musicService.getPlaylists())
                 requestPermissionToRecord()
@@ -396,28 +447,29 @@ extension ViewController: StoreSubscriber {
                     self.requestPermissionToRecord()
                 })
             } else {
-                playlistsDataSource.localPlaylists = state.localMusicState.playlists
+                self.playlistsDataSource.localPlaylists = state.localMusicState.playlists
+                if self.playlistsDataSource.localPlaylists.count == 0 {
+                    self.tableView.backgroundView = emptyStateView
+                }
                 tableView.reloadData()
+
                 trackPercent = state.localMusicState.trackPercent
                 playback = state.localMusicState.playback
                 if let track = state.localMusicState.currentTrack {
-                    trackNameLabel.text = track.title
-                    artistLabel.text = track.artist
+                    bottomView.trackLabel.text = track.title
+                    bottomView.artistLabel.text = track.artist
                 }
             }
         case .none:
             tableView.hidden = true
-            spotifyLoginButton.hidden = false
-            playLocalButton.hidden = false
+            removeBlurFromBackground()
+            animateOutBottomView()
             do {
                 try player.stop()
             } catch {
                 print(error)
             }
-            
-                
         }
-        
     }
     
 }

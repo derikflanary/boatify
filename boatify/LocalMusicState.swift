@@ -21,6 +21,7 @@ struct LocalMusicState {
     var player = AVQueuePlayer()
     var playback = Playback.stopped
     var trackPercent: Double = 0.0
+    var shuffle = false
     
     func reduce(action: Action) -> LocalMusicState {
         var state = self
@@ -35,6 +36,7 @@ struct LocalMusicState {
             state.selectedTrack = action.item
         case let action as Playing:
             state.currentTrack = action.item
+            state.selectedTrack = action.item
             state.playback = .playing
         case let action as Updated<Playback>:
             state.playback = action.item

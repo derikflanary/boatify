@@ -21,7 +21,8 @@ class PlaylistCell: UITableViewCell {
     var localPlaylist: MPMediaPlaylist?
     var musicState = MusicState.none
     
-    @IBOutlet weak var playlistImageView: UIImageView!
+    
+    @IBOutlet weak var playlistImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var playlistDetailLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
@@ -40,9 +41,9 @@ class PlaylistCell: UITableViewCell {
         
     }
     
-    func configureWithSpotify(playlist: SPTPartialPlaylist, image: UIImage) {
+    func configureWithSpotify(playlist: SPTPartialPlaylist, image: UIImage?) {
         self.spotifyPlaylist = playlist
-        playlistImageView.image = image
+        playlistImage.image = image
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
         layoutIfNeeded()

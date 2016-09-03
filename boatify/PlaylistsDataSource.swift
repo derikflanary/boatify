@@ -32,10 +32,15 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCellWithIdentifier(String(PlaylistCell), forIndexPath: indexPath) as? PlaylistCell else { fatalError() }
         
         cell.musicState = musicState
+        cell.backgroundColor = UIColor(white: 0, alpha: 0)
         switch musicState {
         case .spotify:
+            guard spotifyPlaylists.count > 0 else { break }
             let playlist = spotifyPlaylists[indexPath.row]
-            let image = images[indexPath.row]
+            var image: UIImage?
+            if images.count > 0 {
+                image = images[indexPath.row]
+            }
             cell.configureWithSpotify(playlist, image: image)
         case .local:
             if let playlist = localPlaylists[indexPath.row] as? MPMediaPlaylist {

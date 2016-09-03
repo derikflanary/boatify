@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */; };
 		EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */; };
+		EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3959181D7B724700164B30 /* PlaybackView.swift */; };
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
@@ -59,7 +61,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Extensions.swift"; sourceTree = "<group>"; };
 		EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		EC3959181D7B724700164B30 /* PlaybackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 			children = (
 				EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */,
 				EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */,
+				EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */,
 			);
 			name = Infrastructure;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 				EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */,
 				EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */,
 				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
+				EC3959181D7B724700164B30 /* PlaybackView.swift */,
 				EC6C3BEA1D5F8F7F0083ECF1 /* Playlist Details */,
 				EC6C3BE91D5F8F6E0083ECF1 /* Settings */,
 			);
@@ -428,12 +434,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */,
 				EE550E831D56507100C19603 /* SpotifyService.swift in Sources */,
 				EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */,
 				EE550E7F1D564F7100C19603 /* AppState.swift in Sources */,
 				EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */,
 				EC6C3BE21D5EE94D0083ECF1 /* PlaylistDetailViewController.swift in Sources */,
 				EC6C3BF01D611EEC0083ECF1 /* SpotifyState.swift in Sources */,
+				EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */,
 				EC6C3BE61D5EEBFE0083ECF1 /* TracksDataSource.swift in Sources */,
 				EC6C3BE81D5F7DFF0083ECF1 /* RecordingService.swift in Sources */,
 				EC6C3BEE1D6114560083ECF1 /* MusicService.swift in Sources */,

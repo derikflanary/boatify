@@ -171,6 +171,10 @@ struct SpotifyService {
         }
     }
     
+    func shufflePlaylist() {
+        player.shuffle = true
+    }
+    
 }
 
 

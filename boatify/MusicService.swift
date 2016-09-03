@@ -24,6 +24,10 @@ struct UpdatedTrackProgress: Action {
     let percent: Double
 }
 
+struct UpdatedShuffle: Action {
+    let shuffle: Bool
+}
+
 struct StoppedPlayer: Action { }
 
 struct MusicService {
@@ -57,11 +61,17 @@ struct MusicService {
         let player = state.localMusicState.player
         player.removeAllItems()
         
-        for item in playlist.items {
+        var tracks = playlist.items
+        if state.localMusicState.shuffle {
+            tracks.shuffleInPlace()
+        }
+        
+        for item in tracks {
             guard let url = item.assetURL else { continue }
             let playerItem = AVPlayerItem(URL: url)
             player.insertItem(playerItem, afterItem: nil)
         }
+        
         player.volume = Float(state.minVolume)
         player.play()
         return Playing(item: playlist.items.first!)
@@ -73,9 +83,14 @@ struct MusicService {
         
         let player = state.localMusicState.player
         player.removeAllItems()
-        var advanceToNext = true
         
-        for item in playlist.items {
+        var advanceToNext = true
+        var tracks = playlist.items
+        if state.localMusicState.shuffle {
+            tracks.shuffleInPlace()
+        }
+        
+        for item in tracks {
             guard let url = item.assetURL else { continue }
             let playerItem = AVPlayerItem(URL: url)
             player.insertItem(playerItem, afterItem: nil)
@@ -90,6 +105,38 @@ struct MusicService {
         player.play()
         return Playing(item: selectedTrack)
         
+    }
+    
+    func enableShuffle() -> AppActionCreator {
+        return { state, store in
+            store.dispatch(UpdatedShuffle(shuffle: true))
+            
+            guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
+            guard let currentTrack = state.localMusicState.currentTrack else { return nil }
+            let player = state.localMusicState.player
+            
+            var tracks = playlist.items
+            tracks.shuffleInPlace()
+            for track in tracks {
+                if currentTrack != track {
+                    guard let url = track.assetURL, currentUrl = currentTrack.assetURL else { continue }
+                    let playerItem = AVPlayerItem(URL: url)
+                    player.removeItem(playerItem)
+                    let currentITem = AVPlayerItem(URL: currentUrl)
+                    player.insertItem(playerItem, afterItem: currentITem)
+                }
+            }
+            return nil
+        }
+        
+    }
+    
+    func disableShuffle() -> AppActionCreator {
+        return { state, store in
+            store.dispatch(UpdatedShuffle(shuffle: false))
+            store.dispatch(self.playTrack)
+            return nil
+        }
     }
     
     func update(volume: Float) -> AppActionCreator {
