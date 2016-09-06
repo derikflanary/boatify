@@ -33,6 +33,7 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
         
         cell.musicState = musicState
         cell.backgroundColor = UIColor(white: 0, alpha: 0)
+        cell.playButton.tintColor = UIColor.darkGrayColor()
         switch musicState {
         case .spotify:
             guard spotifyPlaylists.count > 0 else { break }
