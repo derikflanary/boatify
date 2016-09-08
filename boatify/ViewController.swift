@@ -82,7 +82,6 @@ class ViewController: UIViewController {
         command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
         guard let navigationController = navigationController else { return }
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
-        navigationController.navigationBarHidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -284,9 +283,17 @@ class ViewController: UIViewController {
     
     func blurBackground() {
         if visualEffectView.alpha == 0 {
-            UIView.animateWithDuration(1.0, animations: {
+            UIView.animateWithDuration(0.5, animations: {
                 self.visualEffectView.alpha = 1.0
             })
+        }
+        switch musicState {
+        case .spotify:
+            title = "Spotify Playlists"
+        case .local:
+            title = "Local Playlists"
+        default:
+            title = ""
         }
         navigationController?.navigationBarHidden = false
     }
@@ -459,6 +466,7 @@ extension ViewController: StoreSubscriber {
                 }
             case .viewing:
                 dismissBanner()
+                blurBackground()
                 tableView.hidden = false
                 spotifyLoginButton.hidden = true
                 playLocalButton.hidden = true
@@ -513,6 +521,7 @@ extension ViewController: StoreSubscriber {
         case .none:
             tableView.hidden = true
             removeBlurFromBackground()
+            navigationController?.navigationBarHidden = true
             do {
                 try player.stop()
             } catch {

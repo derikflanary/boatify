@@ -137,11 +137,13 @@ extension PlaylistDetailViewController: StoreSubscriber {
             tracksDataSource.spotifyTracks = state.spotifyState.tracks
             tracksDataSource.selectedSpotifyTrack = state.spotifyState.selectedTrack
             tableView.reloadData()
+            title = state.spotifyState.selectedPlaylist?.name
         case .local:
             guard let tracks = state.localMusicState.selectedPlaylist?.items else { return }
             tracksDataSource.localTracks = tracks
             tracksDataSource.currentLocalTrack = state.localMusicState.currentTrack
             tableView.reloadData()
+            title = state.localMusicState.selectedPlaylist?.name
             break
         case .none:
             break

@@ -33,7 +33,7 @@ struct AppReducer: Reducer {
             if action.item == .none {
                 state.localMusicState = LocalMusicState()
                 let session = state.spotifyState.session
-                state.spotifyState = SpotifyState()
+                state.spotifyState.selectedPlaylist = nil
                 state.spotifyState.session = session
             }
         default:

@@ -20,13 +20,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
-                                <rect key="frame" x="20" y="94" width="560" height="220"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
+                                <rect key="frame" x="20" y="94" width="560" height="221"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set maximum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-CO-5pd">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="20"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6u-XN-ofv">
@@ -37,6 +37,7 @@
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="o0V-jS-xZw">
                                         <rect key="frame" x="-2" y="57" width="564" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="maxSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="UCK-a7-RlH"/>
                                         </connections>
@@ -44,25 +45,28 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set minimum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDG-3a-V1b">
                                         <rect key="frame" x="0.0" y="97" width="560" height="20"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Y-rE-qch">
-                                        <rect key="frame" x="0.0" y="126" width="560" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Y-rE-qch">
+                                        <rect key="frame" x="0.0" y="127" width="560" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="P9B-Pk-XeU">
-                                        <rect key="frame" x="-2" y="153" width="564" height="31"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="P9B-Pk-XeU">
+                                        <rect key="frame" x="-2" y="154" width="564" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="minSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="Vot-Go-ck6"/>
                                         </connections>
                                     </slider>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpQ-Et-fWh">
-                                        <rect key="frame" x="0.0" y="193" width="560" height="27"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpQ-Et-fWh">
+                                        <rect key="frame" x="0.0" y="194" width="560" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" title="Reset"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="resetButtonTapped" destination="TNe-dB-jk6" eventType="touchUpInside" id="iFC-HR-oD0"/>
                                         </connections>
@@ -70,7 +74,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="igG-uo-y5C" firstAttribute="top" secondItem="B7h-BY-vle" secondAttribute="bottom" constant="30" id="BMw-QO-HC0"/>
                             <constraint firstAttribute="trailing" secondItem="igG-uo-y5C" secondAttribute="trailing" id="CbK-uC-c3x"/>
@@ -263,7 +267,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83a-5c-ScB" id="uGX-MY-t1G">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="51.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp" userLabel="playlist image">
@@ -288,7 +292,7 @@
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCE-hO-3uf">
-                                                    <rect key="frame" x="78" y="28" width="50" height="15"/>
+                                                    <rect key="frame" x="78" y="29" width="50" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -305,7 +309,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-SW-DXV">
-                                                    <rect key="frame" x="78" y="7" width="58" height="20.5"/>
+                                                    <rect key="frame" x="78" y="7" width="58" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -444,6 +448,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mS3-xk-qu8">
+                        <barButtonItem key="backBarButtonItem" title=" " id="0Dz-Lz-7El"/>
                         <barButtonItem key="leftBarButtonItem" image="switchMusic" id="UeY-hB-7fT">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -559,25 +564,25 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FsR-se-bhi" id="86Y-UC-kGZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TF-79-ioy">
-                                                    <rect key="frame" x="16" y="26" width="566.5" height="15"/>
+                                                    <rect key="frame" x="16" y="29" width="567" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbG-T6-40B">
-                                                    <rect key="frame" x="16" y="8" width="567" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="16" y="8" width="567" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1TF-79-ioy" firstAttribute="leading" secondItem="QbG-T6-40B" secondAttribute="leading" id="12G-OL-B07"/>
-                                                <constraint firstItem="1TF-79-ioy" firstAttribute="top" secondItem="QbG-T6-40B" secondAttribute="bottom" constant="1" id="1Qm-yn-gXl"/>
+                                                <constraint firstItem="1TF-79-ioy" firstAttribute="top" secondItem="QbG-T6-40B" secondAttribute="bottom" id="1Qm-yn-gXl"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="QbG-T6-40B" secondAttribute="trailing" constant="9" id="604-Nm-11C"/>
                                                 <constraint firstItem="QbG-T6-40B" firstAttribute="top" secondItem="86Y-UC-kGZ" secondAttribute="topMargin" id="HLJ-eD-4qY"/>
                                                 <constraint firstItem="QbG-T6-40B" firstAttribute="leading" secondItem="86Y-UC-kGZ" secondAttribute="leadingMargin" constant="8" id="tFd-Ic-S6y"/>
@@ -628,7 +633,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="L4W-Eu-3do">
-                        <barButtonItem key="backBarButtonItem" title=" " id="Mjf-uh-PAv"/>
+                        <barButtonItem key="backBarButtonItem" title="  " id="Mjf-uh-PAv"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Uqk-gF-Jff" id="o5R-Jd-4Cw"/>
