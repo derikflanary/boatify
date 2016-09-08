@@ -285,6 +285,7 @@ class ViewController: UIViewController {
         if visualEffectView.alpha == 0 {
             UIView.animateWithDuration(0.5, animations: {
                 self.visualEffectView.alpha = 1.0
+                self.tableView.alpha = 1.0
             })
         }
         switch musicState {
@@ -308,6 +309,7 @@ class ViewController: UIViewController {
         if visualEffectView.alpha == 1 {
             UIView.animateWithDuration(1.0, animations: {
                 self.visualEffectView.alpha = 0.0
+                self.tableView.alpha = 0.0
             })
         }
         UIView.animateWithDuration(1.0, animations: {
