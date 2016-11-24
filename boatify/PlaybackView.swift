@@ -22,11 +22,11 @@ class PlaybackView: UIView {
         didSet {
             if paused {
                 if let image = UIImage(named: "play") {
-                    playPauseButton.setImage(image, forState: .Normal)
+                    playPauseButton.setImage(image, for: UIControlState())
                 }
             } else {
                 if let image = UIImage(named: "pause") {
-                    playPauseButton.setImage(image, forState: .Normal)
+                    playPauseButton.setImage(image, for: UIControlState())
                 }
             }
         }

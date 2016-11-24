@@ -24,6 +24,7 @@ struct SpotifyService {
     
     // MARK: - Main function
     
+    
     func checkForSession() -> Action {
         return AppLaunched()
     }
@@ -34,22 +35,23 @@ struct SpotifyService {
     
     func loginToSpotify() {
         SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: kCallbackURL)
+        SPTAuth.defaultInstance().redirectURL = URL(string: kCallbackURL)
         SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserLibraryReadScope]
-        let loginURL = SPTAuth.defaultInstance().loginURL
-        UIApplication.sharedApplication().openURL(loginURL)
+        SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
+        let loginURL = SPTAuth.defaultInstance().spotifyWebAuthenticationURL()
+        UIApplication.shared.openURL(loginURL!)
     }
     
     // TODO: - Get refresh working
-    func refresh(session: SPTSession) -> AppActionCreator {
+    func refresh(_ session: SPTSession) -> AppActionCreator {
         return { state, store in
             SPTAuth.defaultInstance().clientID = SpotifyService.kClientId
             SPTAuth.defaultInstance().requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserLibraryReadScope]
             SPTAuth.defaultInstance().renewSession(session) { (error, newSession) in
-                if error == nil {
-                    store.dispatch(Retrieved(item: newSession))
-                } else {
+                if let error = error {
                     print(error)
+                } else {
+                    store.dispatch(Retrieved(item: newSession))
                 }
             }
             return nil
@@ -57,10 +59,10 @@ struct SpotifyService {
 
     }
     
-    func handleAuth(for url: NSURL) -> AppActionCreator {
+    func handleAuth(for url: URL) -> AppActionCreator {
         return { state, store in
-            SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: { error, session in
-                if error != nil {
+            SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: url, callback: { error, session in
+                if let error = error {
                     print(error)
                 } else {
                     store.dispatch(Retrieved(item: session))
@@ -70,11 +72,11 @@ struct SpotifyService {
         }
     }
     
-    func loginPlayer(state: AppState, store: Store<AppState>) -> Action? {
+    func loginPlayer(_ state: AppState, store: Store<AppState>) -> Action? {
         guard let session = state.spotifyState.session else { return nil }
         do {
-            try player.startWithClientId(SpotifyService.kClientId)
-            player.loginWithAccessToken(session.accessToken)
+            try player?.start(withClientId: SpotifyService.kClientId)
+            player?.login(withAccessToken: session.accessToken)
             return Updated(item: ViewState.loading(message: "Loading your playlists..."))
         } catch {
             print(error)
@@ -82,97 +84,102 @@ struct SpotifyService {
         }
     }
     
-    func getPlaylists() -> AppActionCreator {
-        return { state, store in
-            guard let session = state.spotifyState.session else { return nil }
-
-            SPTPlaylistList.playlistsForUserWithSession(session, callback: { error, list in
-                guard let playlists = list as? SPTPlaylistList else { return }
-                guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
-                let imageURIs = partialPlaylists.map { $0.largestImage.imageURL }
-                var images = [UIImage]()
-                for uri in imageURIs {
-                    if let imageData = NSData(contentsOfURL: uri), image = UIImage(data: imageData) {
-                        images.append(image)
-                    }
+    func getPlaylists(_ state: AppState, store: Store<AppState>) -> Action? {
+        SPTPlaylistList.playlists(forUser: state.spotifyState.user?.canonicalUserName, withAccessToken: state.spotifyState.session?.accessToken, callback: { (error, list) in
+            
+            guard let playlists = list as? SPTPlaylistList else { return }
+            guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
+            let imageURIs = partialPlaylists.map { $0.largestImage.imageURL }
+            var images = [UIImage]()
+            for uri in imageURIs {
+                if let uri = uri, let imageData = try? Data(contentsOf: uri), let image = UIImage(data: imageData) {
+                    images.append(image)
                 }
-                store.dispatch(Loaded(items: partialPlaylists))
-                store.dispatch(Loaded(items: images))
-            })
-            return nil
-        }
+            }
+            store.dispatch(Loaded(items: partialPlaylists))
+            store.dispatch(Loaded(items: images))
+        })
+        return nil
     }
     
-    func getPlaylistDetails(state: AppState, store: Store<AppState>) -> Action? {
-        guard let playlist = state.spotifyState.selectedPlaylist, session = state.spotifyState.session else { return nil }
-        
-        SPTPlaylistSnapshot.playlistWithURI(playlist.uri, session: session) { error, snapshot in
-            if error != nil {
+    func getPlaylistDetails(_ state: AppState, store: Store<AppState>) -> Action? {
+        guard let playlist = state.spotifyState.selectedPlaylist else { return nil }
+        SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: state.spotifyState.session?.accessToken) { error, snapshot in
+            if let error = error {
                 print(error)
             } else {
                 guard let playlistSnapShot = snapshot as? SPTPlaylistSnapshot else { return }
                 let trackList = playlistSnapShot.firstTrackPage
-                if let tracks = trackList.items as? [SPTPartialTrack] {
+                if let tracks = trackList?.items as? [SPTPartialTrack] {
                     store.dispatch(Loaded(items: tracks))
                 }
             }
         }
-        
         return nil
     }
-    
-    func select(playlist: SPTPartialPlaylist) -> Action {
+
+    func select(_ playlist: SPTPartialPlaylist) -> Action {
         return Selected(item: playlist)
     }
     
-    func select(track: SPTPartialTrack) -> Action {
+    func select(_ track: SPTPartialTrack) -> Action {
         return Selected(item: track)
     }
     
-    func update(volume: Double) {
-        player.setVolume(volume, callback: nil)
-        print(player.volume)
+    func update(_ volume: Double) {
+        player?.setVolume(volume, callback: nil)
+        print(player?.volume as Any)
     }
     
     func updateIsPlaying() {
-        player.setIsPlaying(!player.isPlaying) { error in
-            if error != nil {
+        guard let player = player else { return }
+        player.setIsPlaying(!player.playbackState.isPlaying, callback: { error in
+            if let error = error {
                 print(error)
             }
-        }
+        })
     }
     
     func trackProgress() -> Float {
-        let percent = player.currentPlaybackPosition / player.currentTrackDuration
+        guard let player = player, let trackDuration = player.metadata.currentTrack?.duration else { return 0.0 }
+        let percent = (player.playbackState.position) / (trackDuration)
         return Float(percent)
     }
     
-    func play(uris uris: [NSURL]) {
+    func play(uris: [URL]) {
         
     }
     
-    func play(uri uri: NSURL) {
-        player.playURIs([uri], withOptions: SPTPlayOptions(), callback: nil)
+    func play(uri: URL) {
+        player?.playSpotifyURI(uri.absoluteString, startingWith: 0, startingWithPosition: 0, callback: { error in
+            if let error = error {
+                print(error)
+            }
+        })
     }
     
     func advanceToNextTrack() {
-        player.skipNext { error in
-            if error != nil {
+        player?.skipNext { error in
+            if let error = error {
                 print(error)
             }
         }
     }
     
     func advanceToPreviousTrack() {
-        player.skipPrevious { error in
-            if error != nil {
+        player?.skipPrevious { error in
+            if let error = error {
                 print(error)
             }
         }
     }
     
     func shufflePlaylist() {
-        player.shuffle = true
+        player?.setShuffle(true, callback: { error in
+            if let error = error {
+                print(error)
+            }
+        })
     }
     
 }

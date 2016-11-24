@@ -23,7 +23,7 @@ struct LocalMusicState {
     var trackPercent: Double = 0.0
     var shuffle = false
     
-    func reduce(action: Action) -> LocalMusicState {
+    func reduce(_ action: Action) -> LocalMusicState {
         var state = self
         
         switch action {

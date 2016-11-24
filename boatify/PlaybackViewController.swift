@@ -11,8 +11,8 @@ import ReSwift
 
 class PlaybackViewController: UIViewController {
 
-    @IBAction func dismissTapped(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func dismissTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
 }

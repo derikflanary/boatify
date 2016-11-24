@@ -10,7 +10,7 @@ import UIKit
 import ReSwift
 
 protocol SettingsDelegate {
-    func volumeChanged(minVolume: Double, maxVolume: Double)
+    func volumeChanged(_ minVolume: Double, maxVolume: Double)
 }
 
 class SettingsViewController: UIViewController {
@@ -33,12 +33,12 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
     }
@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Interface actions
     
-    @IBAction func maxSliderChangedValue(sender: AnyObject) {
+    @IBAction func maxSliderChangedValue(_ sender: AnyObject) {
         if maxSlider.value <= minSlider.value + 0.1 {
             maxSlider.value = minSlider.value + 0.1
             showTemporaryMessage("Max volume must be higher than minimum")
@@ -55,7 +55,7 @@ class SettingsViewController: UIViewController {
         delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
     }
     
-    @IBAction func minSliderChangedValue(sender: AnyObject) {
+    @IBAction func minSliderChangedValue(_ sender: AnyObject) {
         if minSlider.value >= maxSlider.value - 0.1 {
             minSlider.value = maxSlider.value - 0.1
             showTemporaryMessage("Minimum volume must be lower than max")
@@ -64,22 +64,22 @@ class SettingsViewController: UIViewController {
         delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
     }
     
-    @IBAction func doneTapped(sender: UIBarButtonItem) {
+    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
         store.dispatch(settingsService.updateVolumes(minVolume: minSlider.value, maxVolume: maxSlider.value))
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancelTapped(sender: UIBarButtonItem) {
-        guard let minVolume = originalMinVolume, maxVolume = originalMaxVolume else { return }
+    @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
+        guard let minVolume = originalMinVolume, let maxVolume = originalMaxVolume else { return }
         
         if minVolume != Double(minSlider.value) || maxVolume != Double(maxSlider.value) {
             store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func resetButtonTapped() {
-        guard let minVolume = originalMinVolume, maxVolume = originalMaxVolume else { return }
+        guard let minVolume = originalMinVolume, let maxVolume = originalMaxVolume else { return }
         delegate?.volumeChanged(minVolume, maxVolume: maxVolume)
         minSlider.setValue(Float(minVolume), animated: true)
         maxSlider.setValue(Float(maxVolume), animated: true)

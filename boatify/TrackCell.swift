@@ -9,32 +9,32 @@
 import UIKit
 import MediaPlayer
 
-class TrackCell: UITableViewCell {
+class TrackCell: UITableViewCell, ReusableView {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     
     
-    func configureSpotify(track: SPTPartialTrack, selectedTrack: SPTPartialTrack?) {
+    func configureSpotify(_ track: SPTPartialTrack, selectedTrack: SPTPartialTrack?) {
         nameLabel.text = track.name
         if let artists = track.artists as? [SPTPartialArtist] {
             let artist = artists.first
             artistLabel.text = artist?.name
         }
         if track == selectedTrack {
-            nameLabel.textColor = UIColor.blueColor()
+            nameLabel.textColor = UIColor.blue
         } else {
-            nameLabel.textColor = UIColor.darkGrayColor()
+            nameLabel.textColor = UIColor.darkGray
         }
     }
     
-    func configureLocal(track: MPMediaItem, selectedTrack: MPMediaItem?) {
+    func configureLocal(_ track: MPMediaItem, selectedTrack: MPMediaItem?) {
         nameLabel.text = track.title
         artistLabel.text = track.artist
         if track == selectedTrack {
-            nameLabel.textColor = UIColor.blueColor()
+            nameLabel.textColor = UIColor.blue
         } else {
-            nameLabel.textColor = UIColor.darkGrayColor()
+            nameLabel.textColor = UIColor.darkGray
         }
     }
 }

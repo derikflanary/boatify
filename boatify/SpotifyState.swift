@@ -18,19 +18,17 @@ struct SpotifyState {
     var selectedPlaylist: SPTPartialPlaylist?
     var tracks = [SPTPartialTrack]()
     var selectedTrack: SPTPartialTrack?
+    let auth = SPTAuth.defaultInstance()
     
     
-    func reduce(action: Action) -> SpotifyState {
+    func reduce(_ action: Action) -> SpotifyState {
         var state = self
         
         switch action {
         case _ as AppLaunched:
-            guard let sessionData = NSUserDefaults.standardUserDefaults().objectForKey("SpotifySession") as? NSData, session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession else { break }
-            state.session = session
-        case let action as Retrieved<SPTSession!>:
+            state.session = auth?.session
+        case let action as Retrieved<SPTSession?>:
             state.session = action.item
-            let sessionData = NSKeyedArchiver.archivedDataWithRootObject(action.item)
-            NSUserDefaults.standardUserDefaults().setObject(sessionData, forKey:"SpotifySession")
         case let action as Loaded<SPTPartialPlaylist>:
             state.playlists = action.items
         case let action as Loaded<UIImage>:

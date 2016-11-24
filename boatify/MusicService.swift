@@ -38,7 +38,7 @@ struct MusicService {
     
     func getPlaylists() -> AppActionCreator {
         return { state, store in
-            let query = MPMediaQuery.playlistsQuery()
+            let query = MPMediaQuery.playlists()
             guard let collections = query.collections else { return nil }
             store.dispatch(Loaded(items: collections))
             return nil
@@ -46,15 +46,15 @@ struct MusicService {
         
     }
     
-    func select(playlist: MPMediaPlaylist) -> Action {
+    func select(_ playlist: MPMediaPlaylist) -> Action {
         return Selected(item: playlist)
     }
     
-    func select(track: MPMediaItem) -> Action {
+    func select(_ track: MPMediaItem) -> Action {
         return Selected(item: track)
     }
     
-    func playPlaylist(state: AppState, store: Store<AppState>) -> Action? {
+    func playPlaylist(_ state: AppState, store: Store<AppState>) -> Action? {
         guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
         guard playlist.items.count > 0 else { return nil }
         
@@ -63,13 +63,13 @@ struct MusicService {
         
         var tracks = playlist.items
         if state.localMusicState.shuffle {
-            tracks.shuffleInPlace()
+            tracks.shuffled()
         }
         
         for item in tracks {
             guard let url = item.assetURL else { continue }
-            let playerItem = AVPlayerItem(URL: url)
-            player.insertItem(playerItem, afterItem: nil)
+            let playerItem = AVPlayerItem(url: url)
+            player.insert(playerItem, after: nil)
         }
         
         player.volume = Float(state.minVolume)
@@ -77,7 +77,7 @@ struct MusicService {
         return Playing(item: playlist.items.first!)
     }
     
-    func playTrack(state: AppState, store: Store<AppState>) -> Action? {
+    func playTrack(_ state: AppState, store: Store<AppState>) -> Action? {
         guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
         guard let selectedTrack = state.localMusicState.selectedTrack else { return nil }
         
@@ -87,13 +87,13 @@ struct MusicService {
         var advanceToNext = true
         var tracks = playlist.items
         if state.localMusicState.shuffle {
-            tracks.shuffleInPlace()
+            tracks.shuffled()
         }
         
         for item in tracks {
             guard let url = item.assetURL else { continue }
-            let playerItem = AVPlayerItem(URL: url)
-            player.insertItem(playerItem, afterItem: nil)
+            let playerItem = AVPlayerItem(url: url)
+            player.insert(playerItem, after: nil)
             if item != selectedTrack && advanceToNext {
                 player.advanceToNextItem()
             } else if item == selectedTrack {
@@ -116,14 +116,14 @@ struct MusicService {
             let player = state.localMusicState.player
             
             var tracks = playlist.items
-            tracks.shuffleInPlace()
+            tracks.shuffled()
             for track in tracks {
                 if currentTrack != track {
-                    guard let url = track.assetURL, currentUrl = currentTrack.assetURL else { continue }
-                    let playerItem = AVPlayerItem(URL: url)
-                    player.removeItem(playerItem)
-                    let currentITem = AVPlayerItem(URL: currentUrl)
-                    player.insertItem(playerItem, afterItem: currentITem)
+                    guard let url = track.assetURL, let currentUrl = currentTrack.assetURL else { continue }
+                    let playerItem = AVPlayerItem(url: url)
+                    player.remove(playerItem)
+                    let currentITem = AVPlayerItem(url: currentUrl)
+                    player.insert(playerItem, after: currentITem)
                 }
             }
             return nil
@@ -139,7 +139,7 @@ struct MusicService {
         }
     }
     
-    func update(volume: Float) -> AppActionCreator {
+    func update(_ volume: Float) -> AppActionCreator {
         return { state, store in
             let player = state.localMusicState.player
             player.volume = volume
@@ -148,7 +148,7 @@ struct MusicService {
         }
     }
     
-    func updatePlayPause(state: AppState, store: Store<AppState>) -> Action? {
+    func updatePlayPause(_ state: AppState, store: Store<AppState>) -> Action? {
         switch state.localMusicState.playback {
         case .playing:
             state.localMusicState.player.pause()
@@ -161,12 +161,12 @@ struct MusicService {
         }
     }
     
-    func advanceToNextTrack(state: AppState, store: Store<AppState>) -> Action? {
+    func advanceToNextTrack(_ state: AppState, store: Store<AppState>) -> Action? {
         guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
         guard let item = state.localMusicState.currentTrack else { return nil }
         
         state.localMusicState.player.advanceToNextItem()
-        guard let index = playlist.items.indexOf(item) else { return nil }
+        guard let index = playlist.items.index(of: item) else { return nil }
         
         if index <= playlist.items.count - 1 {
             let nextItem = playlist.items[index + 1]
@@ -179,7 +179,7 @@ struct MusicService {
     
     func advanceToPreviousTrack() -> AppActionCreator {
         return { state, store in
-            guard let playlist = state.localMusicState.selectedPlaylist, item = state.localMusicState.currentTrack, index = playlist.items.indexOf(item) else { return nil }
+            guard let playlist = state.localMusicState.selectedPlaylist, let item = state.localMusicState.currentTrack, let index = playlist.items.index(of: item) else { return nil }
             if index > 0 {
                 let nextItem = playlist.items[index - 1]
                 store.dispatch(Selected(item: nextItem))
@@ -189,7 +189,7 @@ struct MusicService {
         }
     }
     
-    func updateTrackProgress(state: AppState, store: Store<AppState>) -> Action? {
+    func updateTrackProgress(_ state: AppState, store: Store<AppState>) -> Action? {
         guard let item = state.localMusicState.currentTrack else { return nil }
         
         let currentTime = state.localMusicState.player.currentTime().seconds

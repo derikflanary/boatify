@@ -53,4 +53,4 @@ struct AppState: StateType {
 }
 
 
-typealias AppActionCreator = (state: AppState, store: Store<AppState>) -> Action?
+typealias AppActionCreator = (_ state: AppState, _ store: Store<AppState>) -> Action?

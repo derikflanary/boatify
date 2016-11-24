@@ -1,3 +1,2 @@
 github "ReSwift/ReSwift"
-github "Alamofire/Alamofire" ~> 3.4
 github "hyperoslo/Whisper"

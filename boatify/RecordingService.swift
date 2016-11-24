@@ -17,25 +17,25 @@ struct RecordingSetup: Action {
 
 struct RecordingService {
     
-    func setupRecording(state: AppState, store: Store<AppState>) -> Action? {
+    func setupRecording(_ state: AppState, store: Store<AppState>) -> Action? {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try audioSession.setActive(true)
             
-            let fileManager = NSFileManager.defaultManager()
-            let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-            let documentDirectory = urls[0] as NSURL
-            let soundURL = documentDirectory.URLByAppendingPathComponent("sound.caf")
+            let fileManager = FileManager.default
+            let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentDirectory = urls[0] as URL
+            let soundURL = documentDirectory.appendingPathComponent("sound.caf")
             
-            let settings: [String : AnyObject] = [  AVSampleRateKey:44100.0,
-                                                    AVNumberOfChannelsKey:1,AVEncoderBitRateKey:12800,
-                                                    AVLinearPCMBitDepthKey:16,
-                                                    AVEncoderAudioQualityKey:AVAudioQuality.Low.rawValue]
+            let settings: [String : AnyObject] = [  AVSampleRateKey:44100.0 as AnyObject,
+                                                    AVNumberOfChannelsKey:1 as AnyObject,AVEncoderBitRateKey:12800 as AnyObject,
+                                                    AVLinearPCMBitDepthKey:16 as AnyObject,
+                                                    AVEncoderAudioQualityKey:AVAudioQuality.low.rawValue as AnyObject]
             
-            let audioRecorder = try AVAudioRecorder(URL: soundURL, settings: settings)
+            let audioRecorder = try AVAudioRecorder(url: soundURL, settings: settings)
             
-            audioRecorder.meteringEnabled = true
+            audioRecorder.isMeteringEnabled = true
             return RecordingSetup(audioRecorder: audioRecorder)
         } catch {
             print(error)

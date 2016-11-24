@@ -20,7 +20,7 @@ struct MinVolumeUpdated: Action {
 
 struct SettingsService {
     
-    func updateVolumes(minVolume minVolume: Float, maxVolume: Float) -> Action {
+    func updateVolumes(minVolume: Float, maxVolume: Float) -> Action {
         return VolumesUpdated(minVolume: Double(minVolume), maxVolume: Double(maxVolume))
     }
     

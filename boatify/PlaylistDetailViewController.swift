@@ -13,15 +13,16 @@ import MediaPlayer
 
 class PlaylistDetailViewController: UIViewController {
     
+    typealias StoreSubscriberStateType = AppState
     var store = AppState.sharedStore
     var spotifyService = SpotifyService()
     var musicService = MusicService()
     var musicState = MusicState.none
     
-    var trackURIs = [NSURL]()
+    var trackURIs = [URL]()
     var player = SPTAudioStreamingController.sharedInstance()
     var audioRecorder: AVAudioRecorder?
-    var timer: NSTimer?
+    var timer: Timer?
     var maxVolume: Double = 1.0
     var minVolume: Double = 0.5
     
@@ -36,12 +37,12 @@ class PlaylistDetailViewController: UIViewController {
     
     // MARK: - View life cycle
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
     }
@@ -51,7 +52,7 @@ class PlaylistDetailViewController: UIViewController {
     
     func startRecording() {
         guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.meteringEnabled = true
+        audioRecorder.isMeteringEnabled = true
         audioRecorder.record()
         audioRecorder.updateMeters()
         startMeter()
@@ -63,14 +64,14 @@ class PlaylistDetailViewController: UIViewController {
     }
     
     func startMeter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
     }
     
     func updateMeter() {
         func updateMeter() {
             guard let audioRecorder = audioRecorder else { return }
             audioRecorder.updateMeters()
-            let averagePower = audioRecorder.averagePowerForChannel(0)
+            let averagePower = audioRecorder.averagePower(forChannel: 0)
             var volume: Double
             if averagePower < -22.5 {
                 volume = minVolume
@@ -98,15 +99,17 @@ class PlaylistDetailViewController: UIViewController {
 
 extension PlaylistDetailViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch musicState {
         case .spotify:
             let track = tracksDataSource.spotifyTracks[indexPath.row]
-            let options = SPTPlayOptions()
-            options.trackIndex = Int32(indexPath.row)
-            player.setVolume(minVolume, callback: nil)
-            player.playURIs(trackURIs, withOptions: options, callback: nil)
+            player?.setVolume(minVolume, callback: nil)
+            player?.playSpotifyURI(track.playableUri.absoluteString, startingWith: UInt(indexPath.row), startingWithPosition: 0, callback: { error in
+                if let error = error {
+                    print(error)
+                }
+            })
             startRecording()
             store.dispatch(spotifyService.select(track))
         case .local:

@@ -17,7 +17,7 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
     var images = [UIImage]()
     var delegate: PlaylistCellDelegate?
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch musicState {
         case .spotify:
             return spotifyPlaylists.count
@@ -28,12 +28,11 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(String(PlaylistCell), forIndexPath: indexPath) as? PlaylistCell else { fatalError() }
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(for: indexPath) as PlaylistCell
         cell.musicState = musicState
         cell.backgroundColor = UIColor(white: 0, alpha: 0)
-        cell.playButton.tintColor = UIColor.darkGrayColor()
+        cell.playButton.tintColor = UIColor.darkGray
         switch musicState {
         case .spotify:
             guard spotifyPlaylists.count > 0 else { break }
