@@ -12,7 +12,6 @@ import ReSwift
 struct SpotifyState {
     
     var session: SPTSession?
-    var user: SPTUser?
     var playlists = [SPTPartialPlaylist]()
     var playlistImages = [UIImage]()
     var selectedPlaylist: SPTPartialPlaylist?

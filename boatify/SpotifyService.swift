@@ -85,7 +85,7 @@ struct SpotifyService {
     }
     
     func getPlaylists(_ state: AppState, store: Store<AppState>) -> Action? {
-        SPTPlaylistList.playlists(forUser: state.spotifyState.user?.canonicalUserName, withAccessToken: state.spotifyState.session?.accessToken, callback: { (error, list) in
+        SPTPlaylistList.playlists(forUser: state.spotifyState.session?.canonicalUsername, withAccessToken: state.spotifyState.session?.accessToken, callback: { (error, list) in
             
             guard let playlists = list as? SPTPlaylistList else { return }
             guard let partialPlaylists = playlists.tracksForPlayback() as? [SPTPartialPlaylist] else { return }
