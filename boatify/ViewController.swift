@@ -126,65 +126,6 @@ class ViewController: UIViewController {
     }
     
     
-    // MARK: - Recording
-    
-    func requestPermissionToRecord() {
-        if AVAudioSession.sharedInstance().recordPermission() == .granted {
-            store.dispatch(recordingService.setupRecording)
-            print("already granted")
-        } else {
-            AVAudioSession.sharedInstance().requestRecordPermission({ allowed in
-                if allowed {
-                    self.store.dispatch(self.recordingService.setupRecording)
-                    print("allowed")
-                } else {
-                    print("failed to record")
-                }
-            })
-        }
-    }
-    
-    func startRecording() {
-        guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.isMeteringEnabled = true
-        audioRecorder.record()
-        audioRecorder.updateMeters()
-        startMeter()
-    }
-    
-    func stopRecording() {
-        audioRecorder?.stop()
-        timer?.invalidate()
-    }
-    
-    func startMeter() {
-        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
-    }
-    
-    func updateMeter() {
-        guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.updateMeters()
-        let averagePower = audioRecorder.averagePower(forChannel: 0)
-        var volume: Double
-        if averagePower < -22.5 {
-            volume = minVolume
-        } else if averagePower < -15.0 {
-            volume = midVolume
-        } else {
-            volume = maxVolume
-        }
-        print("average: \(averagePower)")
-        switch musicState {
-        case .spotify:
-            spotifyService.update(volume)
-        case .local:
-            store.dispatch(musicService.update(Float(volume)))
-        case .none:
-            break
-        }
-    }
-    
-    
     // MARK: - Remote command
     
     func playPauseTapped() {
@@ -192,10 +133,10 @@ class ViewController: UIViewController {
         case .spotify:
             guard let player = player else { return }
             if (player.playbackState.isPlaying) {
-                stopRecording()
+                store.dispatch(recordingService.stopRecording())
                 bottomView.paused = true
             } else {
-                startRecording()
+                store.dispatch(recordingService.startRecording())
                 startTrackingProgress()
                 bottomView.paused = false
             }
@@ -203,11 +144,11 @@ class ViewController: UIViewController {
         case .local:
             switch playback {
             case .playing:
-                stopRecording()
+                store.dispatch(recordingService.stopRecording())
                 stopTrackingProgress()
                 bottomView.paused = true
             case .paused:
-                startRecording()
+                store.dispatch(recordingService.startRecording())
                 startTrackingProgress()
                 bottomView.paused = false
             default:
@@ -283,7 +224,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func switchMusicStateTapped(_ sender: AnyObject) {
-        stopRecording()
+        store.dispatch(recordingService.stopRecording())
         stopTrackingProgress()
         store.dispatch(settingsService.resetMusicState())
         animateOutBottomView()
@@ -340,7 +281,7 @@ extension ViewController: SPTAudioStreamingDelegate {
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         store.dispatch(spotifyService.getPlaylists)
         player?.setVolume(minVolume, callback: nil)
-        requestPermissionToRecord()
+        store.dispatch(recordingService.requestPermissionToRecord)
     }
     
 }
@@ -391,13 +332,13 @@ extension ViewController: PlaylistCellDelegate {
         store.dispatch(Play(item: playlist))
         spotifyService.play(uri: playlist.playableUri)
         bottomView.paused = false
-        startRecording()
+        store.dispatch(recordingService.startRecording())
     }
     
     func playLocal(_ playlist: MPMediaPlaylist) {
         store.dispatch(Play(item: playlist))
         store.dispatch(musicService.playPlaylist)
-        startRecording()
+        store.dispatch(recordingService.startRecording())
         startTrackingProgress()
         bottomView.paused = false
     }
@@ -505,8 +446,11 @@ extension ViewController: StoreSubscriber {
                 bottomView.shuffle = state.spotifyState.shuffle
                 bottomView.paused = !state.spotifyState.isPlaying
                 playlistsDataSource.spotifyPlaylists = state.spotifyState.playlists
-                playlistsDataSource.currentSpotifyPlaylist = state.spotifyState.currentPlaylist
-                if state.spotifyState.playlistImages.count != 0 {
+                if playlistsDataSource.currentSpotifyPlaylist != state.spotifyState.currentPlaylist {
+                    playlistsDataSource.currentSpotifyPlaylist = state.spotifyState.currentPlaylist
+                    tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                }
+                if state.spotifyState.playlistImages.count != 0 && state.spotifyState.playlistImages != playlistsDataSource.images{
                     playlistsDataSource.images = state.spotifyState.playlistImages
                     tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 }
@@ -523,11 +467,11 @@ extension ViewController: StoreSubscriber {
             animateInBottomView()
             if MPMediaLibrary.authorizationStatus() == .authorized && !state.localMusicState.playlistsLoaded {
                 store.dispatch(musicService.getPlaylists())
-                requestPermissionToRecord()
+                store.dispatch(recordingService.requestPermissionToRecord)
             } else if MPMediaLibrary.authorizationStatus() != .authorized {
                 MPMediaLibrary.requestAuthorization({ (status) in
                     self.store.dispatch(self.musicService.getPlaylists())
-                    self.requestPermissionToRecord()
+                    self.store.dispatch(self.recordingService.requestPermissionToRecord)
                 })
             } else {
                 playlistsDataSource.localPlaylists = state.localMusicState.playlists

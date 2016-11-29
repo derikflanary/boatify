@@ -15,7 +15,6 @@ struct RecorderState {
     var progress: TrackProgress = TrackProgress(percent: 0.0)
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
-//    var timerController = TimerController.sharedInstance
     var progressTimer: Timer?
     var volume = Volume(min: 0.5, max: 1.0)
     

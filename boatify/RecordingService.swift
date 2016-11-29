@@ -25,7 +25,6 @@ struct TimerStarted: Action { }
 
 struct RecordingService {
     
-    var timer: Timer?
     var progressTimer: Timer?
     
     func setupRecording(_ state: AppState, store: Store<AppState>) -> Action? {
@@ -73,12 +72,10 @@ struct RecordingService {
     }
     
     func startRecording() -> Action {
-        
         return RecordingStarted()
     }
     
     func stopRecording() -> Action {
-        timer?.invalidate()
         return RecordingStopped()
     }
     
