@@ -24,10 +24,6 @@ struct UpdatedTrackProgress: Action {
     let percent: Double
 }
 
-struct UpdatedShuffle: Action {
-    let shuffle: Bool
-}
-
 struct StoppedPlayer: Action { }
 
 struct MusicService {
@@ -62,7 +58,7 @@ struct MusicService {
         player.removeAllItems()
         
         var tracks = playlist.items
-        if state.localMusicState.shuffle {
+        if case .on = state.localMusicState.shuffle {
             tracks.shuffled()
         }
         
@@ -86,7 +82,7 @@ struct MusicService {
         
         var advanceToNext = true
         var tracks = playlist.items
-        if state.localMusicState.shuffle {
+        if case .on = state.localMusicState.shuffle {
             tracks.shuffled()
         }
         
@@ -109,7 +105,7 @@ struct MusicService {
     
     func enableShuffle() -> AppActionCreator {
         return { state, store in
-            store.dispatch(UpdatedShuffle(shuffle: true))
+            store.dispatch(Updated(item: Shuffle.on))
             
             guard let playlist = state.localMusicState.selectedPlaylist else { return nil }
             guard let currentTrack = state.localMusicState.currentTrack else { return nil }
@@ -133,7 +129,7 @@ struct MusicService {
     
     func disableShuffle() -> AppActionCreator {
         return { state, store in
-            store.dispatch(UpdatedShuffle(shuffle: false))
+            store.dispatch(Updated(item: Shuffle.off))
             store.dispatch(self.playTrack)
             return nil
         }

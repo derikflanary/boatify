@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 
 protocol PlaylistCellDelegate {
-    func playSpotify(_ uri: URL)
+    func playSpotify(_ playlist: SPTPartialPlaylist)
     func playLocal(_ playlist: MPMediaPlaylist)
 }
 
@@ -31,7 +31,7 @@ class PlaylistCell: UITableViewCell, ReusableView {
         switch musicState {
         case .spotify:
             guard let playlist = spotifyPlaylist, playlist.playableUri != nil else { return }
-            delegate?.playSpotify(playlist.playableUri)
+            delegate?.playSpotify(playlist)
         case .local:
             guard let playlist = localPlaylist else { return }
             delegate?.playLocal(playlist)
@@ -41,18 +41,28 @@ class PlaylistCell: UITableViewCell, ReusableView {
         
     }
     
-    func configureWithSpotify(_ playlist: SPTPartialPlaylist, image: UIImage?) {
+    func configureWithSpotify(_ playlist: SPTPartialPlaylist, image: UIImage?, currentPlaylist: SPTPartialPlaylist?) {
         self.spotifyPlaylist = playlist
         playlistImage.image = image
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
+        if playlist == currentPlaylist {
+            backgroundColor = UIColor(white: 1.0, alpha: 0.4)
+        } else {
+            backgroundColor = UIColor.clear
+        }
         layoutIfNeeded()
     }
     
-    func configureWithLocal(_ playlist: MPMediaPlaylist) {
+    func configureWithLocal(_ playlist: MPMediaPlaylist, currentPlaylist: MPMediaPlaylist?) {
         localPlaylist = playlist
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.count) songs"
+        if playlist == currentPlaylist {
+            backgroundColor = UIColor(white: 1.0, alpha: 0.4)
+        } else {
+            backgroundColor = UIColor.clear
+        }
         layoutIfNeeded()
     }
 }

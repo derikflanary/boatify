@@ -15,9 +15,15 @@ struct SpotifyState {
     var playlists = [SPTPartialPlaylist]()
     var playlistImages = [UIImage]()
     var selectedPlaylist: SPTPartialPlaylist?
+    var currentPlaylist: SPTPartialPlaylist?
     var tracks = [SPTPartialTrack]()
     var selectedTrack: SPTPartialTrack?
     let auth = SPTAuth.defaultInstance()
+    var shuffle = Shuffle.off
+    var isPlaying: Bool {
+        guard SPTAudioStreamingController.sharedInstance().playbackState != nil else { return false }
+        return SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
+    }
     
     
     func reduce(_ action: Action) -> SpotifyState {
@@ -38,6 +44,12 @@ struct SpotifyState {
             state.tracks = action.items
         case let action as Selected<SPTPartialTrack>:
             state.selectedTrack = action.item
+        case let action as Play<SPTPartialPlaylist>:
+            state.currentPlaylist = action.item
+        case let action as Updated<Shuffle>:
+            state.shuffle = action.item
+        case _ as Reset<SPTPartialPlaylist>:
+            state.selectedPlaylist = nil
         default:
             break
         }

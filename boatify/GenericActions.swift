@@ -29,3 +29,12 @@ struct Selected<T>: Action {
 struct Updated<T>: Action {
     let item: T
 }
+
+/// This plays a playlist or track
+struct Play<T>: Action {
+    let item: T
+}
+
+/// This resets an item
+
+struct Reset<T>: Action { }

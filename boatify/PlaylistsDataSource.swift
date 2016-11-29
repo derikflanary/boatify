@@ -16,6 +16,8 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
     var localPlaylists = [MPMediaItemCollection]()
     var images = [UIImage]()
     var delegate: PlaylistCellDelegate?
+    var currentSpotifyPlaylist: SPTPartialPlaylist?
+    var currentLocalPlaylist: MPMediaPlaylist?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch musicState {
@@ -41,10 +43,10 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
             if images.count > 0 {
                 image = images[indexPath.row]
             }
-            cell.configureWithSpotify(playlist, image: image)
+            cell.configureWithSpotify(playlist, image: image, currentPlaylist: currentSpotifyPlaylist)
         case .local:
             if let playlist = localPlaylists[indexPath.row] as? MPMediaPlaylist {
-                cell.configureWithLocal(playlist)
+                cell.configureWithLocal(playlist, currentPlaylist: currentLocalPlaylist)
             }
         case .none:
             return cell

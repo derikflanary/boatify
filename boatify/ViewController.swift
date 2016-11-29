@@ -106,9 +106,11 @@ class ViewController: UIViewController {
     
     func animateInBottomView() {
         bottomViewBottomConstraint.constant = 0
+        tableView.isHidden = false
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
+                self.tableView.alpha = 1.0
             })
         }
     }
@@ -118,6 +120,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
+                self.tableView.alpha = 0.0
             })
         }
     }
@@ -294,7 +297,10 @@ class ViewController: UIViewController {
             if self.visualEffectView.effect == nil {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.visualEffectView.effect = UIBlurEffect(style: .light)
-                    self.tableView.alpha = 1.0
+                    self.spotifyLoginButton.alpha = 0.0
+                    self.playLocalButton.alpha = 0.0
+                    self.spotifyLogo.alpha = 0.0
+
                 })
             }
         }
@@ -311,24 +317,16 @@ class ViewController: UIViewController {
     }
     
     func removeBlurFromBackground() {
-        spotifyLoginButton.alpha = 0
-        playLocalButton.alpha = 0
-        spotifyLogo.alpha = 0
-        spotifyLoginButton.isHidden = false
-        playLocalButton.isHidden = false
-        spotifyLogo.isHidden = false
         DispatchQueue.main.async {
             if self.visualEffectView.effect != nil {
                 UIView.animate(withDuration: 1.0, animations: {
                     self.visualEffectView.effect = nil
                     self.tableView.alpha = 0.0
+                    self.spotifyLoginButton.alpha = 1.0
+                    self.playLocalButton.alpha = 1.0
+                    self.spotifyLogo.alpha = 1.0
                 })
             }
-            UIView.animate(withDuration: 1.0, animations: {
-                self.spotifyLoginButton.alpha = 1
-                self.playLocalButton.alpha = 1
-                self.spotifyLogo.alpha = 1
-            })
         }
 
     }
@@ -389,14 +387,15 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: PlaylistCellDelegate {
     
-    func playSpotify(_ uri: URL) {
-        spotifyService.play(uri: uri)
+    func playSpotify(_ playlist: SPTPartialPlaylist) {
+        store.dispatch(Play(item: playlist))
+        spotifyService.play(uri: playlist.playableUri)
         bottomView.paused = false
         startRecording()
     }
     
     func playLocal(_ playlist: MPMediaPlaylist) {
-        store.dispatch(musicService.select(playlist))
+        store.dispatch(Play(item: playlist))
         store.dispatch(musicService.playPlaylist)
         startRecording()
         startTrackingProgress()
@@ -422,7 +421,7 @@ extension ViewController: PlaybackViewDelegate {
     func pausePlayTapped() {
         switch musicState {
         case .spotify:
-            if player?.metadata.currentTrack?.uri != nil {
+            if player?.metadata != nil {
                 break
             } else {
                 return
@@ -452,7 +451,30 @@ extension ViewController: PlaybackViewDelegate {
         performSegue(withIdentifier: "PresentPlayback", sender: self)
     }
     
+    func shuffleTapped(_ shuffle: Shuffle) {
+        switch musicState {
+        case .spotify:
+            switch shuffle {
+            case .on:
+                store.dispatch(spotifyService.unshufflePlaylist)
+            case .off:
+                store.dispatch(spotifyService.shufflePlaylist)
+            }
+        case .local:
+            switch shuffle {
+            case .on:
+                store.dispatch(musicService.disableShuffle())
+            case .off:
+                store.dispatch(musicService.enableShuffle())
+            }
+
+        case .none:
+            return
+        }
+    }
+    
 }
+
 
 // MARK: - Store subscriber
 
@@ -471,24 +493,19 @@ extension ViewController: StoreSubscriber {
             self.session = state.spotifyState.session
             switch state.viewState {
             case .preLoggedIn:
-                if let session = session {
-                    if !(player?.loggedIn)! && session.isValid() {
-                        store.dispatch(spotifyService.loginPlayer)
-                    } else if !session.isValid() && SPTAuth.defaultInstance().hasTokenRefreshService {
-                        store.dispatch(spotifyService.refresh(session))
-                    }
-                } else {
+                if state.spotifyState.session == nil {
                     spotifyService.loginToSpotify()
                 }
+            case let .loading(message):
+                showLoadingBanner(message)
+                blurBackground()
             case .viewing:
                 dismissBanner()
-                blurBackground()
-                tableView.isHidden = false
-                spotifyLoginButton.isHidden = true
-                playLocalButton.isHidden = true
-                spotifyLogo.isHidden = true
                 animateInBottomView()
+                bottomView.shuffle = state.spotifyState.shuffle
+                bottomView.paused = !state.spotifyState.isPlaying
                 playlistsDataSource.spotifyPlaylists = state.spotifyState.playlists
+                playlistsDataSource.currentSpotifyPlaylist = state.spotifyState.currentPlaylist
                 if state.spotifyState.playlistImages.count != 0 {
                     playlistsDataSource.images = state.spotifyState.playlistImages
                     tableView.reloadSections(IndexSet(integer: 0), with: .fade)
@@ -496,20 +513,12 @@ extension ViewController: StoreSubscriber {
                 if playlistsDataSource.spotifyPlaylists.count == 0 {
                     tableView.backgroundView = emptyStateView
                 }
-            case let .loading(message):
-                showLoadingBanner(message)
-                spotifyLoginButton.isHidden = true
-                playLocalButton.isHidden = true
-                spotifyLogo.isHidden = true
-                blurBackground()
+                
             case let .error(message):
                 showErrorBanner(message)
             }
         case .local:
             tableView.isHidden = false
-            spotifyLoginButton.isHidden = true
-            playLocalButton.isHidden = true
-            spotifyLogo.isHidden = true
             blurBackground()
             animateInBottomView()
             if MPMediaLibrary.authorizationStatus() == .authorized && !state.localMusicState.playlistsLoaded {
@@ -521,9 +530,10 @@ extension ViewController: StoreSubscriber {
                     self.requestPermissionToRecord()
                 })
             } else {
-                self.playlistsDataSource.localPlaylists = state.localMusicState.playlists
-                if self.playlistsDataSource.localPlaylists.count == 0 {
-                    self.tableView.backgroundView = emptyStateView
+                playlistsDataSource.localPlaylists = state.localMusicState.playlists
+                playlistsDataSource.currentLocalPlaylist = state.localMusicState.selectedPlaylist
+                if playlistsDataSource.localPlaylists.count == 0 {
+                    tableView.backgroundView = emptyStateView
                 }
                 tableView.reloadData()
 
@@ -535,7 +545,6 @@ extension ViewController: StoreSubscriber {
                 }
             }
         case .none:
-            tableView.isHidden = true
             removeBlurFromBackground()
             navigationController?.isNavigationBarHidden = true
             do {

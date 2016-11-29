@@ -177,13 +177,13 @@
                                         <color key="trackTintColor" red="1" green="1" blue="1" alpha="0.3971174568965517" colorSpace="custom" customColorSpace="sRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ej-j2-zgs">
-                                        <rect key="frame" x="44" y="15" width="179" height="0.0"/>
+                                        <rect key="frame" x="44" y="15" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cx-uq-O4N">
-                                        <rect key="frame" x="44" y="15" width="179" height="0.0"/>
+                                        <rect key="frame" x="44" y="15" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -197,7 +197,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRg-NQ-6x7">
-                                        <rect key="frame" x="238" y="16" width="25" height="27"/>
+                                        <rect key="frame" x="254" y="16" width="25" height="27"/>
                                         <color key="tintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="previous"/>
                                         <connections>
@@ -205,7 +205,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSC-1D-XjW">
-                                        <rect key="frame" x="279" y="9" width="42" height="42"/>
+                                        <rect key="frame" x="287" y="9" width="42" height="42"/>
                                         <color key="tintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="pause"/>
                                         <connections>
@@ -220,16 +220,28 @@
                                             <action selector="nextButtonTapped" destination="nO6-38-JbJ" eventType="touchUpInside" id="aYX-DB-RbN"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFN-xk-IWU">
+                                        <rect key="frame" x="222" y="19" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="4CL-7Q-2ON"/>
+                                            <constraint firstAttribute="width" constant="20" id="ZWJ-8B-xcl"/>
+                                        </constraints>
+                                        <state key="normal" image="shuffleOff"/>
+                                        <connections>
+                                            <action selector="shuffleTapped" destination="nO6-38-JbJ" eventType="touchUpInside" id="PMw-df-yuU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="7Ej-j2-zgs" firstAttribute="leading" secondItem="nO6-38-JbJ" secondAttribute="leading" constant="44" id="0gh-jg-pIo"/>
                                     <constraint firstItem="1cx-uq-O4N" firstAttribute="leading" secondItem="7Ej-j2-zgs" secondAttribute="leading" id="0lo-gp-0LD"/>
-                                    <constraint firstItem="zGp-dW-qdC" firstAttribute="leading" secondItem="NSC-1D-XjW" secondAttribute="trailing" constant="16" id="2VR-03-jRK"/>
+                                    <constraint firstItem="zGp-dW-qdC" firstAttribute="leading" secondItem="NSC-1D-XjW" secondAttribute="trailing" constant="8" id="2VR-03-jRK"/>
                                     <constraint firstItem="mRg-NQ-6x7" firstAttribute="leading" secondItem="7Ej-j2-zgs" secondAttribute="trailing" constant="16" id="Aah-N1-U8o"/>
                                     <constraint firstItem="XFQ-f1-7Yq" firstAttribute="centerY" secondItem="nO6-38-JbJ" secondAttribute="centerY" id="C7Z-UZ-UHA"/>
                                     <constraint firstAttribute="height" constant="60" id="GoJ-eJ-AJ8"/>
+                                    <constraint firstItem="mRg-NQ-6x7" firstAttribute="leading" secondItem="bFN-xk-IWU" secondAttribute="trailing" constant="12" id="I5e-Rr-v6S"/>
                                     <constraint firstItem="XFQ-f1-7Yq" firstAttribute="leading" secondItem="nO6-38-JbJ" secondAttribute="leading" constant="10" id="L8E-ZP-pvu"/>
                                     <constraint firstAttribute="trailing" secondItem="zGp-dW-qdC" secondAttribute="trailing" constant="21" id="ObF-8L-eb9"/>
                                     <constraint firstItem="1cx-uq-O4N" firstAttribute="trailing" secondItem="7Ej-j2-zgs" secondAttribute="trailing" id="XIv-48-TUb"/>
@@ -239,11 +251,12 @@
                                     <constraint firstItem="zGp-dW-qdC" firstAttribute="centerY" secondItem="nO6-38-JbJ" secondAttribute="centerY" id="d44-Nw-tng"/>
                                     <constraint firstItem="NSC-1D-XjW" firstAttribute="centerY" secondItem="nO6-38-JbJ" secondAttribute="centerY" id="dLX-Z3-OKZ"/>
                                     <constraint firstItem="7Ej-j2-zgs" firstAttribute="leading" secondItem="XFQ-f1-7Yq" secondAttribute="trailing" constant="10" id="daz-id-j45"/>
-                                    <constraint firstItem="NSC-1D-XjW" firstAttribute="leading" secondItem="mRg-NQ-6x7" secondAttribute="trailing" constant="16" id="lFu-jS-5aP"/>
+                                    <constraint firstItem="bFN-xk-IWU" firstAttribute="centerY" secondItem="mRg-NQ-6x7" secondAttribute="centerY" id="kBF-jb-PK3"/>
+                                    <constraint firstItem="NSC-1D-XjW" firstAttribute="leading" secondItem="mRg-NQ-6x7" secondAttribute="trailing" constant="8" id="lFu-jS-5aP"/>
                                     <constraint firstItem="HqX-ix-ifg" firstAttribute="leading" secondItem="nO6-38-JbJ" secondAttribute="leading" id="ncP-hZ-Wkm"/>
                                     <constraint firstAttribute="bottom" secondItem="7Ej-j2-zgs" secondAttribute="bottom" constant="16" id="or5-f6-lDP"/>
                                     <constraint firstItem="1cx-uq-O4N" firstAttribute="top" secondItem="7Ej-j2-zgs" secondAttribute="bottom" id="pQD-LL-vzF"/>
-                                    <constraint firstAttribute="trailing" secondItem="7Ej-j2-zgs" secondAttribute="trailing" constant="160" id="qVH-QO-FKN"/>
+                                    <constraint firstItem="bFN-xk-IWU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Ej-j2-zgs" secondAttribute="trailing" constant="8" id="rgR-He-ES2"/>
                                     <constraint firstItem="HqX-ix-ifg" firstAttribute="top" secondItem="nO6-38-JbJ" secondAttribute="top" id="xOk-Dx-TL7"/>
                                     <constraint firstItem="7Ej-j2-zgs" firstAttribute="leading" secondItem="HqX-ix-ifg" secondAttribute="leading" id="yxT-rS-b00"/>
                                     <constraint firstItem="7Ej-j2-zgs" firstAttribute="top" secondItem="HqX-ix-ifg" secondAttribute="bottom" constant="13" id="z1e-bO-rBB"/>
@@ -260,6 +273,7 @@
                                     <outlet property="artistLabel" destination="1cx-uq-O4N" id="Zit-MM-KyX"/>
                                     <outlet property="playPauseButton" destination="NSC-1D-XjW" id="bRT-ho-kcJ"/>
                                     <outlet property="progressView" destination="HqX-ix-ifg" id="DYD-Kl-wH9"/>
+                                    <outlet property="shuffleButton" destination="bFN-xk-IWU" id="Fci-al-wsZ"/>
                                     <outlet property="trackLabel" destination="7Ej-j2-zgs" id="Mez-0n-xcb"/>
                                 </connections>
                             </view>
@@ -272,7 +286,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83a-5c-ScB" id="uGX-MY-t1G">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp" userLabel="playlist image">
@@ -489,7 +503,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like you don't have any playlists. You should go create one now! 🚤" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKk-2w-mlZ">
-                            <rect key="frame" x="28" y="35.5" width="541" height="57.5"/>
+                            <rect key="frame" x="28" y="35" width="541" height="58"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -510,7 +524,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1282" y="301"/>
+            <point key="canvasLocation" x="1280.8" y="300.89955022488761"/>
         </scene>
         <!--Playback View Controller-->
         <scene sceneID="7G6-Vh-DV5">
@@ -569,7 +583,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FsR-se-bhi" id="86Y-UC-kGZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TF-79-ioy">
@@ -715,6 +729,7 @@
         <image name="playlist" width="50" height="50"/>
         <image name="previous" width="25" height="27"/>
         <image name="settings" width="24" height="24"/>
+        <image name="shuffleOff" width="35" height="40"/>
         <image name="spotify" width="245" height="75"/>
         <image name="switchMusic" width="24" height="24"/>
     </resources>

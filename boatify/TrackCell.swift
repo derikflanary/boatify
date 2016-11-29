@@ -22,9 +22,9 @@ class TrackCell: UITableViewCell, ReusableView {
             artistLabel.text = artist?.name
         }
         if track == selectedTrack {
-            nameLabel.textColor = UIColor.blue
+            backgroundColor = UIColor(white: 1.0, alpha: 0.4)
         } else {
-            nameLabel.textColor = UIColor.darkGray
+            backgroundColor = UIColor.clear
         }
     }
     
@@ -32,9 +32,9 @@ class TrackCell: UITableViewCell, ReusableView {
         nameLabel.text = track.title
         artistLabel.text = track.artist
         if track == selectedTrack {
-            nameLabel.textColor = UIColor.blue
+            backgroundColor = UIColor(white: 1.0, alpha: 0.4)
         } else {
-            nameLabel.textColor = UIColor.darkGray
+            backgroundColor = UIColor.clear
         }
     }
 }

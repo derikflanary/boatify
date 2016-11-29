@@ -16,12 +16,13 @@ struct LocalMusicState {
     var playlists = [MPMediaItemCollection]()
     var playlistsLoaded = false
     var selectedPlaylist: MPMediaPlaylist?
+    var currentPlaylist: MPMediaPlaylist?
     var selectedTrack: MPMediaItem?
     var currentTrack: MPMediaItem?
     var player = AVQueuePlayer()
     var playback = Playback.stopped
     var trackPercent: Double = 0.0
-    var shuffle = false
+    var shuffle = Shuffle.off
     
     func reduce(_ action: Action) -> LocalMusicState {
         var state = self
@@ -42,6 +43,12 @@ struct LocalMusicState {
             state.playback = action.item
         case let action as UpdatedTrackProgress:
             state.trackPercent = action.percent
+        case let action as Updated<Shuffle>:
+            state.shuffle = action.item
+        case let action as Play<MPMediaPlaylist>:
+            state.currentPlaylist = action.item
+        case _ as Reset<MPMediaPlaylist>:
+            state.selectedPlaylist = nil
         default:
             break
         }

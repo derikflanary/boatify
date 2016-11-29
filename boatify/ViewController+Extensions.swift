@@ -31,7 +31,7 @@ extension UIViewController {
             }
         }
         let message = Message(title: title, textColor: UIColor.darkGray, backgroundColor: UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.0), images: nil)
-        Whisper.show(whisper: message, to: navigationController)
+        Whisper.show(whisper: message, to: navigationController, action: .present)
     }
     
     func dismissBanner() {

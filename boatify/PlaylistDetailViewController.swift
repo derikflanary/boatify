@@ -18,9 +18,6 @@ class PlaylistDetailViewController: UIViewController {
     var spotifyService = SpotifyService()
     var musicService = MusicService()
     var musicState = MusicState.none
-    
-    var trackURIs = [URL]()
-    var player = SPTAudioStreamingController.sharedInstance()
     var audioRecorder: AVAudioRecorder?
     var timer: Timer?
     var maxVolume: Double = 1.0
@@ -44,6 +41,14 @@ class PlaylistDetailViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        switch musicState {
+        case .spotify:
+            store.dispatch(Reset<SPTPartialPlaylist>())
+        case .local:
+            store.dispatch(Reset<MPMediaPlaylist>())
+        case .none:
+            break
+        }
         store.unsubscribe(self)
     }
     
@@ -104,14 +109,9 @@ extension PlaylistDetailViewController: UITableViewDelegate {
         switch musicState {
         case .spotify:
             let track = tracksDataSource.spotifyTracks[indexPath.row]
-            player?.setVolume(minVolume, callback: nil)
-            player?.playSpotifyURI(track.playableUri.absoluteString, startingWith: UInt(indexPath.row), startingWithPosition: 0, callback: { error in
-                if let error = error {
-                    print(error)
-                }
-            })
-            startRecording()
             store.dispatch(spotifyService.select(track))
+            store.dispatch(spotifyService.playSelectedPlaylist(at: indexPath.row))
+            startRecording()
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
             store.dispatch(musicService.select(track))
@@ -136,7 +136,6 @@ extension PlaylistDetailViewController: StoreSubscriber {
         
         switch musicState {
         case .spotify:
-            trackURIs = state.spotifyState.tracks.map { $0.playableUri }
             tracksDataSource.spotifyTracks = state.spotifyState.tracks
             tracksDataSource.selectedSpotifyTrack = state.spotifyState.selectedTrack
             tableView.reloadData()

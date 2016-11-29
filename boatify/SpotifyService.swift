@@ -66,6 +66,7 @@ struct SpotifyService {
                     print(error)
                 } else {
                     store.dispatch(Retrieved(item: session))
+                    store.dispatch(self.loginPlayer)
                 }
             })
             return nil
@@ -150,12 +151,29 @@ struct SpotifyService {
         
     }
     
-    func play(uri: URL) {
+    func play(uri: URL)  {
         player?.playSpotifyURI(uri.absoluteString, startingWith: 0, startingWithPosition: 0, callback: { error in
             if let error = error {
                 print(error)
             }
         })
+    }
+    
+    func playSelectedPlaylist(at position: Int) -> AppActionCreator {
+        return { state, store in
+            guard let playlist = state.spotifyState.selectedPlaylist else { return nil }
+            store.dispatch(Play(item: playlist))
+            self.player?.playSpotifyURI(playlist.playableUri.absoluteString, startingWith: UInt(position), startingWithPosition: 0, callback: { error in
+                if let error = error {
+                    print(error)
+                }
+            })
+            return nil
+        }
+    }
+    
+    func set(volume: Double) {
+        player?.setVolume(volume, callback: nil)
     }
     
     func advanceToNextTrack() {
@@ -174,12 +192,26 @@ struct SpotifyService {
         }
     }
     
-    func shufflePlaylist() {
+    func shufflePlaylist(_ state: AppState, store: Store<AppState>) -> Action? {
         player?.setShuffle(true, callback: { error in
             if let error = error {
                 print(error)
+            } else {
+                store.dispatch(Updated(item: Shuffle.on))
             }
         })
+        return nil
+    }
+    
+    func unshufflePlaylist(_ state: AppState, store: Store<AppState>) -> Action? {
+        player?.setShuffle(false, callback: { error in
+            if let error = error {
+                print(error)
+            } else {
+                store.dispatch(Updated(item: Shuffle.off))
+            }
+        })
+        return nil
     }
     
 }
