@@ -15,7 +15,7 @@ struct RecorderState {
     var progress: TrackProgress = TrackProgress(percent: 0.0)
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
-    var timerController = TimerController.sharedInstance
+//    var timerController = TimerController.sharedInstance
     var progressTimer: Timer?
     var volume = Volume(min: 0.5, max: 1.0)
     
@@ -31,13 +31,13 @@ struct RecorderState {
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.record()
             audioRecorder?.updateMeters()
-            timerController.startMeter()
+            TimerController.sharedInstance.startMeter()
         case _ as RecordingStopped:
-            timerController.stopMeter()
+            TimerController.sharedInstance.stopMeter()
             audioRecorder?.stop()
         case let action as Updated<Volume>:
             state.volume = action.item
-        case _ as Updated<Timer>:
+        case _ as RecordingUpdated:
             guard let audioRecorder = state.audioRecorder else { break }
             audioRecorder.updateMeters()
             let averagePower = audioRecorder.averagePower(forChannel: 0)
@@ -48,6 +48,8 @@ struct RecorderState {
             } else {
                 state.volume.current = state.volume.max
             }
+            print(averagePower)
+            print(state.volume.current)
         default:
             break
         }

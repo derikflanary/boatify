@@ -15,6 +15,8 @@ struct RecordingSetup: Action {
     let audioRecorder: AVAudioRecorder
 }
 
+struct RecordingUpdated: Action { }
+
 struct RecordingStopped: Action { }
 
 struct RecordingStarted: Action { }
@@ -98,7 +100,7 @@ class TimerController {
     }
     
     @objc func updateMeter() {
-        store.dispatch(Updated(item: timer))
+        store.dispatch(RecordingUpdated())
     }
 
 }
