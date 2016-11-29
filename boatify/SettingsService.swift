@@ -9,23 +9,14 @@
 import Foundation
 import ReSwift
 
-struct VolumesUpdated: Action {
-    let minVolume: Double
-    let maxVolume: Double
-}
-
-struct MinVolumeUpdated: Action {
-    let volume: Double
-}
 
 struct SettingsService {
     
     func updateVolumes(minVolume: Float, maxVolume: Float) -> Action {
-        return VolumesUpdated(minVolume: Double(minVolume), maxVolume: Double(maxVolume))
+        return Updated(item: Volume(min: Double(minVolume), max: Double(maxVolume)))
     }
     
     func resetMusicState() -> Action {
-        
         return Updated(item: MusicState.none)
     }
     

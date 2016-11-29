@@ -15,7 +15,16 @@ struct RecordingSetup: Action {
     let audioRecorder: AVAudioRecorder
 }
 
+struct RecordingStopped: Action { }
+
+struct RecordingStarted: Action { }
+
+struct TimerStarted: Action { }
+
 struct RecordingService {
+    
+    var timer: Timer?
+    var progressTimer: Timer?
     
     func setupRecording(_ state: AppState, store: Store<AppState>) -> Action? {
         do {
@@ -43,4 +52,53 @@ struct RecordingService {
         }
 
     }
+    
+    func requestPermissionToRecord(_ state: AppState, store: Store<AppState>) -> Action? {
+        if AVAudioSession.sharedInstance().recordPermission() == .granted {
+            store.dispatch(setupRecording)
+            print("already granted")
+        } else {
+            AVAudioSession.sharedInstance().requestRecordPermission({ allowed in
+                if allowed {
+                    store.dispatch(self.setupRecording)
+                    print("allowed")
+                } else {
+                    print("failed to record")
+                }
+            })
+        }
+        return nil
+    }
+    
+    func startRecording() -> Action {
+        
+        return RecordingStarted()
+    }
+    
+    func stopRecording() -> Action {
+        timer?.invalidate()
+        return RecordingStopped()
+    }
+    
+}
+
+class TimerController {
+    
+    static let sharedInstance = TimerController()
+    
+    var timer: Timer?
+    var store = AppState.sharedStore
+    
+    func startMeter() {
+        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
+    }
+    
+    func stopMeter() {
+        timer?.invalidate()
+    }
+    
+    @objc func updateMeter() {
+        store.dispatch(Updated(item: timer))
+    }
+
 }

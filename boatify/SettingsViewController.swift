@@ -95,12 +95,12 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: StoreSubscriber {
     
     func newState(state: AppState) {
-        maxSlider.setValue(Float(state.maxVolume), animated: true)
-        minSlider.setValue(Float(state.minVolume), animated: true)
+        maxSlider.setValue(Float(state.recorderState.volume.max), animated: true)
+        minSlider.setValue(Float(state.recorderState.volume.min), animated: true)
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
-        originalMaxVolume = state.maxVolume
-        originalMinVolume = state.minVolume
+        originalMaxVolume = state.recorderState.volume.max
+        originalMinVolume = state.recorderState.volume.min
     }
     
 }

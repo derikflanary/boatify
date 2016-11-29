@@ -17,16 +17,10 @@ class PlaylistDetailViewController: UIViewController {
     var store = AppState.sharedStore
     var spotifyService = SpotifyService()
     var musicService = MusicService()
+    var recordingService = RecordingService()
     var musicState = MusicState.none
-    var audioRecorder: AVAudioRecorder?
     var timer: Timer?
-    var maxVolume: Double = 1.0
-    var minVolume: Double = 0.5
     
-    var midVolume: Double {
-        return (maxVolume + minVolume) / 2
-    }
-
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var tracksDataSource: TracksDataSource!
@@ -52,51 +46,6 @@ class PlaylistDetailViewController: UIViewController {
         store.unsubscribe(self)
     }
     
-    
-    // MARK: - Recording
-    
-    func startRecording() {
-        guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.isMeteringEnabled = true
-        audioRecorder.record()
-        audioRecorder.updateMeters()
-        startMeter()
-    }
-    
-    func stopRecording() {
-        audioRecorder?.stop()
-        timer?.invalidate()
-    }
-    
-    func startMeter() {
-        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
-    }
-    
-    func updateMeter() {
-        func updateMeter() {
-            guard let audioRecorder = audioRecorder else { return }
-            audioRecorder.updateMeters()
-            let averagePower = audioRecorder.averagePower(forChannel: 0)
-            var volume: Double
-            if averagePower < -22.5 {
-                volume = minVolume
-            } else if averagePower < -15.0 {
-                volume = midVolume
-            } else {
-                volume = maxVolume
-            }
-            print("average: \(averagePower)")
-            switch musicState {
-            case .spotify:
-                spotifyService.update(volume)
-            case .local:
-                store.dispatch(musicService.update(Float(volume)))
-            case .none:
-                break
-            }
-        }
-    }
-
 }
 
 
@@ -111,7 +60,7 @@ extension PlaylistDetailViewController: UITableViewDelegate {
             let track = tracksDataSource.spotifyTracks[indexPath.row]
             store.dispatch(spotifyService.select(track))
             store.dispatch(spotifyService.playSelectedPlaylist(at: indexPath.row))
-            startRecording()
+            store.dispatch(recordingService.startRecording())
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
             store.dispatch(musicService.select(track))
@@ -128,9 +77,6 @@ extension PlaylistDetailViewController: UITableViewDelegate {
 extension PlaylistDetailViewController: StoreSubscriber {
     
     func newState(state: AppState) {
-        audioRecorder = state.audioRecorder
-        minVolume = state.minVolume
-        maxVolume = state.maxVolume
         musicState = state.musicState
         tracksDataSource.musicState = state.musicState
         
@@ -140,12 +86,14 @@ extension PlaylistDetailViewController: StoreSubscriber {
             tracksDataSource.selectedSpotifyTrack = state.spotifyState.selectedTrack
             tableView.reloadData()
             title = state.spotifyState.selectedPlaylist?.name
+            spotifyService.update(state.recorderState.volume.current)
         case .local:
             guard let tracks = state.localMusicState.selectedPlaylist?.items else { return }
             tracksDataSource.localTracks = tracks
             tracksDataSource.currentLocalTrack = state.localMusicState.currentTrack
             tableView.reloadData()
             title = state.localMusicState.selectedPlaylist?.name
+            store.dispatch(musicService.update(Float(state.recorderState.volume.current)))
             break
         case .none:
             break

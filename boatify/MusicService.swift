@@ -68,7 +68,7 @@ struct MusicService {
             player.insert(playerItem, after: nil)
         }
         
-        player.volume = Float(state.minVolume)
+        player.volume = Float(state.recorderState.volume.min)
         player.play()
         return Playing(item: playlist.items.first!)
     }
@@ -97,7 +97,7 @@ struct MusicService {
             }
         }
         
-        player.volume = Float(state.minVolume)
+        player.volume = Float(state.recorderState.volume.min)
         player.play()
         return Playing(item: selectedTrack)
         

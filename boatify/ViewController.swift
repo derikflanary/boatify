@@ -484,9 +484,9 @@ extension ViewController: StoreSubscriber {
         musicState = state.musicState
         playlistsDataSource.musicState = state.musicState
         
-        audioRecorder = state.audioRecorder
-        minVolume = state.minVolume
-        maxVolume = state.maxVolume
+        audioRecorder = state.recorderState.audioRecorder
+        minVolume = state.recorderState.volume.min
+        maxVolume = state.recorderState.volume.max
         
         switch musicState {
         case .spotify:

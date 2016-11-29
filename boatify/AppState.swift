@@ -43,10 +43,8 @@ struct AppState: StateType {
     
     var spotifyState = SpotifyState()
     var localMusicState = LocalMusicState()
+    var recorderState = RecorderState()
     
-    var maxVolume: Double = 1.0
-    var minVolume: Double = 0.5
-    var audioRecorder: AVAudioRecorder?
     var viewState = ViewState.preLoggedIn
     var musicState = MusicState.none
 

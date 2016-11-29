@@ -17,13 +17,8 @@ struct AppReducer: Reducer {
         var state = state ?? AppState()
         
         switch action {
-        case let action as RecordingSetup:
-            state.audioRecorder = action.audioRecorder
         case let action as Selected<MusicState>:
             state.musicState = action.item
-        case let action as VolumesUpdated:
-            state.maxVolume = action.maxVolume
-            state.minVolume = action.minVolume
         case let action as Updated<ViewState>:
             state.viewState = action.item
         case _ as Loaded<SPTPartialPlaylist>:
@@ -42,6 +37,7 @@ struct AppReducer: Reducer {
         
         state.spotifyState = state.spotifyState.reduce(action)
         state.localMusicState = state.localMusicState.reduce(action)
+        state.recorderState = state.recorderState.reduce(action)
         
         return state
     }
