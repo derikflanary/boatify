@@ -10,6 +10,7 @@ import UIKit
 import ReSwift
 import AVFoundation
 import MediaPlayer
+import Hero
 
 class PlaylistDetailViewController: UIViewController {
     
@@ -31,6 +32,7 @@ class PlaylistDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)
+        isHeroEnabled = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {

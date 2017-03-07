@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */; };
 		EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */; };
-		EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3959181D7B724700164B30 /* PlaybackView.swift */; };
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
@@ -27,18 +26,22 @@
 		EC6C3BF21D611EF50083ECF1 /* LocalMusicState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BF11D611EF50083ECF1 /* LocalMusicState.swift */; };
 		EC80D7721DE66A22000DE3F7 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC80D7711DE66A22000DE3F7 /* UITableView+Extensions.swift */; };
 		EC80D78D1DECE9FB000DE3F7 /* Shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC80D78C1DECE9FB000DE3F7 /* Shuffle.swift */; };
+		ECD8CE231E6E4314000248F6 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD8CE221E6E4314000248F6 /* Hero.framework */; };
+		ECD8CE241E6E4314000248F6 /* Hero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECD8CE221E6E4314000248F6 /* Hero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE3E0DD1DE62AC300EBA024 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */; };
 		ECE3E0DE1DE62AC300EBA024 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */; };
 		ECE3E0E01DE6430800EBA024 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */; };
 		ECF41C771DED3FC9007A58A1 /* RecorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF41C761DED3FC9007A58A1 /* RecorderState.swift */; };
 		ECF41C791DED480D007A58A1 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF41C781DED480D007A58A1 /* Volume.swift */; };
+		ECF506191E6F23B3000F34CE /* Sources in Resources */ = {isa = PBXBuildFile; fileRef = ECF506181E6F23B3000F34CE /* Sources */; };
+		ECF5061B1E6F2F4A000F34CE /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */; };
 		EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E7B1D564E2C00C19603 /* ReSwift.framework */; };
 		EE550E7F1D564F7100C19603 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E7E1D564F7100C19603 /* AppState.swift */; };
 		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
 		EE550E831D56507100C19603 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E821D56507100C19603 /* SpotifyService.swift */; };
 		EE550E851D5650B300C19603 /* SpotifyNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */; };
 		EE6975121D55481900D91587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975111D55481900D91587 /* AppDelegate.swift */; };
-		EE6975141D55481900D91587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* ViewController.swift */; };
+		EE6975141D55481900D91587 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* MainViewController.swift */; };
 		EE6975171D55481900D91587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE6975151D55481900D91587 /* Main.storyboard */; };
 		EE6975191D55481900D91587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6975181D55481900D91587 /* Assets.xcassets */; };
 		EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE69751A1D55481900D91587 /* LaunchScreen.storyboard */; };
@@ -65,10 +68,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		ECD8CE251E6E4314000248F6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ECD8CE241E6E4314000248F6 /* Hero.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Extensions.swift"; sourceTree = "<group>"; };
 		EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
-		EC3959181D7B724700164B30 /* PlaybackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -86,11 +102,14 @@
 		EC6C3BF11D611EF50083ECF1 /* LocalMusicState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalMusicState.swift; sourceTree = "<group>"; };
 		EC80D7711DE66A22000DE3F7 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		EC80D78C1DECE9FB000DE3F7 /* Shuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shuffle.swift; sourceTree = "<group>"; };
+		ECD8CE221E6E4314000248F6 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
 		ECF41C761DED3FC9007A58A1 /* RecorderState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderState.swift; sourceTree = "<group>"; };
 		ECF41C781DED480D007A58A1 /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
+		ECF506181E6F23B3000F34CE /* Sources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sources; sourceTree = "<group>"; };
+		ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		EE550E7B1D564E2C00C19603 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
 		EE550E7E1D564F7100C19603 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -98,7 +117,7 @@
 		EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyNetworkAccess.swift; sourceTree = "<group>"; };
 		EE69750E1D55481900D91587 /* boatify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boatify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6975111D55481900D91587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE6975131D55481900D91587 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE6975131D55481900D91587 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EE6975161D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE6975181D55481900D91587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE69751B1D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -125,6 +144,7 @@
 				ECE3E0E01DE6430800EBA024 /* SpotifyMetadata.framework in Frameworks */,
 				EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */,
 				ECE3E0DD1DE62AC300EBA024 /* SpotifyAudioPlayback.framework in Frameworks */,
+				ECD8CE231E6E4314000248F6 /* Hero.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +197,7 @@
 		EC80D7731DE66E42000DE3F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECF506181E6F23B3000F34CE /* Sources */,
 				EE6975181D55481900D91587 /* Assets.xcassets */,
 				EE69751A1D55481900D91587 /* LaunchScreen.storyboard */,
 				EE69751D1D55481900D91587 /* Info.plist */,
@@ -202,11 +223,11 @@
 			isa = PBXGroup;
 			children = (
 				EE6975151D55481900D91587 /* Main.storyboard */,
-				EE6975131D55481900D91587 /* ViewController.swift */,
+				ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */,
+				EE6975131D55481900D91587 /* MainViewController.swift */,
 				EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */,
 				EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */,
 				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
-				EC3959181D7B724700164B30 /* PlaybackView.swift */,
 				EC6C3BEA1D5F8F7F0083ECF1 /* Playlist Details */,
 				EC6C3BE91D5F8F6E0083ECF1 /* Settings */,
 			);
@@ -291,6 +312,7 @@
 		EE6975491D554A4A00D91587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECD8CE221E6E4314000248F6 /* Hero.framework */,
 				ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */,
 				ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */,
 				ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */,
@@ -312,6 +334,7 @@
 				EE69750B1D55481900D91587 /* Frameworks */,
 				EE69750C1D55481900D91587 /* Resources */,
 				EE550E7D1D564E4F00C19603 /* ShellScript */,
+				ECD8CE251E6E4314000248F6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -418,6 +441,7 @@
 				EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */,
 				EE6975191D55481900D91587 /* Assets.xcassets in Resources */,
 				EE6975171D55481900D91587 /* Main.storyboard in Resources */,
+				ECF506191E6F23B3000F34CE /* Sources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +470,7 @@
 			inputPaths = (
 				"$(SRCROOT)//Carthage/Build/iOS/ReSwift.framework",
 				"$(SRCROOT)//Carthage/Build/iOS/Whisper.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
 			);
 			outputPaths = (
 			);
@@ -469,8 +494,8 @@
 				EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */,
 				EC6C3BE21D5EE94D0083ECF1 /* PlaylistDetailViewController.swift in Sources */,
 				EC6C3BF01D611EEC0083ECF1 /* SpotifyState.swift in Sources */,
-				EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */,
 				EC6C3BE61D5EEBFE0083ECF1 /* TracksDataSource.swift in Sources */,
+				ECF5061B1E6F2F4A000F34CE /* ParentViewController.swift in Sources */,
 				EC6C3BE81D5F7DFF0083ECF1 /* RecordingService.swift in Sources */,
 				EC6C3BEE1D6114560083ECF1 /* MusicService.swift in Sources */,
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
@@ -478,7 +503,7 @@
 				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
 				EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */,
 				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
-				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
+				EE6975141D55481900D91587 /* MainViewController.swift in Sources */,
 				ECF41C791DED480D007A58A1 /* Volume.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,
 				EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */,

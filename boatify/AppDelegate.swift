@@ -9,6 +9,7 @@
 import UIKit
 import ReSwift
 import Whisper
+import Hero
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
