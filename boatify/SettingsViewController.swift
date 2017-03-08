@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 
 protocol SettingsDelegate {
     func volumeChanged(_ minVolume: Double, maxVolume: Double)
@@ -15,8 +15,7 @@ protocol SettingsDelegate {
 
 class SettingsViewController: UIViewController {
 
-    let settingsService = SettingsService()
-    var store = AppState.sharedStore
+    var core = App.sharedCore
     var originalMinVolume: Double?
     var originalMaxVolume: Double?
     var delegate: SettingsDelegate?
@@ -35,12 +34,12 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self)
+        core.add(subscriber: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        store.unsubscribe(self)
+        core.remove(subscriber: self)
     }
     
     
@@ -65,7 +64,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func doneTapped(_ sender: UIBarButtonItem) {
-        store.dispatch(settingsService.updateVolumes(minVolume: minSlider.value, maxVolume: maxSlider.value))
+        core.fire(event: Updated(item: Volume(min: Double(minSlider.value), max: Double(maxSlider.value))))
         dismiss(animated: true, completion: nil)
     }
     
@@ -73,7 +72,7 @@ class SettingsViewController: UIViewController {
         guard let minVolume = originalMinVolume, let maxVolume = originalMaxVolume else { return }
         
         if minVolume != Double(minSlider.value) || maxVolume != Double(maxSlider.value) {
-            store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
+            core.fire(event: Updated(item: Volume(min: minVolume, max: maxVolume)))
         }
         dismiss(animated: true, completion: nil)
     }
@@ -92,9 +91,9 @@ class SettingsViewController: UIViewController {
 
 // MARK: - Store subscriber
 
-extension SettingsViewController: StoreSubscriber {
+extension SettingsViewController: Subscriber {
     
-    func newState(state: AppState) {
+    func update(with state: AppState) {
         maxSlider.setValue(Float(state.recorderState.volume.max), animated: true)
         minSlider.setValue(Float(state.recorderState.volume.min), animated: true)
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"

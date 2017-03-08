@@ -1,5 +1,5 @@
 //
-//  RecorderState.swift
+//  Recorderswift
 //  boatify
 //
 //  Created by Derik Flanary on 11/28/16.
@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import ReSwift
+import Reactor
 import AVFoundation
 
-struct RecorderState {
+struct RecorderState: State {
     
     var progress: TrackProgress = TrackProgress(percent: 0.0)
     var audioRecorder: AVAudioRecorder?
@@ -18,14 +18,13 @@ struct RecorderState {
     var progressTimer: Timer?
     var volume = Volume(min: 0.5, max: 1.0)
     
-    func reduce(_ action: Action) -> RecorderState {
-        var state = self
+    mutating func react(to event: Event) {
         
-        switch action {
-        case let action as RecordingSetup:
-            state.audioRecorder = action.audioRecorder
-        case let action as Updated<TrackProgress>:
-            state.progress = action.item
+        switch event {
+        case let event as RecordingSetup:
+            audioRecorder = event.audioRecorder
+        case let event as Updated<TrackProgress>:
+            progress = event.item
         case _ as RecordingStarted:
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.record()
@@ -34,25 +33,11 @@ struct RecorderState {
         case _ as RecordingStopped:
             TimerController.sharedInstance.stopMeter()
             audioRecorder?.stop()
-        case let action as Updated<Volume>:
-            state.volume = action.item
-        case _ as RecordingUpdated:
-            guard let audioRecorder = state.audioRecorder else { break }
-            audioRecorder.updateMeters()
-            let averagePower = audioRecorder.averagePower(forChannel: 0)
-            if averagePower < -22.5 {
-                state.volume.current = state.volume.min
-            } else if averagePower < -15.0 {
-                state.volume.current = state.volume.mid
-            } else {
-                state.volume.current = state.volume.max
-            }
-            print(averagePower)
-            print(state.volume.current)
+        case let event as Updated<Volume>:
+            volume = event.item
         default:
             break
         }
-        return state
     }
 
 }

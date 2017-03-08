@@ -1,3 +1,4 @@
 github "lkzhao/Hero" "0.3.3"
 github "ReSwift/ReSwift" "3.0.0"
+github "ReactorSwift/Reactor" "0.8"
 github "hyperoslo/Whisper" "4.0.0"

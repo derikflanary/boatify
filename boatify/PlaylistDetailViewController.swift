@@ -7,18 +7,16 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 import AVFoundation
 import MediaPlayer
 import Hero
 
 class PlaylistDetailViewController: UIViewController {
     
-    typealias StoreSubscriberStateType = AppState
-    var store = AppState.sharedStore
+    
+    var core = App.sharedCore
     var spotifyService = SpotifyService()
-    var musicService = MusicService()
-    var recordingService = RecordingService()
     var musicState = MusicState.none
     var timer: Timer?
     
@@ -27,25 +25,22 @@ class PlaylistDetailViewController: UIViewController {
     @IBOutlet var tracksDataSource: TracksDataSource!
     
     
-    // MARK: - View life cycle
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self)
-        isHeroEnabled = true
+        core.add(subscriber: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         switch musicState {
         case .spotify:
-            store.dispatch(Reset<SPTPartialPlaylist>())
+            core.fire(event: Reset<SPTPartialPlaylist>())
         case .local:
-            store.dispatch(Reset<MPMediaPlaylist>())
+            core.fire(event: Reset<MPMediaPlaylist>())
         case .none:
             break
         }
-        store.unsubscribe(self)
+        core.remove(subscriber: self)
     }
     
 }
@@ -60,13 +55,14 @@ extension PlaylistDetailViewController: UITableViewDelegate {
         switch musicState {
         case .spotify:
             let track = tracksDataSource.spotifyTracks[indexPath.row]
-            store.dispatch(spotifyService.select(track))
-            store.dispatch(spotifyService.playSelectedPlaylist(at: indexPath.row))
-            store.dispatch(recordingService.startRecording())
+            
+            core.fire(event: Selected(item: track))
+            core.fire(command: PlayLocalSelectedPlaylist())
+            core.fire(event: RecordingStarted())
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
-            store.dispatch(musicService.select(track))
-            store.dispatch(musicService.playTrack)
+            core.fire(event: Selected(item: track))
+            core.fire(command: PlaySelectedLocalTrack())
         case .none:
             break
         }
@@ -74,11 +70,11 @@ extension PlaylistDetailViewController: UITableViewDelegate {
 }
 
 
-// MARK: - Store subscriber
+// MARK: - Subscriber
 
-extension PlaylistDetailViewController: StoreSubscriber {
+extension PlaylistDetailViewController: Subscriber {
     
-    func newState(state: AppState) {
+    func update(with state: AppState) {
         musicState = state.musicState
         tracksDataSource.musicState = state.musicState
         
@@ -88,14 +84,12 @@ extension PlaylistDetailViewController: StoreSubscriber {
             tracksDataSource.selectedSpotifyTrack = state.spotifyState.selectedTrack
             tableView.reloadData()
             title = state.spotifyState.selectedPlaylist?.name
-            spotifyService.update(state.recorderState.volume.current)
         case .local:
             guard let tracks = state.localMusicState.selectedPlaylist?.items else { return }
             tracksDataSource.localTracks = tracks
             tracksDataSource.currentLocalTrack = state.localMusicState.currentTrack
             tableView.reloadData()
             title = state.localMusicState.selectedPlaylist?.name
-            store.dispatch(musicService.update(Float(state.recorderState.volume.current)))
             break
         case .none:
             break

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 import Whisper
 import Hero
 
@@ -16,13 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var spotifyService = SpotifyService()
-    var store = AppState.sharedStore
+    var core = App.sharedCore
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         Config.modifyInset = false
-        store.dispatch(spotifyService.checkForSession())
+        core.fire(event: AppLaunched())
         return true
     }
 
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         // Ask SPTAuth if the URL given is a Spotify authentication callback
         if SPTAuth.defaultInstance().canHandle(url) {
-            store.dispatch(spotifyService.handleAuth(for: url))
+            core.fire(command: HandleAuth(url: url))
             return true
         }
         return false

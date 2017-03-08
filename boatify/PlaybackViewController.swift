@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 
 class PlaybackViewController: UIViewController {
     
@@ -36,6 +36,7 @@ class PlaybackViewController: UIViewController {
         }
     }
 
+    var core = App.sharedCore
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -47,17 +48,36 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     
     
+    // MARK: - View life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        core.add(subscriber: self)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        core.remove(subscriber: self)
+    }
+
+    
+    // MARK: - Interface actions
     
     @IBAction func nextButtonTapped() {
     }
+    
     @IBAction func previousButtonTapped() {
     }
+    
     @IBAction func playPauseTapped() {
     }
+    
     @IBAction func shuffleTapped() {
     }
+    
     @IBAction func expandButtonTapped() {
     }
+    
     
 //    extension ViewController: PlaybackViewDelegate {
 //        
@@ -118,4 +138,11 @@ class PlaybackViewController: UIViewController {
 //        
 //    }
 
+}
+
+extension PlaybackViewController: Subscriber {
+    
+    func update(with state: AppState) {
+        
+    }
 }

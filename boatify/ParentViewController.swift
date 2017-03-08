@@ -7,23 +7,29 @@
 //
 
 import UIKit
+import Reactor
 
 class ParentViewController: UIViewController {
+    
+    var core = App.sharedCore
 
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var playBackContainerView: UIView!
     @IBOutlet weak var playBackContainerViewBottomConstraint: NSLayoutConstraint!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    // MARK: - View life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        core.add(subscriber: self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        core.remove(subscriber: self)
     }
+    
     
     // MARK: - Bottom view animations
     
@@ -46,4 +52,11 @@ class ParentViewController: UIViewController {
     }
 
 
+}
+
+extension ParentViewController: Subscriber {
+    
+    func update(with state: AppState) {
+        
+    }
 }

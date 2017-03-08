@@ -18,6 +18,13 @@ import Foundation
 import ReSwift
 import UIKit
 import AVFoundation
+import Reactor
+
+enum App {
+    static let sharedCore = Core(state: AppState(), middlewares: [
+        LoggingMiddleware()
+        ])
+}
 
 enum ViewState {
     case preLoggedIn
@@ -32,23 +39,31 @@ enum MusicState {
     case none
 }
 
-struct AppState: StateType {
-    
-    // MARK: - Shared Store
-    
-    static var sharedStore = Store<AppState>(reducer: AppReducer(), state: AppState(), middleware: [loggingMiddleware])
-    
-    
+
+struct AppState: State {
+ 
     // MARK: - State components
     
+    var recorderState = RecorderState()
     var spotifyState = SpotifyState()
     var localMusicState = LocalMusicState()
-    var recorderState = RecorderState()
     
     var viewState = ViewState.preLoggedIn
     var musicState = MusicState.none
 
+    
+    mutating func react(to event: Event) {
+        
+        switch event {
+
+        default:
+            break
+        }
+        
+        recorderState.react(to: event)
+        spotifyState.react(to: event)
+        localMusicState.react(to: event)
+    }
+    
 }
 
-
-typealias AppActionCreator = (_ state: AppState, _ store: Store<AppState>) -> Action?

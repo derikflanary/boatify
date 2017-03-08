@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import ReSwift
+import Reactor
 
-let loggingMiddleware: Middleware = { dispatch, getState in
-    return { next in
-        return { action in
-            print(action)
-            return next(action)
-        }
+
+struct LoggingMiddleware: Middleware {
+    
+    func process(event: Event, state: State) {
+        print(event)
     }
 }
+

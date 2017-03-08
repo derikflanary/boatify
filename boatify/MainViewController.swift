@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 import AVFoundation
 import MediaPlayer
 import Hero
@@ -17,11 +17,8 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     
     let spotifyService = SpotifyService()
-    let recordingService = RecordingService()
-    let settingsService = SettingsService()
-    let musicService = MusicService()
     var musicState = MusicState.none
-    var store = AppState.sharedStore
+    var core = App.sharedCore
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
     
@@ -88,7 +85,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self)
+        core.add(subscriber: self)
         spotifyLoginButton.layer.cornerRadius = 5
         spotifyLoginButton.clipsToBounds = true
         playLocalButton.layer.cornerRadius = 5
@@ -97,7 +94,7 @@ class MainViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        store.unsubscribe(self)
+        core.remove(subscriber: self)
     }
     
     
@@ -130,10 +127,9 @@ class MainViewController: UIViewController {
         case .spotify:
             guard let player = player else { return }
             if (player.playbackState.isPlaying) {
-                store.dispatch(recordingService.stopRecording())
-                
+                core.fire(event: RecordingStopped())
             } else {
-                store.dispatch(recordingService.startRecording())
+                core.fire(event: RecordingStarted())
                 startTrackingProgress()
                 
             }
@@ -141,18 +137,17 @@ class MainViewController: UIViewController {
         case .local:
             switch playback {
             case .playing:
-                store.dispatch(recordingService.stopRecording())
+                core.fire(event: RecordingStopped())
                 stopTrackingProgress()
                 
             case .paused:
-                store.dispatch(recordingService.startRecording())
+                core.fire(event: RecordingStarted())
                 startTrackingProgress()
         
             default:
                 break
             }
-            store.dispatch(musicService.updatePlayPause)
-            
+            core.fire(command: UpdateLocalPlayPause())
         case .none:
             break
         }
@@ -163,7 +158,7 @@ class MainViewController: UIViewController {
         case .spotify:
             spotifyService.advanceToNextTrack()
         case .local:
-            store.dispatch(musicService.advanceToNextTrack)
+            core.fire(command: AdvanceToNextLocalTrack())
         case .none:
             break
         }
@@ -174,7 +169,7 @@ class MainViewController: UIViewController {
         case .spotify:
             spotifyService.advanceToPreviousTrack()
         case .local:
-            store.dispatch(musicService.advanceToPreviousTrack())
+            core.fire(command: AdvanceToPreviousLocalTrack())
         case .none:
             break
         }
@@ -187,10 +182,8 @@ class MainViewController: UIViewController {
         switch musicState {
         case .spotify:
             let percent = spotifyService.trackProgress()
-//            bottomView.progressView.setProgress(percent, animated: true)
         case .local:
-//            bottomView.progressView.setProgress(Float(trackPercent), animated: true)
-            store.dispatch(musicService.updateTrackProgress)
+            core.fire(command: UpdateLocalTrackProgress())
         case .none:
             break
         }
@@ -208,7 +201,7 @@ class MainViewController: UIViewController {
     // MARK: - Interface actions
     
     @IBAction func spotifyLoginTapped(_ sender: AnyObject) {
-        store.dispatch(spotifyService.selectSpotify())
+        core.fire(event: Selected(item: MusicState.spotify))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -217,13 +210,13 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func playLocalButtonTapped() {
-        store.dispatch(musicService.selectLocal())
+        core.fire(event: Selected(item: MusicState.local))
     }
 
     @IBAction func switchMusicStateTapped(_ sender: AnyObject) {
-        store.dispatch(recordingService.stopRecording())
+        core.fire(event: RecordingStopped())
         stopTrackingProgress()
-        store.dispatch(settingsService.resetMusicState())
+        core.fire(event: Updated(item: MusicState.none))
         animateOutBottomView()
     }
     
@@ -276,9 +269,9 @@ class MainViewController: UIViewController {
 extension MainViewController: SPTAudioStreamingDelegate {
 
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-        store.dispatch(spotifyService.getPlaylists)
+        core.fire(command: GetSpotifyPlaylists())
         player?.setVolume(minVolume, callback: nil)
-        store.dispatch(recordingService.requestPermissionToRecord)
+        core.fire(command: RequestPermissionToRecord())
     }
     
 }
@@ -304,11 +297,11 @@ extension MainViewController: UITableViewDelegate {
         switch musicState {
         case .spotify:
             let playlist: SPTPartialPlaylist = playlistsDataSource.spotifyPlaylists[indexPath.row]
-            store.dispatch(spotifyService.select(playlist))
-            store.dispatch(spotifyService.getPlaylistDetails)
+            core.fire(event: Selected(item: playlist))
+            core.fire(command: GetSpotifyPlaylistDetails())
         case .local:
             guard let playlist = playlistsDataSource.localPlaylists[indexPath.row] as? MPMediaPlaylist else { break }
-            store.dispatch(musicService.select(playlist))
+            core.fire(event: Selected(item: playlist))
         case .none:
             break
         }
@@ -326,18 +319,15 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: PlaylistCellDelegate {
     
     func playSpotify(_ playlist: SPTPartialPlaylist) {
-        store.dispatch(Play(item: playlist))
-        spotifyService.play(uri: playlist.playableUri)
-//        bottomView.paused = false
-        store.dispatch(recordingService.startRecording())
+        core.fire(command: PlaySpotifyPlaylist(playlist: playlist))
+        core.fire(event: RecordingStarted())
     }
     
     func playLocal(_ playlist: MPMediaPlaylist) {
-        store.dispatch(Play(item: playlist))
-        store.dispatch(musicService.playPlaylist)
-        store.dispatch(recordingService.startRecording())
+        core.fire(event: Selected(item: playlist))
+        core.fire(command: PlayLocalSelectedPlaylist())
+        core.fire(event: RecordingStarted())
         startTrackingProgress()
-//        bottomView.paused = false
     }
     
 }
@@ -356,11 +346,11 @@ extension MainViewController: SettingsDelegate {
 
 
 
-// MARK: - Store subscriber
+// MARK: - subscriber
 
-extension MainViewController: StoreSubscriber {
+extension MainViewController: Subscriber {
     
-    func newState(state: AppState) {
+    func update(with state: AppState) {
         musicState = state.musicState
         playlistsDataSource.musicState = state.musicState
         
@@ -374,7 +364,7 @@ extension MainViewController: StoreSubscriber {
             switch state.viewState {
             case .preLoggedIn:
                 if state.spotifyState.session == nil {
-                    spotifyService.loginToSpotify()
+                    core.fire(command: LoginToSpotify())
                 }
             case let .loading(message):
                 showLoadingBanner(message)
@@ -403,12 +393,12 @@ extension MainViewController: StoreSubscriber {
             blurBackground()
             animateInBottomView()
             if MPMediaLibrary.authorizationStatus() == .authorized && !state.localMusicState.playlistsLoaded {
-                store.dispatch(musicService.getPlaylists())
-                store.dispatch(recordingService.requestPermissionToRecord)
+                core.fire(command: GetLocalPlaylists())
+                core.fire(command: RequestPermissionToRecord())
             } else if MPMediaLibrary.authorizationStatus() != .authorized {
                 MPMediaLibrary.requestAuthorization({ (status) in
-                    self.store.dispatch(self.musicService.getPlaylists())
-                    self.store.dispatch(self.recordingService.requestPermissionToRecord)
+                    self.core.fire(command: GetLocalPlaylists())
+                    self.core.fire(command: RequestPermissionToRecord())
                 })
             } else {
                 playlistsDataSource.localPlaylists = state.localMusicState.playlists
