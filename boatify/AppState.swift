@@ -55,7 +55,20 @@ struct AppState: State {
     mutating func react(to event: Event) {
         
         switch event {
-
+        case let event as Selected<MusicState>:
+            musicState = event.item
+        case let event as Updated<ViewState>:
+            viewState = event.item
+        case _ as Loaded<SPTPartialPlaylist>:
+            viewState = .viewing
+        case let event as Updated<MusicState>:
+            musicState = event.item
+            if event.item == .none {
+                localMusicState = LocalMusicState()
+                let session = spotifyState.session
+                spotifyState.selectedPlaylist = nil
+                spotifyState.session = session
+            }
         default:
             break
         }

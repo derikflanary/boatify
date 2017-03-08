@@ -12,9 +12,13 @@ import Reactor
 struct LoginPlayer: Command {
     
     private var player = SPTAudioStreamingController.sharedInstance()
+    let session: SPTSession
+    
+    init(session: SPTSession) {
+        self.session = session
+    }
     
     func execute(state: AppState, core: Core<AppState>) {
-        guard let session = state.spotifyState.session else { return }
         do {
             try player?.start(withClientId: SpotifyService.kClientId)
             player?.login(withAccessToken: session.accessToken)

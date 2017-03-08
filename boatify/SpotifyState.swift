@@ -21,37 +21,37 @@ struct SpotifyState: State {
     var selectedTrack: SPTPartialTrack?
     let auth = SPTAuth.defaultInstance()
     var shuffle = Shuffle.off
-    var isPlaying: Bool {
-        guard SPTAudioStreamingController.sharedInstance().playbackState != nil else { return false }
-        return SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
-    }
+    var playback = Playback.stopped
+    
     
     mutating func react(to event: Event) {
-        var state = self
         
         switch event {
         case _ as AppLaunched:
-            state.session = auth?.session
-        case let event as Retrieved<SPTSession?>:
-            state.session = event.item
+            session = auth?.session
+        case let event as Retrieved<SPTSession>:
+            session = event.item
         case let event as Loaded<SPTPartialPlaylist>:
-            state.playlists = event.items
+            playlists = event.items
         case let event as Loaded<UIImage>:
-            state.playlistImages = event.items
+            playlistImages = event.items
         case let event as Selected<SPTPartialPlaylist>:
-            state.selectedPlaylist = event.item
+            selectedPlaylist = event.item
         case let event as Loaded<SPTPartialTrack>:
-            state.tracks = event.items
+            tracks = event.items
         case let event as Selected<SPTPartialTrack>:
-            state.selectedTrack = event.item
+            selectedTrack = event.item
         case let event as Play<SPTPartialPlaylist>:
-            state.currentPlaylist = event.item
+            currentPlaylist = event.item
+            playback = .playing
+        case let event as Updated<Playback>:
+            playback = event.item
         case let event as Updated<Volume>:
             SPTAudioStreamingController.sharedInstance().setVolume(event.item.current, callback: nil)
         case let event as Updated<Shuffle>:
-            state.shuffle = event.item
+            shuffle = event.item
         case _ as Reset<SPTPartialPlaylist>:
-            state.selectedPlaylist = nil
+            selectedPlaylist = nil
         default:
             break
         }

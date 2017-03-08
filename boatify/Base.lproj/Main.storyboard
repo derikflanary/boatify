@@ -390,7 +390,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like you don't have any playlists. You should go create one now! 🚤" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKk-2w-mlZ">
-                            <rect key="frame" x="28" y="35.5" width="541" height="57.5"/>
+                            <rect key="frame" x="28" y="35" width="541" height="58"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -572,6 +572,10 @@
         <scene sceneID="RJ9-P0-UFO">
             <objects>
                 <viewController id="3RH-9G-kh6" customClass="PlaybackViewController" customModule="boatify" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gVn-EE-Chr"/>
+                        <viewControllerLayoutGuide type="bottom" id="xtU-FW-pTU"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2vI-hV-i7w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -616,7 +620,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2b-aO-TyV">
                                         <rect key="frame" x="279" y="312.5" width="42" height="42"/>
                                         <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="pause"/>
+                                        <state key="normal" image="play"/>
                                         <connections>
                                             <action selector="playPauseTapped" destination="3RH-9G-kh6" eventType="touchUpInside" id="SYq-sD-Z1F"/>
                                         </connections>
@@ -636,6 +640,9 @@
                                             <constraint firstAttribute="height" constant="20" id="TFh-9j-Ngr"/>
                                         </constraints>
                                         <state key="normal" image="shuffleOff"/>
+                                        <connections>
+                                            <action selector="shuffleTapped" destination="3RH-9G-kh6" eventType="touchUpInside" id="Kdv-14-gu9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -671,8 +678,8 @@
                                 </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="mpe-Ma-9Hx"/>
                                         <exclude reference="bKj-wc-hfx"/>
+                                        <exclude reference="mpe-Ma-9Hx"/>
                                         <exclude reference="hgF-sE-Na9"/>
                                         <exclude reference="nyh-OK-FjM"/>
                                     </mask>
@@ -783,7 +790,6 @@
         <image name="Arrow" width="26" height="15"/>
         <image name="background" width="375" height="667"/>
         <image name="next" width="25" height="27"/>
-        <image name="pause" width="42" height="42"/>
         <image name="play" width="42" height="42"/>
         <image name="playlist" width="50" height="50"/>
         <image name="previous" width="25" height="27"/>
