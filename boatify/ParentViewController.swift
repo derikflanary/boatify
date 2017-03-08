@@ -34,6 +34,7 @@ class ParentViewController: UIViewController {
     // MARK: - Bottom view animations
     
     func animateInBottomView() {
+        guard playBackContainerViewBottomConstraint.constant < 0 else { return }
         playBackContainerViewBottomConstraint.constant = 0
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, animations: {
@@ -43,6 +44,7 @@ class ParentViewController: UIViewController {
     }
     
     func animateOutBottomView() {
+        guard playBackContainerViewBottomConstraint.constant == 0 else { return }
         playBackContainerViewBottomConstraint.constant = -60
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5, animations: {
@@ -57,6 +59,13 @@ class ParentViewController: UIViewController {
 extension ParentViewController: Subscriber {
     
     func update(with state: AppState) {
-        
+        switch state.viewState {
+        case .preLoggedIn, .loading(_):
+            animateOutBottomView()
+        case .viewing:
+            animateInBottomView()
+        default:
+            break
+        }
     }
 }

@@ -8,8 +8,11 @@
 
 import UIKit
 import Reactor
+import MediaPlayer
 
 class PlaybackViewController: UIViewController {
+    
+    // MARK: - Properties
     
     var paused: Bool = false {
         didSet {
@@ -37,6 +40,12 @@ class PlaybackViewController: UIViewController {
     }
 
     var core = App.sharedCore
+    var player = SPTAudioStreamingController.sharedInstance()
+    var progressTimer: Timer?
+    var spotifyService = SpotifyService()
+    
+    
+    // MARK: - Interface properties
     
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -49,6 +58,21 @@ class PlaybackViewController: UIViewController {
     
     
     // MARK: - View life cycle
+    
+    override func viewDidLoad() {
+        player?.delegate = self
+        player?.playbackDelegate = self
+        let command = MPRemoteCommandCenter.shared()
+        command.nextTrackCommand.isEnabled = true
+        command.previousTrackCommand.isEnabled = true
+        command.togglePlayPauseCommand.isEnabled = true
+        command.playCommand.isEnabled = true
+        command.playCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
+        command.pauseCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
+        command.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseTapped))
+        command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
+        command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -64,9 +88,25 @@ class PlaybackViewController: UIViewController {
     // MARK: - Interface actions
     
     @IBAction func nextButtonTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            spotifyService.advanceToNextTrack()
+        case .local:
+            core.fire(command: AdvanceToNextLocalTrack())
+        case .none:
+            break
+        }
     }
     
     @IBAction func previousButtonTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            spotifyService.advanceToPreviousTrack()
+        case .local:
+            core.fire(command: AdvanceToPreviousLocalTrack())
+        case .none:
+            break
+        }
     }
     
     @IBAction func playPauseTapped() {
@@ -89,72 +129,141 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func shuffleTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            switch core.state.spotifyState.shuffle {
+            case .off:
+                core.fire(command: ShuffleSpotifyPlaylist())
+            case .on:
+                core.fire(command: UnshuffleSpotifyPlaylist())
+            }
+        case .local:
+            switch core.state.localMusicState.shuffle {
+            case .off:
+                core.fire(command: EnableLocalShuffle())
+            case .on:
+                core.fire(command: DisableLocalShuffle())
+            }
+        case .none:
+            break
+        }
+
     }
     
     @IBAction func expandButtonTapped() {
     }
     
     
-//    extension ViewController: PlaybackViewDelegate {
-//        
-//        func pausePlayTapped() {
-//            switch musicState {
-//            case .spotify:
-//                if player?.metadata != nil {
-//                    break
-//                } else {
-//                    return
-//                }
-//            case .local:
-//                switch playback {
-//                case .playing, .paused:
-//                    break
-//                case .stopped:
-//                    return
-//                }
-//            case .none:
-//                return
-//            }
-//            playPauseTapped()
-//        }
-//        
-//        func previousTapped() {
-//            previousTrackTapped()
-//        }
-//        
-//        func nextTapped() {
-//            nextTrackTapped()
-//        }
-//        
-//        func expandTapped() {
-//            performSegue(withIdentifier: "PresentPlayback", sender: self)
-//        }
-//        
-//        func shuffleTapped(_ shuffle: Shuffle) {
-//            switch musicState {
-//            case .spotify:
-//                switch shuffle {
-//                case .on:
-//                    store.dispatch(spotifyService.unshufflePlaylist)
-//                case .off:
-//                    store.dispatch(spotifyService.shufflePlaylist)
-//                }
-//            case .local:
-//                switch shuffle {
-//                case .on:
-//                    store.dispatch(musicService.disableShuffle())
-//                case .off:
-//                    store.dispatch(musicService.enableShuffle())
-//                }
-//                
-//            case .none:
-//                return
-//            }
-//        }
-//        
-//    }
+    // MARK: - Remote command
+    
+    func playPauseRemoteTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            guard let player = player else { return }
+            if (player.playbackState.isPlaying) {
+                core.fire(event: RecordingStopped())
+            } else {
+                core.fire(event: RecordingStarted())
+                startTrackingProgress()
+                
+            }
+            spotifyService.updateIsPlaying()
+        case .local:
+            switch core.state.localMusicState.playback {
+            case .playing:
+                core.fire(event: RecordingStopped())
+                stopTrackingProgress()
+                
+            case .paused:
+                core.fire(event: RecordingStarted())
+                startTrackingProgress()
+                
+            default:
+                break
+            }
+            core.fire(command: UpdateLocalPlayPause())
+        case .none:
+            break
+        }
+    }
+    
+    func nextTrackTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            spotifyService.advanceToNextTrack()
+        case .local:
+            core.fire(command: AdvanceToNextLocalTrack())
+        case .none:
+            break
+        }
+    }
+    
+    func previousTrackTapped() {
+        switch core.state.musicState {
+        case .spotify:
+            spotifyService.advanceToPreviousTrack()
+        case .local:
+            core.fire(command: AdvanceToPreviousLocalTrack())
+        case .none:
+            break
+        }
+    }
+
+    
+    // MARK: - Track progress
+    
+    
+    func startTrackingProgress() {
+        progressTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+    }
+    
+    func stopTrackingProgress() {
+        progressTimer?.invalidate()
+    }
+    
+    func updateProgress() {
+        switch core.state.musicState {
+        case .spotify:
+            let percent = spotifyService.trackProgress()
+            progressView.setProgress(percent, animated: true)
+            if let currentTrack = spotifyService.currentTrackData() {
+                trackLabel.text = currentTrack.name
+                artistLabel.text = currentTrack.artistName
+            }
+        case .local:
+            core.fire(command: UpdateLocalTrackProgress())
+        case .none:
+            break
+        }
+    }
 
 }
+
+
+
+// MARK: Streaming delegate
+
+extension PlaybackViewController: SPTAudioStreamingDelegate {
+    
+    func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+        core.fire(command: GetSpotifyPlaylists())
+        player?.setVolume(core.state.recorderState.volume.min, callback: nil)
+        core.fire(command: RequestPermissionToRecord())
+    }
+    
+}
+
+extension PlaybackViewController: SPTAudioStreamingPlaybackDelegate {
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
+        guard let trackName = player?.metadata.currentTrack?.name, let artist = player?.metadata.currentTrack?.artistName else { return }
+        trackLabel.text = trackName
+        artistLabel.text = artist
+        startTrackingProgress()
+    }
+    
+}
+
 
 extension PlaybackViewController: Subscriber {
     
@@ -178,7 +287,8 @@ extension PlaybackViewController: Subscriber {
             case .on:
                 shuffleButton.tintColor = UIColor.black
             }
-        case .spotify:
+            
+            case .spotify:
             guard let streamingController = SPTAudioStreamingController.sharedInstance() else { return }
             if streamingController.metadata != nil {
                 trackLabel.text = streamingController.metadata.currentTrack?.name
@@ -195,13 +305,14 @@ extension PlaybackViewController: Subscriber {
             }
 
             if streamingController.playbackState.isShuffling {
-                shuffleButton.tintColor = UIColor.black
+                shuffleButton.setImage(#imageLiteral(resourceName: "shuffleOn"), for: .normal)
             } else {
-                shuffleButton.tintColor = UIColor.lightGray
+                shuffleButton.setImage(#imageLiteral(resourceName: "shuffleOff"), for: .normal)
             }
             
+            
         case .none:
-            break
+            stopTrackingProgress()
             
         }
     }

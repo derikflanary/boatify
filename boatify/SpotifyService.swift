@@ -55,6 +55,19 @@ struct SpotifyService {
         }
     }
     
+    func stopPlayer() {
+        do {
+            try player?.stop()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func currentTrackData() -> SPTPlaybackTrack? {
+        guard let player = player else { return nil }
+        return player.metadata.currentTrack
+    }
+    
 }
 
 

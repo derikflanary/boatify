@@ -17,10 +17,11 @@ struct PlaySpotifyPlaylist: Command {
     }
     
     func execute(state: AppState, core: Core<AppState>) {
-        core.fire(event: Play(item: playlist))
         SPTAudioStreamingController.sharedInstance().playSpotifyURI(playlist.playableUri.absoluteString, startingWith: 0, startingWithPosition: 0, callback: { error in
             if let error = error {
                 print(error)
+            } else {
+                core.fire(event: Play(item: self.playlist))
             }
         })
     }

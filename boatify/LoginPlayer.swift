@@ -22,9 +22,9 @@ struct LoginPlayer: Command {
         do {
             try player?.start(withClientId: SpotifyService.kClientId)
             player?.login(withAccessToken: session.accessToken)
-            core.fire(event: Updated(item: ViewState.loading(message: "Loading your playlists...")))
         } catch {
             print(error)
+            core.fire(event: Updated(item: ViewState.error(message: "Failed to login to Spotify. 😟")))
         }
     }
     

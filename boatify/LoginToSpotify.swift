@@ -21,6 +21,7 @@ struct LoginToSpotify: Command {
         SPTAuth.defaultInstance().sessionUserDefaultsKey = "SpotifySession"
         guard let loginURL = SPTAuth.defaultInstance().spotifyWebAuthenticationURL() else { return }
         UIApplication.shared.open(loginURL, options: [:], completionHandler: nil)
+        core.fire(event: Updated(item: ViewState.loading(message: "Loading your playlists...")))
     }
     
 }

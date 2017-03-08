@@ -34,6 +34,11 @@ struct PlayLocalSelectedPlaylist: Command {
         player.play()
         guard let firstSong = playlist.items.first else { return }
         core.fire(event: Playing(item: firstSong))
+        
+        guard let audioRecorder = state.recorderState.audioRecorder else { return }
+        if !audioRecorder.isRecording {
+            core.fire(event: RecordingStarted())
+        }
     }
     
 }

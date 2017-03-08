@@ -23,6 +23,7 @@ struct LocalMusicState: State {
     var playback = Playback.stopped
     var trackPercent: Double = 0.0
     var shuffle = Shuffle.off
+    var shouldStartRecording = false
     
     
     mutating func react(to event: Event) {
@@ -51,6 +52,8 @@ struct LocalMusicState: State {
             player.volume = Float(event.item.current)
         case _ as Reset<MPMediaPlaylist>:
             selectedPlaylist = nil
+        case _ as RecordingStarted:
+            shouldStartRecording = false
         default:
             break
         }

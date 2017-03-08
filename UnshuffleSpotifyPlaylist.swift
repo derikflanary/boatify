@@ -16,7 +16,7 @@ struct UnshuffleSpotifyPlaylist: Command {
             if let error = error {
                 print(error)
             } else {
-                core.fire(event: Updated(item: Shuffle.on))
+                core.fire(event: Updated(item: Shuffle.off))
             }
         })
         

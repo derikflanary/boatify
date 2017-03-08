@@ -12,7 +12,7 @@ import Reactor
 struct DisableLocalShuffle: Command {
     
     func execute(state: AppState, core: Core<AppState>) {
-        core.fire(event: Updated(item: Shuffle.on))
+        core.fire(event: Updated(item: Shuffle.off))
         core.fire(command: PlaySelectedLocalTrack())
     }
     
