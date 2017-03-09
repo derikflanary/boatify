@@ -57,10 +57,6 @@ class MainViewController: UIViewController {
         tableView.tableFooterView = UIView()
         visualEffectView.effect = nil
         
-        navigationController?.heroNavigationAnimationType = .fade
-        Hero.shared.disableDefaultAnimationForNextTransition()
-        
-        
         guard let navigationController = navigationController else { return }
         navigationController.navigationBar.tintColor = UIColor.white
     }
@@ -89,6 +85,7 @@ class MainViewController: UIViewController {
     
     @IBAction func playLocalButtonTapped() {
         core.fire(event: Selected(item: MusicState.local))
+        core.fire(event: Updated(item: ViewState.viewing))
     }
 
     @IBAction func switchMusicStateTapped(_ sender: AnyObject) {
@@ -142,8 +139,6 @@ class MainViewController: UIViewController {
                     })
                     
                 })
-                UIView.animate(withDuration: 1.0, animations: {
-                })
             }
         }
 
@@ -183,13 +178,11 @@ extension MainViewController: PlaylistCellDelegate {
     
     func playSpotify(_ playlist: SPTPartialPlaylist) {
         core.fire(command: PlaySpotifyPlaylist(playlist: playlist))
-        core.fire(event: RecordingStarted())
     }
     
     func playLocal(_ playlist: MPMediaPlaylist) {
         core.fire(event: Selected(item: playlist))
         core.fire(command: PlayLocalSelectedPlaylist())
-        core.fire(event: RecordingStarted())
     }
     
 }

@@ -47,7 +47,8 @@ struct SpotifyState: State {
         case let event as Updated<Playback>:
             playback = event.item
         case let event as Updated<Volume>:
-            SPTAudioStreamingController.sharedInstance().setVolume(event.item.current, callback: nil)
+            guard let player = SPTAudioStreamingController.sharedInstance(), session != nil else { break }
+            player.setVolume(event.item.current, callback: nil)
         case let event as Updated<Shuffle>:
             shuffle = event.item
         case _ as Reset<SPTPartialPlaylist>:

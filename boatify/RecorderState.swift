@@ -15,23 +15,22 @@ struct RecorderState: State {
     var progress: TrackProgress = TrackProgress(percent: 0.0)
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
-    var progressTimer: Timer?
     var volume = Volume(min: 0.5, max: 1.0)
+    var shouldStartRecording = false
     
     mutating func react(to event: Event) {
         
         switch event {
+        case _ as RecordingRequested:
+            shouldStartRecording = true
         case let event as RecordingSetup:
             audioRecorder = event.audioRecorder
-        case let event as Updated<TrackProgress>:
-            progress = event.item
         case _ as RecordingStarted:
+            shouldStartRecording = false
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.record()
             audioRecorder?.updateMeters()
-            TimerController.sharedInstance.startMeter()
         case _ as RecordingStopped:
-            TimerController.sharedInstance.stopMeter()
             audioRecorder?.stop()
         case let event as Updated<Volume>:
             volume = event.item

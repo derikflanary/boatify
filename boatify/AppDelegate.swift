@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Config.modifyInset = false
         core.fire(event: AppLaunched())
+        
         return true
     }
 

@@ -37,7 +37,7 @@ struct PlayLocalSelectedPlaylist: Command {
         
         guard let audioRecorder = state.recorderState.audioRecorder else { return }
         if !audioRecorder.isRecording {
-            core.fire(event: RecordingStarted())
+            core.fire(event: RecordingRequested())
         }
     }
     

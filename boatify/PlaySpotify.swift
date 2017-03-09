@@ -18,6 +18,11 @@ struct PlaySpotify: Command {
                 print(error)
             } else {
                 core.fire(event: Updated(item: Playback.playing))
+                guard let audioRecorder = state.recorderState.audioRecorder else { return }
+                if !audioRecorder.isRecording {
+                    core.fire(event: RecordingRequested())
+                }
+
             }
         }
     }

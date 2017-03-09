@@ -12,9 +12,8 @@ import Reactor
 struct GetSpotifyPlaylists: Command {
     
     func execute(state: AppState, core: Core<AppState>) {
-        print(state.spotifyState.session)
         SPTPlaylistList.playlists(forUser: state.spotifyState.session?.canonicalUsername, withAccessToken: state.spotifyState.session?.accessToken, callback: { (error, list) in
-            if error != nil {
+            if let error = error {
                 print(error)
             } else {
                 guard let playlists = list as? SPTPlaylistList else { return }

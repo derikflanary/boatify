@@ -23,6 +23,10 @@ struct PlaySelectedSpotifyPlaylist: Command {
             if let error = error {
                 print(error)
             }
+            guard let audioRecorder = state.recorderState.audioRecorder else { return }
+            if !audioRecorder.isRecording {
+                core.fire(event: RecordingRequested())
+            }
         })
     }
 }

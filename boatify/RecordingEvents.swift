@@ -15,6 +15,8 @@ struct RecordingSetup: Event {
     let audioRecorder: AVAudioRecorder
 }
 
+struct RecordingRequested: Event { }
+
 struct RecordingStopped: Event { }
 
 struct RecordingStarted: Event { }

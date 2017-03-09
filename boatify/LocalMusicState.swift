@@ -24,6 +24,7 @@ struct LocalMusicState: State {
     var trackPercent: Double = 0.0
     var shuffle = Shuffle.off
     var shouldStartRecording = false
+    var shouldStartTrackingProgress = false
     
     
     mutating func react(to event: Event) {
@@ -40,8 +41,17 @@ struct LocalMusicState: State {
             currentTrack = event.item
             selectedTrack = event.item
             playback = .playing
+            shouldStartTrackingProgress = true
+        case _ as TrackingProgress:
+            shouldStartTrackingProgress = false
         case let event as Updated<Playback>:
             playback = event.item
+            switch playback {
+            case .playing:
+                player.play()
+            case .paused, .stopped:
+                player.pause()
+            }
         case let event as UpdatedTrackProgress:
             trackPercent = event.percent
         case let event as Updated<Shuffle>:

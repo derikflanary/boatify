@@ -55,10 +55,8 @@ extension PlaylistDetailViewController: UITableViewDelegate {
         switch musicState {
         case .spotify:
             let track = tracksDataSource.spotifyTracks[indexPath.row]
-            
             core.fire(event: Selected(item: track))
-            core.fire(command: PlayLocalSelectedPlaylist())
-            core.fire(event: RecordingStarted())
+            core.fire(command: PlaySelectedSpotifyPlaylist(startingTrackPosition: indexPath.row))
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
             core.fire(event: Selected(item: track))

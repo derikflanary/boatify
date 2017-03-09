@@ -26,3 +26,5 @@ struct UpdatedTrackProgress: Event {
 
 struct StoppedPlayer: Event { }
 
+struct TrackingProgress: Event { }
+

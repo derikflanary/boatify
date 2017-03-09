@@ -39,6 +39,11 @@ struct PlaySelectedLocalTrack: Command {
         player.volume = Float(state.recorderState.volume.min)
         player.play()
         core.fire(event: Playing(item: selectedTrack))
+        guard let audioRecorder = state.recorderState.audioRecorder else { return }
+        if !audioRecorder.isRecording {
+            core.fire(event: RecordingRequested())
+        }
+
     }
     
 }

@@ -43,7 +43,9 @@ class PlaybackViewController: UIViewController {
     var core = App.sharedCore
     var player = SPTAudioStreamingController.sharedInstance()
     var progressTimer: Timer?
+    var recordingTimer: Timer?
     var spotifyService = SpotifyService()
+    var timerController = TimerController.sharedInstance
     
     
     // MARK: - Interface properties
@@ -120,16 +122,24 @@ class PlaybackViewController: UIViewController {
     @IBAction func playPauseTapped() {
         switch core.state.musicState {
         case .spotify:
-            if case .playing = core.state.spotifyState.playback {
+            switch core.state.spotifyState.playback {
+            case .playing:
                 core.fire(command: PauseSpotify())
-            } else {
+            case .paused:
                 core.fire(command: PlaySpotify())
+            case .stopped:
+                break
             }
         case .local:
-            if case .playing = core.state.localMusicState.playback {
+            switch core.state.localMusicState.playback {
+            case .playing:
                 core.fire(event: Updated(item: Playback.paused))
-            } else {
+                stopTracking()
+            case .paused:
                 core.fire(event: Updated(item: Playback.playing))
+                startTracking()
+            case .stopped:
+                break
             }
         case .none:
             break
@@ -169,23 +179,20 @@ class PlaybackViewController: UIViewController {
         case .spotify:
             guard let player = player else { return }
             if (player.playbackState.isPlaying) {
-                core.fire(event: RecordingStopped())
+                stopTracking()
                 core.fire(command: PauseSpotify())
             } else {
-                core.fire(event: RecordingStarted())
+                startTracking()
                 core.fire(command: PlaySpotify())
-                startTrackingProgress()
             }
         case .local:
             switch core.state.localMusicState.playback {
             case .playing:
-                core.fire(event: RecordingStopped())
-                stopTrackingProgress()
-                
+                stopTracking()
+                core.fire(event: Updated(item: Playback.paused))
             case .paused:
-                core.fire(event: RecordingStarted())
-                startTrackingProgress()
-                
+                startTracking()
+                core.fire(event: Updated(item: Playback.playing))
             default:
                 break
             }
@@ -198,9 +205,19 @@ class PlaybackViewController: UIViewController {
     func nextTrackTapped() {
         switch core.state.musicState {
         case .spotify:
-            core.fire(command: AdvanceToNextSpotifyTrack())
+            switch core.state.spotifyState.playback {
+            case .paused, .playing:
+                core.fire(command: AdvanceToNextSpotifyTrack())
+            case .stopped:
+                break
+            }
         case .local:
-            core.fire(command: AdvanceToNextLocalTrack())
+            switch core.state.localMusicState.playback {
+            case .paused, .playing:
+                core.fire(command: AdvanceToNextLocalTrack())
+            case .stopped:
+                break
+            }
         case .none:
             break
         }
@@ -220,9 +237,21 @@ class PlaybackViewController: UIViewController {
     
     // MARK: - Track progress
     
+    func startTracking() {
+        startTrackingProgress()
+        startMeter()
+    }
+    
+    func stopTracking() {
+        stopTrackingProgress()
+        stopMeter()
+    }
+    
     
     func startTrackingProgress() {
+        progressTimer?.invalidate()
         progressTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
+        core.fire(event: TrackingProgress())
     }
     
     func stopTrackingProgress() {
@@ -244,6 +273,22 @@ class PlaybackViewController: UIViewController {
             break
         }
     }
+    
+    func startMeter() {
+        recordingTimer?.invalidate()
+        recordingTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
+        core.fire(event: RecordingStarted())
+    }
+    
+    func stopMeter() {
+        recordingTimer?.invalidate()
+        core.fire(event: RecordingStopped())
+    }
+    
+    func updateMeter() {
+        core.fire(command: UpdateRecording())
+    }
+
 
 }
 
@@ -267,7 +312,7 @@ extension PlaybackViewController: SPTAudioStreamingPlaybackDelegate {
         guard let trackName = player?.metadata.currentTrack?.name, let artist = player?.metadata.currentTrack?.artistName else { return }
         trackLabel.text = trackName
         artistLabel.text = artist
-        startTrackingProgress()
+        startTracking()
     }
     
 }
@@ -276,6 +321,10 @@ extension PlaybackViewController: SPTAudioStreamingPlaybackDelegate {
 extension PlaybackViewController: Subscriber {
     
     func update(with state: AppState) {
+        if state.recorderState.shouldStartRecording {
+            startMeter()
+        }
+        
         switch state.musicState {
         case .local:
             trackLabel.text = state.localMusicState.selectedTrack?.title
@@ -295,7 +344,10 @@ extension PlaybackViewController: Subscriber {
             case .on:
                 shuffleButton.tintColor = UIColor.black
             }
-            
+            progressView.setProgress(Float(state.localMusicState.trackPercent), animated: true)
+            if state.localMusicState.shouldStartTrackingProgress {
+                startTrackingProgress()
+            }
             case .spotify:
             guard let streamingController = SPTAudioStreamingController.sharedInstance() else { return }
             if streamingController.metadata != nil {
@@ -320,8 +372,7 @@ extension PlaybackViewController: Subscriber {
             
             
         case .none:
-            stopTrackingProgress()
-            
+            progressView.setProgress(0, animated: false)
         }
     }
 }
