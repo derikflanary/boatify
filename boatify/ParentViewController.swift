@@ -8,6 +8,7 @@
 
 import UIKit
 import Reactor
+import Hero
 
 class ParentViewController: UIViewController {
     
@@ -16,6 +17,7 @@ class ParentViewController: UIViewController {
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var playBackContainerView: UIView!
     @IBOutlet weak var playBackContainerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     
     // MARK: - View life cycle
@@ -30,6 +32,9 @@ class ParentViewController: UIViewController {
         core.remove(subscriber: self)
     }
     
+    @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
+        
+    }
     
     // MARK: - Bottom view animations
     
@@ -37,7 +42,7 @@ class ParentViewController: UIViewController {
         guard playBackContainerViewBottomConstraint.constant < 0 else { return }
         playBackContainerViewBottomConstraint.constant = 0
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 1.0, animations: {
                 self.view.layoutIfNeeded()
             })
         }
@@ -47,7 +52,7 @@ class ParentViewController: UIViewController {
         guard playBackContainerViewBottomConstraint.constant == 0 else { return }
         playBackContainerViewBottomConstraint.constant = -60
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 1.0, animations: {
                 self.view.layoutIfNeeded()
             })
         }

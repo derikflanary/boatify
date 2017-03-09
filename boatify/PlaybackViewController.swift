@@ -9,6 +9,7 @@
 import UIKit
 import Reactor
 import MediaPlayer
+import Hero
 
 class PlaybackViewController: UIViewController {
     
@@ -62,6 +63,13 @@ class PlaybackViewController: UIViewController {
     override func viewDidLoad() {
         player?.delegate = self
         player?.playbackDelegate = self
+        playPauseButton.imageView?.contentMode = .scaleToFill
+        nextButton.imageView?.contentMode = .scaleToFill
+        previousButton.imageView?.contentMode = .scaleToFill
+        shuffleButton.imageView?.contentMode = .scaleToFill
+        
+        Hero.shared.setDefaultAnimationForNextTransition(.cover(direction: .up))
+        
         let command = MPRemoteCommandCenter.shared()
         command.nextTrackCommand.isEnabled = true
         command.previousTrackCommand.isEnabled = true
@@ -90,7 +98,7 @@ class PlaybackViewController: UIViewController {
     @IBAction func nextButtonTapped() {
         switch core.state.musicState {
         case .spotify:
-            spotifyService.advanceToNextTrack()
+            core.fire(command: AdvanceToNextSpotifyTrack())
         case .local:
             core.fire(command: AdvanceToNextLocalTrack())
         case .none:
@@ -101,7 +109,7 @@ class PlaybackViewController: UIViewController {
     @IBAction func previousButtonTapped() {
         switch core.state.musicState {
         case .spotify:
-            spotifyService.advanceToPreviousTrack()
+            core.fire(command: AdvanceToPreviousSpotifyTrack())
         case .local:
             core.fire(command: AdvanceToPreviousLocalTrack())
         case .none:
@@ -113,9 +121,9 @@ class PlaybackViewController: UIViewController {
         switch core.state.musicState {
         case .spotify:
             if case .playing = core.state.spotifyState.playback {
-                core.fire(event: Updated(item: Playback.paused))
+                core.fire(command: PauseSpotify())
             } else {
-                core.fire(event: Updated(item: Playback.playing))
+                core.fire(command: PlaySpotify())
             }
         case .local:
             if case .playing = core.state.localMusicState.playback {
@@ -162,12 +170,12 @@ class PlaybackViewController: UIViewController {
             guard let player = player else { return }
             if (player.playbackState.isPlaying) {
                 core.fire(event: RecordingStopped())
+                core.fire(command: PauseSpotify())
             } else {
                 core.fire(event: RecordingStarted())
+                core.fire(command: PlaySpotify())
                 startTrackingProgress()
-                
             }
-            spotifyService.updateIsPlaying()
         case .local:
             switch core.state.localMusicState.playback {
             case .playing:
@@ -190,7 +198,7 @@ class PlaybackViewController: UIViewController {
     func nextTrackTapped() {
         switch core.state.musicState {
         case .spotify:
-            spotifyService.advanceToNextTrack()
+            core.fire(command: AdvanceToNextSpotifyTrack())
         case .local:
             core.fire(command: AdvanceToNextLocalTrack())
         case .none:
@@ -201,7 +209,7 @@ class PlaybackViewController: UIViewController {
     func previousTrackTapped() {
         switch core.state.musicState {
         case .spotify:
-            spotifyService.advanceToPreviousTrack()
+            core.fire(command: AdvanceToPreviousSpotifyTrack())
         case .local:
             core.fire(command: AdvanceToPreviousLocalTrack())
         case .none:

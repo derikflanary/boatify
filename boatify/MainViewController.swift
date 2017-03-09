@@ -263,7 +263,9 @@ extension MainViewController: Subscriber {
             }
         case .none:
             removeBlurFromBackground()
-            
+            playlistsDataSource.localPlaylists = []
+            playlistsDataSource.spotifyPlaylists = []
+            tableView.reloadData()
         }
     }
     

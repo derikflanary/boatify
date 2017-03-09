@@ -19,15 +19,6 @@ struct SpotifyService {
     var player = SPTAudioStreamingController.sharedInstance()
 
     
-    func updateIsPlaying() {
-        guard let player = player else { return }
-        player.setIsPlaying(!player.playbackState.isPlaying, callback: { error in
-            if let error = error {
-                print(error)
-            }
-        })
-    }
-    
     func trackProgress() -> Float {
         guard let player = player, let trackDuration = player.metadata.currentTrack?.duration else { return 0.0 }
         let percent = (player.playbackState.position) / (trackDuration)
@@ -37,22 +28,6 @@ struct SpotifyService {
     
     func set(volume: Double) {
         player?.setVolume(volume, callback: nil)
-    }
-    
-    func advanceToNextTrack() {
-        player?.skipNext { error in
-            if let error = error {
-                print(error)
-            }
-        }
-    }
-    
-    func advanceToPreviousTrack() {
-        player?.skipPrevious { error in
-            if let error = error {
-                print(error)
-            }
-        }
     }
     
     func stopPlayer() {

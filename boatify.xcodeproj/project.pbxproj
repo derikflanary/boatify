@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */; };
 		EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */; };
+		EC41AF251E71C14A00132C7A /* PlaySpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF241E71C14A00132C7A /* PlaySpotify.swift */; };
+		EC41AF271E71C16100132C7A /* PauseSpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF261E71C16100132C7A /* PauseSpotify.swift */; };
+		EC41AF291E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */; };
+		EC41AF2B1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */; };
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
@@ -109,6 +113,10 @@
 /* Begin PBXFileReference section */
 		EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Extensions.swift"; sourceTree = "<group>"; };
 		EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		EC41AF241E71C14A00132C7A /* PlaySpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySpotify.swift; sourceTree = "<group>"; };
+		EC41AF261E71C16100132C7A /* PauseSpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseSpotify.swift; sourceTree = "<group>"; };
+		EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToNextSpotifyTrack.swift; sourceTree = "<group>"; };
+		EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToPreviousSpotifyTrack.swift; sourceTree = "<group>"; };
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -278,6 +286,10 @@
 				ECF506381E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift */,
 				ECF506361E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift */,
 				ECF5063C1E6F856C000F34CE /* RefreshSpotifySession.swift */,
+				EC41AF241E71C14A00132C7A /* PlaySpotify.swift */,
+				EC41AF261E71C16100132C7A /* PauseSpotify.swift */,
+				EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */,
+				EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */,
 			);
 			name = Spotify;
 			sourceTree = "<group>";
@@ -598,6 +610,7 @@
 				EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */,
 				ECF5063B1E6F82F9000F34CE /* PlaySpotifyPlaylist.swift in Sources */,
 				ECF506451E6F88BC000F34CE /* EnableLocalShuffle.swift in Sources */,
+				EC41AF271E71C16100132C7A /* PauseSpotify.swift in Sources */,
 				EC80D78D1DECE9FB000DE3F7 /* Shuffle.swift in Sources */,
 				ECF5064F1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift in Sources */,
 				EE550E831D56507100C19603 /* SpotifyService.swift in Sources */,
@@ -618,6 +631,7 @@
 				ECF5061B1E6F2F4A000F34CE /* ParentViewController.swift in Sources */,
 				EC6C3BE81D5F7DFF0083ECF1 /* TimerController.swift in Sources */,
 				ECF506391E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift in Sources */,
+				EC41AF2B1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift in Sources */,
 				EC6C3BEE1D6114560083ECF1 /* LocalMusicEvents.swift in Sources */,
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
 				ECF506411E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift in Sources */,
@@ -627,10 +641,12 @@
 				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
 				ECF5062D1E6F7067000F34CE /* LoginPlayer.swift in Sources */,
 				ECF506311E6F7C4C000F34CE /* GetSpotifyPlaylists.swift in Sources */,
+				EC41AF291E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift in Sources */,
 				ECF506431E6F8895000F34CE /* PlaySelectedLocalTrack.swift in Sources */,
 				EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */,
 				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
 				EE6975141D55481900D91587 /* MainViewController.swift in Sources */,
+				EC41AF251E71C14A00132C7A /* PlaySpotify.swift in Sources */,
 				ECF5062F1E6F7081000F34CE /* HandleAuth.swift in Sources */,
 				ECF41C791DED480D007A58A1 /* Volume.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,
@@ -795,6 +811,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 92H4P6C5WB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/boatify",
@@ -822,6 +839,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 92H4P6C5WB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/boatify",
