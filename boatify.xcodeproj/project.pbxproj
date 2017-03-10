@@ -217,6 +217,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC41AF2C1E734DF800132C7A /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
 		EC6C3BDC1D5E8A7B0083ECF1 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +354,7 @@
 				EE6975131D55481900D91587 /* MainViewController.swift */,
 				EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */,
 				EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */,
-				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
+				EC41AF2C1E734DF800132C7A /* Playback */,
 				EC6C3BEA1D5F8F7F0083ECF1 /* Playlist Details */,
 				EC6C3BE91D5F8F6E0083ECF1 /* Settings */,
 			);

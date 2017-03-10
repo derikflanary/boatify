@@ -29,17 +29,8 @@ struct UpdateRecording: Command {
     }
 }
 
-struct updateVolumeSettings: Command {
-    
+struct UpdatedVolumeSettings: Event {
     let newMin: Double
     let newMax: Double
-    
-    init(newMin: Double, newMax: Double) {
-        self.newMin = newMin
-        self.newMax = newMax
-    }
-    
-    func execute(state: AppState, core: Core<AppState>) {
-        
-    }
 }
+

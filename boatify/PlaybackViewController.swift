@@ -77,11 +77,13 @@ class PlaybackViewController: UIViewController {
         command.previousTrackCommand.isEnabled = true
         command.togglePlayPauseCommand.isEnabled = true
         command.playCommand.isEnabled = true
+        command.enableLanguageOptionCommand.isEnabled = true
         command.playCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
         command.pauseCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
         command.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
         command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,52 +100,15 @@ class PlaybackViewController: UIViewController {
     // MARK: - Interface actions
     
     @IBAction func nextButtonTapped() {
-        switch core.state.musicState {
-        case .spotify:
-            core.fire(command: AdvanceToNextSpotifyTrack())
-        case .local:
-            core.fire(command: AdvanceToNextLocalTrack())
-        case .none:
-            break
-        }
+        nextTrackTapped()
     }
     
     @IBAction func previousButtonTapped() {
-        switch core.state.musicState {
-        case .spotify:
-            core.fire(command: AdvanceToPreviousSpotifyTrack())
-        case .local:
-            core.fire(command: AdvanceToPreviousLocalTrack())
-        case .none:
-            break
-        }
+        previousTrackTapped()
     }
     
     @IBAction func playPauseTapped() {
-        switch core.state.musicState {
-        case .spotify:
-            switch core.state.spotifyState.playback {
-            case .playing:
-                core.fire(command: PauseSpotify())
-            case .paused:
-                core.fire(command: PlaySpotify())
-            case .stopped:
-                break
-            }
-        case .local:
-            switch core.state.localMusicState.playback {
-            case .playing:
-                core.fire(event: Updated(item: Playback.paused))
-                stopTracking()
-            case .paused:
-                core.fire(event: Updated(item: Playback.playing))
-                startTracking()
-            case .stopped:
-                break
-            }
-        case .none:
-            break
-        }
+        playPauseRemoteTapped()
     }
     
     @IBAction func shuffleTapped() {
@@ -177,26 +142,25 @@ class PlaybackViewController: UIViewController {
     func playPauseRemoteTapped() {
         switch core.state.musicState {
         case .spotify:
-            guard let player = player else { return }
-            if (player.playbackState.isPlaying) {
-                stopTracking()
+            switch core.state.spotifyState.playback {
+            case .playing:
                 core.fire(command: PauseSpotify())
-            } else {
-                startTracking()
+            case .paused:
                 core.fire(command: PlaySpotify())
+            case .stopped:
+                break
             }
         case .local:
             switch core.state.localMusicState.playback {
             case .playing:
-                stopTracking()
                 core.fire(event: Updated(item: Playback.paused))
+                stopTracking()
             case .paused:
-                startTracking()
                 core.fire(event: Updated(item: Playback.playing))
-            default:
+                startTracking()
+            case .stopped:
                 break
             }
-            core.fire(command: UpdateLocalPlayPause())
         case .none:
             break
         }
@@ -205,19 +169,9 @@ class PlaybackViewController: UIViewController {
     func nextTrackTapped() {
         switch core.state.musicState {
         case .spotify:
-            switch core.state.spotifyState.playback {
-            case .paused, .playing:
-                core.fire(command: AdvanceToNextSpotifyTrack())
-            case .stopped:
-                break
-            }
+            core.fire(command: AdvanceToNextSpotifyTrack())
         case .local:
-            switch core.state.localMusicState.playback {
-            case .paused, .playing:
-                core.fire(command: AdvanceToNextLocalTrack())
-            case .stopped:
-                break
-            }
+            core.fire(command: AdvanceToNextLocalTrack())
         case .none:
             break
         }
@@ -329,6 +283,13 @@ extension PlaybackViewController: Subscriber {
         case .local:
             trackLabel.text = state.localMusicState.selectedTrack?.title
             artistLabel.text = state.localMusicState.selectedTrack?.artist
+            if let selectedTrack = state.localMusicState.selectedTrack, let title = selectedTrack.title, let artist = selectedTrack.artist {
+                
+                let songInfo = [ MPMediaItemPropertyTitle: title,
+                                 MPMediaItemPropertyArtist: artist ]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
+
+            }
             switch state.localMusicState.playback {
             case .playing:
                 playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
@@ -351,8 +312,15 @@ extension PlaybackViewController: Subscriber {
             case .spotify:
             guard let streamingController = SPTAudioStreamingController.sharedInstance() else { return }
             if streamingController.metadata != nil {
-                trackLabel.text = streamingController.metadata.currentTrack?.name
-                artistLabel.text = streamingController.metadata.currentTrack?.artistName                
+                guard let currentTrack = streamingController.metadata.currentTrack else { return }
+                
+                trackLabel.text = currentTrack.name
+                artistLabel.text = currentTrack.artistName
+                let songInfo: [String: String] = [
+                    MPMediaItemPropertyTitle: currentTrack.name,
+                    MPMediaItemPropertyArtist: currentTrack.artistName,
+                ]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
             }
             guard streamingController.playbackState != nil else { return }
             switch state.spotifyState.playback {

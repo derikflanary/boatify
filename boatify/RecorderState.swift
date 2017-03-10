@@ -34,6 +34,9 @@ struct RecorderState: State {
             audioRecorder?.stop()
         case let event as Updated<Volume>:
             volume = event.item
+        case let event as UpdatedVolumeSettings:
+            volume.min = event.newMin
+            volume.max = event.newMax
         default:
             break
         }

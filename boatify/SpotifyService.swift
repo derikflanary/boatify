@@ -20,9 +20,12 @@ struct SpotifyService {
 
     
     func trackProgress() -> Float {
-        guard let player = player, let trackDuration = player.metadata.currentTrack?.duration else { return 0.0 }
-        let percent = (player.playbackState.position) / (trackDuration)
-        return Float(percent)
+        if player != nil && player?.metadata != nil {
+            guard let player = player, let trackDuration = player.metadata.currentTrack?.duration else { return 0.0 }
+            let percent = (player.playbackState.position) / (trackDuration)
+            return Float(percent)
+        }
+        return Float(0.0)
     }
     
     
