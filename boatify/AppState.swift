@@ -15,7 +15,6 @@
 //
 
 import Foundation
-import ReSwift
 import UIKit
 import AVFoundation
 import Reactor

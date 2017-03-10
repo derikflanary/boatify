@@ -51,6 +51,7 @@ class SettingsViewController: UIViewController {
             showTemporaryMessage("Max volume must be higher than minimum")
         }
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
+        
         delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
     }
     

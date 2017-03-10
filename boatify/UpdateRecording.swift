@@ -28,3 +28,18 @@ struct UpdateRecording: Command {
         print(volume.current)
     }
 }
+
+struct updateVolumeSettings: Command {
+    
+    let newMin: Double
+    let newMax: Double
+    
+    init(newMin: Double, newMax: Double) {
+        self.newMin = newMin
+        self.newMax = newMax
+    }
+    
+    func execute(state: AppState, core: Core<AppState>) {
+        
+    }
+}
