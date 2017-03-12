@@ -13,6 +13,8 @@
 		EC41AF271E71C16100132C7A /* PauseSpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF261E71C16100132C7A /* PauseSpotify.swift */; };
 		EC41AF291E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */; };
 		EC41AF2B1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */; };
+		EC41AF2E1E735BF900132C7A /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC41AF2D1E735BF900132C7A /* Kingfisher.framework */; };
+		EC41AF2F1E735BF900132C7A /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC41AF2D1E735BF900132C7A /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
@@ -102,6 +104,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				ECD8CE241E6E4314000248F6 /* Hero.framework in Embed Frameworks */,
+				EC41AF2F1E735BF900132C7A /* Kingfisher.framework in Embed Frameworks */,
 				ECF5061E1E6F317C000F34CE /* Reactor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -116,6 +119,7 @@
 		EC41AF261E71C16100132C7A /* PauseSpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseSpotify.swift; sourceTree = "<group>"; };
 		EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToNextSpotifyTrack.swift; sourceTree = "<group>"; };
 		EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToPreviousSpotifyTrack.swift; sourceTree = "<group>"; };
+		EC41AF2D1E735BF900132C7A /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			files = (
 				EE6975441D55492300D91587 /* SystemConfiguration.framework in Frameworks */,
 				ECE3E0DE1DE62AC300EBA024 /* SpotifyAuthentication.framework in Frameworks */,
+				EC41AF2E1E735BF900132C7A /* Kingfisher.framework in Frameworks */,
 				EE6975421D55491C00D91587 /* AVFoundation.framework in Frameworks */,
 				ECE3E0E01DE6430800EBA024 /* SpotifyMetadata.framework in Frameworks */,
 				ECF5061D1E6F317C000F34CE /* Reactor.framework in Frameworks */,
@@ -437,6 +442,7 @@
 		EE6975491D554A4A00D91587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC41AF2D1E735BF900132C7A /* Kingfisher.framework */,
 				ECF5061C1E6F317C000F34CE /* Reactor.framework */,
 				ECD8CE221E6E4314000248F6 /* Hero.framework */,
 				ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */,
@@ -596,6 +602,7 @@
 				"$(SRCROOT)//Carthage/Build/iOS/Whisper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Reactor.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			outputPaths = (
 			);

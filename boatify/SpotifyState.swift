@@ -14,7 +14,6 @@ struct SpotifyState: State {
     var session: SPTSession?
     var player = SPTAudioStreamingController.sharedInstance()
     var playlists = [SPTPartialPlaylist]()
-    var playlistImages = [UIImage]()
     var selectedPlaylist: SPTPartialPlaylist?
     var currentPlaylist: SPTPartialPlaylist?
     var tracks = [SPTPartialTrack]()
@@ -33,8 +32,6 @@ struct SpotifyState: State {
             session = event.item
         case let event as Loaded<SPTPartialPlaylist>:
             playlists = event.items
-        case let event as Loaded<UIImage>:
-            playlistImages = event.items
         case let event as Selected<SPTPartialPlaylist>:
             selectedPlaylist = event.item
         case let event as Loaded<SPTPartialTrack>:

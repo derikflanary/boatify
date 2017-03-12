@@ -77,6 +77,7 @@ class PlaybackViewController: UIViewController {
         command.previousTrackCommand.isEnabled = true
         command.togglePlayPauseCommand.isEnabled = true
         command.playCommand.isEnabled = true
+        command.pauseCommand.isEnabled = true
         command.enableLanguageOptionCommand.isEnabled = true
         command.playCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
         command.pauseCommand.addTarget(self, action: #selector(playPauseRemoteTapped))

@@ -14,7 +14,6 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
     var musicState = MusicState.none
     var spotifyPlaylists = [SPTPartialPlaylist]()
     var localPlaylists = [MPMediaItemCollection]()
-    var images = [UIImage]()
     var delegate: PlaylistCellDelegate?
     var currentSpotifyPlaylist: SPTPartialPlaylist?
     var currentLocalPlaylist: MPMediaPlaylist?
@@ -39,11 +38,7 @@ class PlaylistsDataSource: NSObject, UITableViewDataSource {
         case .spotify:
             guard spotifyPlaylists.count > 0 else { break }
             let playlist = spotifyPlaylists[indexPath.row]
-            var image: UIImage?
-            if images.count > 0 {
-                image = images[indexPath.row]
-            }
-            cell.configureWithSpotify(playlist, image: image, currentPlaylist: currentSpotifyPlaylist)
+            cell.configureWithSpotify(playlist, currentPlaylist: currentSpotifyPlaylist)
         case .local:
             if let playlist = localPlaylists[indexPath.row] as? MPMediaPlaylist {
                 cell.configureWithLocal(playlist, currentPlaylist: currentLocalPlaylist)

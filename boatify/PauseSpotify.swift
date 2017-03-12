@@ -13,6 +13,7 @@ struct PauseSpotify: Command {
     
     func execute(state: AppState, core: Core<AppState>) {
         guard let player = SPTAudioStreamingController.sharedInstance() else { return }
+        
         player.setIsPlaying(false) { (error) in
             if let error = error {
                 print(error)

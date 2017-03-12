@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import Kingfisher
 
 protocol PlaylistCellDelegate {
     func playSpotify(_ playlist: SPTPartialPlaylist)
@@ -41,9 +42,9 @@ class PlaylistCell: UITableViewCell, ReusableView {
         
     }
     
-    func configureWithSpotify(_ playlist: SPTPartialPlaylist, image: UIImage?, currentPlaylist: SPTPartialPlaylist?) {
+    func configureWithSpotify(_ playlist: SPTPartialPlaylist, currentPlaylist: SPTPartialPlaylist?) {
         self.spotifyPlaylist = playlist
-        playlistImage.image = image
+        playlistImage.kf.setImage(with: playlist.smallestImage.imageURL)
         nameLabel.text = playlist.name
         playlistDetailLabel.text = "\(playlist.trackCount) songs"
         if playlist == currentPlaylist {

@@ -1,4 +1,4 @@
-
+github "onevcat/Kingfisher" ~> 3.0
 github "hyperoslo/Whisper"
 github "lkzhao/Hero"
 github "ReactorSwift/Reactor"

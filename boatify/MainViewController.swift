@@ -217,15 +217,15 @@ extension MainViewController: Subscriber {
                 blurBackground()
             case .viewing:
                 dismissBanner()
+                let dataSourceLoaded = playlistsDataSource.spotifyPlaylists.count != 0
                 playlistsDataSource.spotifyPlaylists = state.spotifyState.playlists
                 if playlistsDataSource.currentSpotifyPlaylist != state.spotifyState.currentPlaylist {
                     playlistsDataSource.currentSpotifyPlaylist = state.spotifyState.currentPlaylist
                     tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-                }
-                if state.spotifyState.playlistImages.count != 0 && state.spotifyState.playlistImages != playlistsDataSource.images{
-                    playlistsDataSource.images = state.spotifyState.playlistImages
+                } else if !dataSourceLoaded {
                     tableView.reloadSections(IndexSet(integer: 0), with: .fade)
                 }
+                
                 if playlistsDataSource.spotifyPlaylists.count == 0 {
                     tableView.backgroundView = emptyStateView
                 }
