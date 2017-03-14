@@ -16,6 +16,7 @@ struct RecorderState: State {
     var audioRecorder: AVAudioRecorder?
     var audioSession: AVAudioSession?
     var volume = Volume(min: 0.5, max: 1.0)
+    var sensitivity: Sensitivity = Sensitivity(constant: 0.5)
     var shouldStartRecording = false
     
     mutating func react(to event: Event) {
@@ -37,6 +38,8 @@ struct RecorderState: State {
         case let event as UpdatedVolumeSettings:
             volume.min = event.newMin
             volume.max = event.newMax
+        case let event as Updated<Sensitivity>:
+            sensitivity = event.item
         default:
             break
         }

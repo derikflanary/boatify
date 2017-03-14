@@ -13,18 +13,18 @@ class SettingsViewController: UIViewController {
 
     var core = App.sharedCore
     var originalVolume: Volume?
+    var originalSensitivity: Sensitivity?
     
     @IBOutlet weak var maxSlider: UISlider!
     @IBOutlet weak var minSlider: UISlider!
     @IBOutlet weak var maxPercentLabel: UILabel!
     @IBOutlet weak var minPercentLabel: UILabel!
+    @IBOutlet weak var sensitivtyLabel: UILabel!
+    @IBOutlet weak var sensitivitySlider: UISlider!
     
     
     // MARK: - View life cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -38,6 +38,11 @@ class SettingsViewController: UIViewController {
     
     
     // MARK: - Interface actions
+    
+    @IBAction func sensitivitySliderChangedValue(_ sender: Any) {
+        sensitivtyLabel.text = "\(sensitivitySlider.value.percentForm)%"
+        core.fire(event: Updated(item: Sensitivity(constant: sensitivitySlider.value)))
+    }
     
     @IBAction func maxSliderChangedValue(_ sender: AnyObject) {
         if maxSlider.value <= minSlider.value + 0.1 {
@@ -89,10 +94,16 @@ extension SettingsViewController: Subscriber {
     func update(with state: AppState) {
         maxSlider.setValue(Float(state.recorderState.volume.max), animated: true)
         minSlider.setValue(Float(state.recorderState.volume.min), animated: true)
+        sensitivitySlider.setValue(state.recorderState.sensitivity.constant, animated: true)
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
+        sensitivtyLabel.text = "\(sensitivitySlider.value.percentForm)%"
+        
         if originalVolume == nil {
             originalVolume = state.recorderState.volume
+        }
+        if originalSensitivity == nil {
+            originalSensitivity = state.recorderState.sensitivity
         }
     }
     

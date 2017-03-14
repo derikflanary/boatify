@@ -23,3 +23,11 @@ struct RecordingStarted: Event { }
 
 struct TimerStarted: Event { }
 
+struct UpdatedVolumeSettings: Event {
+    let newMin: Double
+    let newMax: Double
+}
+
+struct Sensitivity {
+    let constant: Float
+}

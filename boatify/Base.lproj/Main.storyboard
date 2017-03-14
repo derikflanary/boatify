@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="igG-uo-y5C">
-                                <rect key="frame" x="16" y="94" width="343" height="220"/>
+                                <rect key="frame" x="16" y="94" width="343" height="316.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set maximum volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-CO-5pd">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="19.5"/>
@@ -65,8 +65,28 @@
                                             <action selector="minSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="Vot-Go-ck6"/>
                                         </connections>
                                     </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set sensitivity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjx-84-zWX">
+                                        <rect key="frame" x="0.0" y="193" width="343" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZz-EU-nTA">
+                                        <rect key="frame" x="0.0" y="222.5" width="343" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DGg-Yt-9c7">
+                                        <rect key="frame" x="-2" y="249.5" width="347" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="minSliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="IUr-Wq-feb"/>
+                                            <action selector="sensitivitySliderChangedValue:" destination="TNe-dB-jk6" eventType="valueChanged" id="6Bb-9H-T9s"/>
+                                        </connections>
+                                    </slider>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpQ-Et-fWh">
-                                        <rect key="frame" x="0.0" y="193" width="343" height="27"/>
+                                        <rect key="frame" x="0.0" y="289.5" width="343" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Reset">
                                             <color key="titleColor" red="0.94509803920000002" green="0.7843137255" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -118,6 +138,8 @@
                         <outlet property="maxSlider" destination="o0V-jS-xZw" id="vo4-6g-vQZ"/>
                         <outlet property="minPercentLabel" destination="Z3Y-rE-qch" id="oE4-9F-G6B"/>
                         <outlet property="minSlider" destination="P9B-Pk-XeU" id="2jp-nP-Lqw"/>
+                        <outlet property="sensitivitySlider" destination="DGg-Yt-9c7" id="b0j-h8-0Wk"/>
+                        <outlet property="sensitivtyLabel" destination="wZz-EU-nTA" id="P9M-Lc-zRW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ydf-xi-ZvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -516,6 +538,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="L4W-Eu-3do">
                         <barButtonItem key="backBarButtonItem" title="  " id="Mjf-uh-PAv"/>
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="B1O-52-405">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="TMN-Cz-1vr" kind="presentation" id="YaZ-Xi-I3l"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
@@ -913,4 +941,7 @@
         <image name="spotify" width="245" height="75"/>
         <image name="switchMusic" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="YaZ-Xi-I3l"/>
+    </inferredMetricsTieBreakers>
 </document>
