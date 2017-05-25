@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XyK-u2-f4p">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XyK-u2-f4p">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -199,7 +199,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83a-5c-ScB" id="uGX-MY-t1G">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="playlist" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-FB-6gp" userLabel="playlist image">
@@ -414,7 +414,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like you don't have any playlists. You should go create one now! 🚤" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKk-2w-mlZ">
-                            <rect key="frame" x="28" y="35" width="541" height="58"/>
+                            <rect key="frame" x="28" y="35.5" width="541" height="57.5"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -468,7 +468,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FsR-se-bhi" id="86Y-UC-kGZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TF-79-ioy">
@@ -616,20 +616,29 @@
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ow6-8m-S6A">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="2"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="progressTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="trackTintColor" red="1" green="1" blue="1" alpha="0.3971174569" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="trackTintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="progress"/>
+                                        </userDefinedRuntimeAttributes>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r31-CW-iSN">
                                         <rect key="frame" x="44" y="15" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="track"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nB8-zH-I9S">
                                         <rect key="frame" x="44" y="15" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="artist"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uEO-AN-LoI">
                                         <rect key="frame" x="10" y="322.5" width="24" height="22"/>
@@ -640,7 +649,6 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="expandButtonTapped" destination="3RH-9G-kh6" eventType="touchUpInside" id="GQl-JQ-5JT"/>
-                                            <segue destination="IcS-ka-ueN" kind="presentation" id="21c-u3-HQK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OeA-yL-wvh">
@@ -757,16 +765,17 @@
                         <outlet property="progressView" destination="Ow6-8m-S6A" id="cdQ-QY-rYH"/>
                         <outlet property="shuffleButton" destination="9AC-dG-BLI" id="enH-9Z-Ec5"/>
                         <outlet property="trackLabel" destination="r31-CW-iSN" id="o8M-Np-UKk"/>
+                        <segue destination="IcS-ka-ueN" kind="presentation" identifier="expandPlayback" id="NY7-Z5-G6G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQg-Wl-xk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="497" y="1017"/>
         </scene>
-        <!--View Controller-->
+        <!--Expanded Playback View Controller-->
         <scene sceneID="lGa-qW-qVt">
             <objects>
-                <viewController id="IcS-ka-ueN" sceneMemberID="viewController">
+                <viewController id="IcS-ka-ueN" customClass="ExpandedPlaybackViewController" customModule="boatify" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mgY-ay-4xG"/>
                         <viewControllerLayoutGuide type="bottom" id="2CJ-Te-FxO"/>
@@ -775,26 +784,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bc-EG-170">
-                                <rect key="frame" x="16" y="20" width="24" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bc-EG-170">
+                                <rect key="frame" x="16" y="20" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="0pJ-jc-1aO"/>
+                                    <constraint firstAttribute="width" constant="40" id="Ij4-0E-h5x"/>
+                                </constraints>
                                 <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="Arrow"/>
+                                <state key="normal" image="downArrow"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="expand"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="expandButtonTapped" destination="3RH-9G-kh6" eventType="touchUpInside" id="DMU-j9-1I9"/>
+                                    <action selector="expandButtonTapped" destination="IcS-ka-ueN" eventType="touchUpInside" id="Xgo-R0-G5s"/>
+                                    <segue destination="KrU-MN-vC4" kind="unwind" unwindAction="unwindToMain:" id="r1A-9f-A72"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQH-nb-Y32">
-                                <rect key="frame" x="44" y="477.5" width="50" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="1fn-Bb-ZrB"/>
-                                    <constraint firstAttribute="width" constant="50" id="b5d-f4-EZN"/>
-                                </constraints>
+                                <rect key="frame" x="28" y="454" width="66" height="71"/>
                                 <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="previous"/>
+                                <state key="normal" image="bigBackButton"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="previous"/>
                                 </userDefinedRuntimeAttributes>
@@ -803,13 +813,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eya-tK-hjY">
-                                <rect key="frame" x="147" y="464" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="u5x-xb-F24"/>
-                                    <constraint firstAttribute="height" constant="80" id="x6r-Qp-xkw"/>
-                                </constraints>
+                                <rect key="frame" x="134" y="435" width="108" height="109"/>
                                 <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="play"/>
+                                <state key="normal" image="bigPauseButton"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="play"/>
                                 </userDefinedRuntimeAttributes>
@@ -818,13 +824,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xla-Ab-Ctn">
-                                <rect key="frame" x="266" y="477.5" width="50" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="ORd-ke-ByM"/>
-                                    <constraint firstAttribute="width" constant="50" id="gfl-zd-fRV"/>
-                                </constraints>
+                                <rect key="frame" x="282" y="454" width="66" height="71"/>
                                 <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="next"/>
+                                <state key="normal" image="bigNextButton"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="next"/>
                                 </userDefinedRuntimeAttributes>
@@ -833,7 +835,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSU-s9-CqI">
-                                <rect key="frame" x="169.5" y="581" width="35" height="40"/>
+                                <rect key="frame" x="170" y="581" width="35" height="40"/>
                                 <state key="normal" image="shuffleOff"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="shuffle"/>
@@ -842,17 +844,59 @@
                                     <action selector="shuffleTapped" destination="3RH-9G-kh6" eventType="touchUpInside" id="3Gc-aL-MDa"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00a-QK-pU6">
+                                <rect key="frame" x="19" y="167" width="337" height="0.0"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="track"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YC7-t5-Y8p">
+                                <rect key="frame" x="19" y="175" width="337" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="artist"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhh-iM-qIS">
+                                <rect key="frame" x="43" y="355" width="289" height="31"/>
+                                <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="maximumTrackTintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="progress"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="IcS-ka-ueN" eventType="valueChanged" id="B1L-Fn-Bpq"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.94509803921568625" green="0.78431372549019607" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="eya-tK-hjY" firstAttribute="leading" secondItem="xQH-nb-Y32" secondAttribute="trailing" constant="53" id="4El-7y-hmd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="00a-QK-pU6" secondAttribute="trailing" constant="3" id="3Nk-Vn-RxB"/>
+                            <constraint firstItem="eya-tK-hjY" firstAttribute="leading" secondItem="xQH-nb-Y32" secondAttribute="trailing" constant="40" id="4El-7y-hmd"/>
                             <constraint firstItem="jSU-s9-CqI" firstAttribute="top" secondItem="eya-tK-hjY" secondAttribute="bottom" constant="37" id="4cs-G5-ROb"/>
                             <constraint firstItem="eya-tK-hjY" firstAttribute="centerX" secondItem="Fbd-Ua-jHi" secondAttribute="centerX" id="9Dt-rj-1Kc"/>
                             <constraint firstItem="2CJ-Te-FxO" firstAttribute="top" secondItem="eya-tK-hjY" secondAttribute="bottom" constant="123" id="Apl-og-eAl"/>
+                            <constraint firstItem="00a-QK-pU6" firstAttribute="centerY" secondItem="Fbd-Ua-jHi" secondAttribute="centerY" multiplier="0.5" id="CP8-vU-p7t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xhh-iM-qIS" secondAttribute="trailing" constant="29" id="I45-Av-iUc"/>
+                            <constraint firstItem="YC7-t5-Y8p" firstAttribute="leading" secondItem="00a-QK-pU6" secondAttribute="leading" id="IaI-lp-7F1"/>
+                            <constraint firstItem="00a-QK-pU6" firstAttribute="leading" secondItem="Fbd-Ua-jHi" secondAttribute="leadingMargin" constant="3" id="Iey-f8-bZS"/>
+                            <constraint firstItem="xhh-iM-qIS" firstAttribute="centerX" secondItem="Fbd-Ua-jHi" secondAttribute="centerX" id="SIc-zX-a1o"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="5bc-EG-170" secondAttribute="leading" id="Z9v-Yb-P5z"/>
+                            <constraint firstItem="xhh-iM-qIS" firstAttribute="leading" secondItem="Fbd-Ua-jHi" secondAttribute="leadingMargin" constant="29" id="auk-5T-r4i"/>
+                            <constraint firstItem="5bc-EG-170" firstAttribute="top" secondItem="mgY-ay-4xG" secondAttribute="bottom" constant="20" id="b9l-ob-Tht"/>
                             <constraint firstItem="xla-Ab-Ctn" firstAttribute="centerY" secondItem="eya-tK-hjY" secondAttribute="centerY" id="dEk-5b-Ybc"/>
-                            <constraint firstItem="xla-Ab-Ctn" firstAttribute="leading" secondItem="eya-tK-hjY" secondAttribute="trailing" constant="39" id="eiy-K4-Lw5"/>
+                            <constraint firstItem="YC7-t5-Y8p" firstAttribute="trailing" secondItem="00a-QK-pU6" secondAttribute="trailing" id="dOG-s2-9mM"/>
+                            <constraint firstItem="xla-Ab-Ctn" firstAttribute="leading" secondItem="eya-tK-hjY" secondAttribute="trailing" constant="40" id="eiy-K4-Lw5"/>
                             <constraint firstItem="xQH-nb-Y32" firstAttribute="centerY" secondItem="eya-tK-hjY" secondAttribute="centerY" id="hKc-NE-sfb"/>
+                            <constraint firstItem="00a-QK-pU6" firstAttribute="centerX" secondItem="Fbd-Ua-jHi" secondAttribute="centerX" id="pbn-iq-0yu"/>
                             <constraint firstItem="jSU-s9-CqI" firstAttribute="centerX" secondItem="eya-tK-hjY" secondAttribute="centerX" id="uZ4-2a-c16"/>
+                            <constraint firstItem="eya-tK-hjY" firstAttribute="top" secondItem="xhh-iM-qIS" secondAttribute="bottom" constant="50" id="wUe-LC-BOE"/>
+                            <constraint firstItem="YC7-t5-Y8p" firstAttribute="top" secondItem="00a-QK-pU6" secondAttribute="bottom" constant="8" id="wwE-fj-JAS"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="view"/>
@@ -861,10 +905,21 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="artistLabel" destination="YC7-t5-Y8p" id="dEG-2t-kIv"/>
+                        <outlet property="backButton" destination="xQH-nb-Y32" id="2rz-lp-YDF"/>
+                        <outlet property="expandButton" destination="5bc-EG-170" id="SOR-iE-TW8"/>
+                        <outlet property="nextButton" destination="xla-Ab-Ctn" id="okA-J8-irg"/>
+                        <outlet property="playPauseButton" destination="eya-tK-hjY" id="OHw-sf-Gra"/>
+                        <outlet property="shuffleButton" destination="jSU-s9-CqI" id="dAD-Yd-Dc9"/>
+                        <outlet property="trackLabel" destination="00a-QK-pU6" id="O54-77-Tm3"/>
+                        <outlet property="trackSlider" destination="xhh-iM-qIS" id="Kxo-i2-fox"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CUr-LN-54g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="KrU-MN-vC4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1370" y="1017"/>
+            <point key="canvasLocation" x="1368.8" y="1016.9415292353824"/>
         </scene>
         <!--Parent View Controller-->
         <scene sceneID="kT4-7r-reP">
@@ -932,6 +987,10 @@
     <resources>
         <image name="Arrow" width="26" height="15"/>
         <image name="background" width="375" height="667"/>
+        <image name="bigBackButton" width="66" height="71"/>
+        <image name="bigNextButton" width="66" height="71"/>
+        <image name="bigPauseButton" width="108" height="109"/>
+        <image name="downArrow" width="26" height="15"/>
         <image name="next" width="25" height="27"/>
         <image name="play" width="42" height="42"/>
         <image name="playlist" width="50" height="50"/>
@@ -942,6 +1001,6 @@
         <image name="switchMusic" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YaZ-Xi-I3l"/>
+        <segue reference="m7b-BR-i37"/>
     </inferredMetricsTieBreakers>
 </document>

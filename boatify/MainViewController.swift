@@ -75,6 +75,7 @@ class MainViewController: UIViewController {
         core.remove(subscriber: self)
     }
     
+    @IBAction func unwindToMain(_ segue: UIStoryboardSegue) { }
     
     
     // MARK: - Interface actions

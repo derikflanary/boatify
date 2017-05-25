@@ -18,6 +18,8 @@
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
+		EC522F181ED7741700848562 /* ExpandedPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC522F171ED7741700848562 /* ExpandedPlaybackViewController.swift */; };
+		EC522F1A1ED7807900848562 /* ScrubbingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC522F191ED7807900848562 /* ScrubbingSlider.swift */; };
 		EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */; };
 		EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */; };
 		EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */; };
@@ -123,6 +125,8 @@
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
+		EC522F171ED7741700848562 /* ExpandedPlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedPlaybackViewController.swift; sourceTree = "<group>"; };
+		EC522F191ED7807900848562 /* ScrubbingSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrubbingSlider.swift; sourceTree = "<group>"; };
 		EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
+				EC522F171ED7741700848562 /* ExpandedPlaybackViewController.swift */,
+				EC522F191ED7807900848562 /* ScrubbingSlider.swift */,
 			);
 			name = Playback;
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 				ECF506251E6F3E58000F34CE /* SetupRecording.swift in Sources */,
 				ECF5064D1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift in Sources */,
 				EE550E7F1D564F7100C19603 /* AppState.swift in Sources */,
+				EC522F1A1ED7807900848562 /* ScrubbingSlider.swift in Sources */,
 				ECF506471E6F88D5000F34CE /* DisableLocalShuffle.swift in Sources */,
 				EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */,
 				EC6C3BE21D5EE94D0083ECF1 /* PlaylistDetailViewController.swift in Sources */,
@@ -655,6 +662,7 @@
 				ECF506431E6F8895000F34CE /* PlaySelectedLocalTrack.swift in Sources */,
 				EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */,
 				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
+				EC522F181ED7741700848562 /* ExpandedPlaybackViewController.swift in Sources */,
 				EE6975141D55481900D91587 /* MainViewController.swift in Sources */,
 				EC41AF251E71C14A00132C7A /* PlaySpotify.swift in Sources */,
 				ECF5062F1E6F7081000F34CE /* HandleAuth.swift in Sources */,

@@ -75,13 +75,11 @@ class PlaybackViewController: UIViewController {
         let command = MPRemoteCommandCenter.shared()
         command.nextTrackCommand.isEnabled = true
         command.previousTrackCommand.isEnabled = true
-        command.togglePlayPauseCommand.isEnabled = true
         command.playCommand.isEnabled = true
         command.pauseCommand.isEnabled = true
         command.enableLanguageOptionCommand.isEnabled = true
         command.playCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
         command.pauseCommand.addTarget(self, action: #selector(playPauseRemoteTapped))
-        command.togglePlayPauseCommand.addTarget(self, action: #selector(playPauseTapped))
         command.nextTrackCommand.addTarget(self, action: #selector(nextTrackTapped))
         command.previousTrackCommand.addTarget(self, action: #selector(previousTrackTapped))
         
@@ -135,8 +133,22 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func expandButtonTapped() {
+        performSegue(withIdentifier: "expandPlayback", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? ExpandedPlaybackViewController else { return }
+        destinationVC.artist = artistLabel.text!
+        destinationVC.track = trackLabel.text!
+        switch core.state.musicState {
+        case .local:
+            destinationVC.progress = progressView.progress
+        case .spotify:
+            break
+        case .none:
+            break
+        }
+    }
     
     // MARK: - Remote command
     
