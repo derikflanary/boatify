@@ -9,34 +9,67 @@
 /* Begin PBXBuildFile section */
 		EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */; };
 		EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */; };
-		EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3959181D7B724700164B30 /* PlaybackView.swift */; };
+		EC41AF251E71C14A00132C7A /* PlaySpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF241E71C14A00132C7A /* PlaySpotify.swift */; };
+		EC41AF271E71C16100132C7A /* PauseSpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF261E71C16100132C7A /* PauseSpotify.swift */; };
+		EC41AF291E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */; };
+		EC41AF2B1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */; };
+		EC41AF2E1E735BF900132C7A /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC41AF2D1E735BF900132C7A /* Kingfisher.framework */; };
+		EC41AF2F1E735BF900132C7A /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC41AF2D1E735BF900132C7A /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */; };
 		EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */; };
 		EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */; };
 		EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */; };
-		EC6C3BDB1D5E84180083ECF1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */; };
 		EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */; };
 		EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */; };
 		EC6C3BE21D5EE94D0083ECF1 /* PlaylistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE11D5EE94D0083ECF1 /* PlaylistDetailViewController.swift */; };
 		EC6C3BE41D5EEAC10083ECF1 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE31D5EEAC10083ECF1 /* TrackCell.swift */; };
 		EC6C3BE61D5EEBFE0083ECF1 /* TracksDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE51D5EEBFE0083ECF1 /* TracksDataSource.swift */; };
-		EC6C3BE81D5F7DFF0083ECF1 /* RecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE71D5F7DFF0083ECF1 /* RecordingService.swift */; };
+		EC6C3BE81D5F7DFF0083ECF1 /* TimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BE71D5F7DFF0083ECF1 /* TimerController.swift */; };
 		EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */; };
-		EC6C3BEE1D6114560083ECF1 /* MusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BED1D6114560083ECF1 /* MusicService.swift */; };
+		EC6C3BEE1D6114560083ECF1 /* LocalMusicEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BED1D6114560083ECF1 /* LocalMusicEvents.swift */; };
 		EC6C3BF01D611EEC0083ECF1 /* SpotifyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BEF1D611EEC0083ECF1 /* SpotifyState.swift */; };
 		EC6C3BF21D611EF50083ECF1 /* LocalMusicState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6C3BF11D611EF50083ECF1 /* LocalMusicState.swift */; };
 		EC80D7721DE66A22000DE3F7 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC80D7711DE66A22000DE3F7 /* UITableView+Extensions.swift */; };
 		EC80D78D1DECE9FB000DE3F7 /* Shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC80D78C1DECE9FB000DE3F7 /* Shuffle.swift */; };
+		ECD8CE231E6E4314000248F6 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD8CE221E6E4314000248F6 /* Hero.framework */; };
+		ECD8CE241E6E4314000248F6 /* Hero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECD8CE221E6E4314000248F6 /* Hero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECE3E0DD1DE62AC300EBA024 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */; };
 		ECE3E0DE1DE62AC300EBA024 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */; };
 		ECE3E0E01DE6430800EBA024 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */; };
-		EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE550E7B1D564E2C00C19603 /* ReSwift.framework */; };
+		ECF41C771DED3FC9007A58A1 /* RecorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF41C761DED3FC9007A58A1 /* RecorderState.swift */; };
+		ECF41C791DED480D007A58A1 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF41C781DED480D007A58A1 /* Volume.swift */; };
+		ECF506191E6F23B3000F34CE /* Sources in Resources */ = {isa = PBXBuildFile; fileRef = ECF506181E6F23B3000F34CE /* Sources */; };
+		ECF5061B1E6F2F4A000F34CE /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */; };
+		ECF5061D1E6F317C000F34CE /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF5061C1E6F317C000F34CE /* Reactor.framework */; };
+		ECF5061E1E6F317C000F34CE /* Reactor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECF5061C1E6F317C000F34CE /* Reactor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECF506251E6F3E58000F34CE /* SetupRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506241E6F3E58000F34CE /* SetupRecording.swift */; };
+		ECF506271E6F3E6F000F34CE /* RequestPermissionToRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506261E6F3E6F000F34CE /* RequestPermissionToRecord.swift */; };
+		ECF506291E6F3E8D000F34CE /* RecordingEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506281E6F3E8D000F34CE /* RecordingEvents.swift */; };
+		ECF5062B1E6F6F46000F34CE /* LoginToSpotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5062A1E6F6F46000F34CE /* LoginToSpotify.swift */; };
+		ECF5062D1E6F7067000F34CE /* LoginPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5062C1E6F7067000F34CE /* LoginPlayer.swift */; };
+		ECF5062F1E6F7081000F34CE /* HandleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5062E1E6F7081000F34CE /* HandleAuth.swift */; };
+		ECF506311E6F7C4C000F34CE /* GetSpotifyPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506301E6F7C4C000F34CE /* GetSpotifyPlaylists.swift */; };
+		ECF506331E6F7C70000F34CE /* GetSpotifyPlaylistDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506321E6F7C70000F34CE /* GetSpotifyPlaylistDetails.swift */; };
+		ECF506351E6F7F5E000F34CE /* PlaySelectedSpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506341E6F7F5E000F34CE /* PlaySelectedSpotifyPlaylist.swift */; };
+		ECF506371E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506361E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift */; };
+		ECF506391E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506381E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift */; };
+		ECF5063B1E6F82F9000F34CE /* PlaySpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5063A1E6F82F8000F34CE /* PlaySpotifyPlaylist.swift */; };
+		ECF5063D1E6F856C000F34CE /* RefreshSpotifySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5063C1E6F856C000F34CE /* RefreshSpotifySession.swift */; };
+		ECF5063F1E6F885A000F34CE /* GetLocalPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5063E1E6F885A000F34CE /* GetLocalPlaylists.swift */; };
+		ECF506411E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506401E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift */; };
+		ECF506431E6F8895000F34CE /* PlaySelectedLocalTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506421E6F8895000F34CE /* PlaySelectedLocalTrack.swift */; };
+		ECF506451E6F88BC000F34CE /* EnableLocalShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506441E6F88BC000F34CE /* EnableLocalShuffle.swift */; };
+		ECF506471E6F88D5000F34CE /* DisableLocalShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506461E6F88D5000F34CE /* DisableLocalShuffle.swift */; };
+		ECF506491E6F8B5F000F34CE /* UpdateLocalPlayPause.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506481E6F8B5F000F34CE /* UpdateLocalPlayPause.swift */; };
+		ECF5064B1E6F8D04000F34CE /* AdvanceToNextLocalTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5064A1E6F8D04000F34CE /* AdvanceToNextLocalTrack.swift */; };
+		ECF5064D1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5064C1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift */; };
+		ECF5064F1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5064E1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift */; };
+		ECF506511E6F8F0B000F34CE /* UpdateRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF506501E6F8F0B000F34CE /* UpdateRecording.swift */; };
 		EE550E7F1D564F7100C19603 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E7E1D564F7100C19603 /* AppState.swift */; };
-		EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E801D564FCC00C19603 /* AppReducer.swift */; };
 		EE550E831D56507100C19603 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E821D56507100C19603 /* SpotifyService.swift */; };
 		EE550E851D5650B300C19603 /* SpotifyNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */; };
 		EE6975121D55481900D91587 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975111D55481900D91587 /* AppDelegate.swift */; };
-		EE6975141D55481900D91587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* ViewController.swift */; };
+		EE6975141D55481900D91587 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6975131D55481900D91587 /* MainViewController.swift */; };
 		EE6975171D55481900D91587 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE6975151D55481900D91587 /* Main.storyboard */; };
 		EE6975191D55481900D91587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6975181D55481900D91587 /* Assets.xcassets */; };
 		EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE69751A1D55481900D91587 /* LaunchScreen.storyboard */; };
@@ -63,38 +96,84 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		ECD8CE251E6E4314000248F6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ECD8CE241E6E4314000248F6 /* Hero.framework in Embed Frameworks */,
+				EC41AF2F1E735BF900132C7A /* Kingfisher.framework in Embed Frameworks */,
+				ECF5061E1E6F317C000F34CE /* Reactor.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		EC1BFA091D64EEE000734E10 /* CollectionType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Extensions.swift"; sourceTree = "<group>"; };
 		EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
-		EC3959181D7B724700164B30 /* PlaybackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		EC41AF241E71C14A00132C7A /* PlaySpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySpotify.swift; sourceTree = "<group>"; };
+		EC41AF261E71C16100132C7A /* PauseSpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseSpotify.swift; sourceTree = "<group>"; };
+		EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToNextSpotifyTrack.swift; sourceTree = "<group>"; };
+		EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToPreviousSpotifyTrack.swift; sourceTree = "<group>"; };
+		EC41AF2D1E735BF900132C7A /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericActions.swift; sourceTree = "<group>"; };
 		EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistsDataSource.swift; sourceTree = "<group>"; };
 		EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		EC6C3BD81D5E7E270083ECF1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		EC6C3BDD1D5E8A9F0083ECF1 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		EC6C3BDF1D5E8D390083ECF1 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		EC6C3BE11D5EE94D0083ECF1 /* PlaylistDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistDetailViewController.swift; sourceTree = "<group>"; };
 		EC6C3BE31D5EEAC10083ECF1 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		EC6C3BE51D5EEBFE0083ECF1 /* TracksDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksDataSource.swift; sourceTree = "<group>"; };
-		EC6C3BE71D5F7DFF0083ECF1 /* RecordingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingService.swift; sourceTree = "<group>"; };
+		EC6C3BE71D5F7DFF0083ECF1 /* TimerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
 		EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
-		EC6C3BED1D6114560083ECF1 /* MusicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicService.swift; sourceTree = "<group>"; };
+		EC6C3BED1D6114560083ECF1 /* LocalMusicEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalMusicEvents.swift; sourceTree = "<group>"; };
 		EC6C3BEF1D611EEC0083ECF1 /* SpotifyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyState.swift; sourceTree = "<group>"; };
 		EC6C3BF11D611EF50083ECF1 /* LocalMusicState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalMusicState.swift; sourceTree = "<group>"; };
 		EC80D7711DE66A22000DE3F7 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		EC80D78C1DECE9FB000DE3F7 /* Shuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shuffle.swift; sourceTree = "<group>"; };
+		ECD8CE221E6E4314000248F6 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
-		EE550E7B1D564E2C00C19603 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
+		ECF41C761DED3FC9007A58A1 /* RecorderState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderState.swift; sourceTree = "<group>"; };
+		ECF41C781DED480D007A58A1 /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
+		ECF506181E6F23B3000F34CE /* Sources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sources; sourceTree = "<group>"; };
+		ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
+		ECF5061C1E6F317C000F34CE /* Reactor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reactor.framework; path = Carthage/Build/iOS/Reactor.framework; sourceTree = "<group>"; };
+		ECF506241E6F3E58000F34CE /* SetupRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupRecording.swift; sourceTree = "<group>"; };
+		ECF506261E6F3E6F000F34CE /* RequestPermissionToRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPermissionToRecord.swift; sourceTree = "<group>"; };
+		ECF506281E6F3E8D000F34CE /* RecordingEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingEvents.swift; sourceTree = "<group>"; };
+		ECF5062A1E6F6F46000F34CE /* LoginToSpotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginToSpotify.swift; sourceTree = "<group>"; };
+		ECF5062C1E6F7067000F34CE /* LoginPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPlayer.swift; sourceTree = "<group>"; };
+		ECF5062E1E6F7081000F34CE /* HandleAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleAuth.swift; sourceTree = "<group>"; };
+		ECF506301E6F7C4C000F34CE /* GetSpotifyPlaylists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSpotifyPlaylists.swift; sourceTree = "<group>"; };
+		ECF506321E6F7C70000F34CE /* GetSpotifyPlaylistDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSpotifyPlaylistDetails.swift; sourceTree = "<group>"; };
+		ECF506341E6F7F5E000F34CE /* PlaySelectedSpotifyPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySelectedSpotifyPlaylist.swift; sourceTree = "<group>"; };
+		ECF506361E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShuffleSpotifyPlaylist.swift; path = ../ShuffleSpotifyPlaylist.swift; sourceTree = "<group>"; };
+		ECF506381E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnshuffleSpotifyPlaylist.swift; path = ../UnshuffleSpotifyPlaylist.swift; sourceTree = "<group>"; };
+		ECF5063A1E6F82F8000F34CE /* PlaySpotifyPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySpotifyPlaylist.swift; sourceTree = "<group>"; };
+		ECF5063C1E6F856C000F34CE /* RefreshSpotifySession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshSpotifySession.swift; sourceTree = "<group>"; };
+		ECF5063E1E6F885A000F34CE /* GetLocalPlaylists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetLocalPlaylists.swift; sourceTree = "<group>"; };
+		ECF506401E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayLocalSelectedPlaylist.swift; sourceTree = "<group>"; };
+		ECF506421E6F8895000F34CE /* PlaySelectedLocalTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySelectedLocalTrack.swift; sourceTree = "<group>"; };
+		ECF506441E6F88BC000F34CE /* EnableLocalShuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableLocalShuffle.swift; sourceTree = "<group>"; };
+		ECF506461E6F88D5000F34CE /* DisableLocalShuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisableLocalShuffle.swift; sourceTree = "<group>"; };
+		ECF506481E6F8B5F000F34CE /* UpdateLocalPlayPause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalPlayPause.swift; sourceTree = "<group>"; };
+		ECF5064A1E6F8D04000F34CE /* AdvanceToNextLocalTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToNextLocalTrack.swift; sourceTree = "<group>"; };
+		ECF5064C1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceToPreviousLocalTrack.swift; sourceTree = "<group>"; };
+		ECF5064E1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalTrackProgress.swift; sourceTree = "<group>"; };
+		ECF506501E6F8F0B000F34CE /* UpdateRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRecording.swift; sourceTree = "<group>"; };
 		EE550E7E1D564F7100C19603 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		EE550E801D564FCC00C19603 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		EE550E821D56507100C19603 /* SpotifyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyNetworkAccess.swift; sourceTree = "<group>"; };
 		EE69750E1D55481900D91587 /* boatify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boatify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6975111D55481900D91587 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE6975131D55481900D91587 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE6975131D55481900D91587 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EE6975161D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE6975181D55481900D91587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE69751B1D55481900D91587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -117,10 +196,12 @@
 			files = (
 				EE6975441D55492300D91587 /* SystemConfiguration.framework in Frameworks */,
 				ECE3E0DE1DE62AC300EBA024 /* SpotifyAuthentication.framework in Frameworks */,
+				EC41AF2E1E735BF900132C7A /* Kingfisher.framework in Frameworks */,
 				EE6975421D55491C00D91587 /* AVFoundation.framework in Frameworks */,
 				ECE3E0E01DE6430800EBA024 /* SpotifyMetadata.framework in Frameworks */,
-				EE550E7C1D564E2C00C19603 /* ReSwift.framework in Frameworks */,
+				ECF5061D1E6F317C000F34CE /* Reactor.framework in Frameworks */,
 				ECE3E0DD1DE62AC300EBA024 /* SpotifyAudioPlayback.framework in Frameworks */,
+				ECD8CE231E6E4314000248F6 /* Hero.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +222,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC41AF2C1E734DF800132C7A /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
+			);
+			name = Playback;
+			sourceTree = "<group>";
+		};
 		EC6C3BDC1D5E8A7B0083ECF1 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +262,7 @@
 		EC80D7731DE66E42000DE3F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECF506181E6F23B3000F34CE /* Sources */,
 				EE6975181D55481900D91587 /* Assets.xcassets */,
 				EE69751A1D55481900D91587 /* LaunchScreen.storyboard */,
 				EE69751D1D55481900D91587 /* Info.plist */,
@@ -181,13 +271,81 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		ECF5061F1E6F36F3000F34CE /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */,
+				ECF506201E6F3702000F34CE /* Spotify */,
+				ECF506211E6F3709000F34CE /* LocalMusic */,
+				ECF506221E6F3710000F34CE /* Recording */,
+				ECF506231E6F371B000F34CE /* Settings */,
+			);
+			name = Commands;
+			sourceTree = "<group>";
+		};
+		ECF506201E6F3702000F34CE /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				ECF5062A1E6F6F46000F34CE /* LoginToSpotify.swift */,
+				ECF5062C1E6F7067000F34CE /* LoginPlayer.swift */,
+				ECF5062E1E6F7081000F34CE /* HandleAuth.swift */,
+				ECF506301E6F7C4C000F34CE /* GetSpotifyPlaylists.swift */,
+				ECF506321E6F7C70000F34CE /* GetSpotifyPlaylistDetails.swift */,
+				ECF506341E6F7F5E000F34CE /* PlaySelectedSpotifyPlaylist.swift */,
+				ECF5063A1E6F82F8000F34CE /* PlaySpotifyPlaylist.swift */,
+				ECF506381E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift */,
+				ECF506361E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift */,
+				ECF5063C1E6F856C000F34CE /* RefreshSpotifySession.swift */,
+				EC41AF241E71C14A00132C7A /* PlaySpotify.swift */,
+				EC41AF261E71C16100132C7A /* PauseSpotify.swift */,
+				EC41AF281E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift */,
+				EC41AF2A1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift */,
+			);
+			name = Spotify;
+			sourceTree = "<group>";
+		};
+		ECF506211E6F3709000F34CE /* LocalMusic */ = {
+			isa = PBXGroup;
+			children = (
+				EC6C3BED1D6114560083ECF1 /* LocalMusicEvents.swift */,
+				ECF5063E1E6F885A000F34CE /* GetLocalPlaylists.swift */,
+				ECF506401E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift */,
+				ECF506421E6F8895000F34CE /* PlaySelectedLocalTrack.swift */,
+				ECF506441E6F88BC000F34CE /* EnableLocalShuffle.swift */,
+				ECF506461E6F88D5000F34CE /* DisableLocalShuffle.swift */,
+				ECF506481E6F8B5F000F34CE /* UpdateLocalPlayPause.swift */,
+				ECF5064A1E6F8D04000F34CE /* AdvanceToNextLocalTrack.swift */,
+				ECF5064C1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift */,
+				ECF5064E1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift */,
+			);
+			name = LocalMusic;
+			sourceTree = "<group>";
+		};
+		ECF506221E6F3710000F34CE /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				ECF506281E6F3E8D000F34CE /* RecordingEvents.swift */,
+				ECF506241E6F3E58000F34CE /* SetupRecording.swift */,
+				ECF506261E6F3E6F000F34CE /* RequestPermissionToRecord.swift */,
+				ECF506501E6F8F0B000F34CE /* UpdateRecording.swift */,
+			);
+			name = Recording;
+			sourceTree = "<group>";
+		};
+		ECF506231E6F371B000F34CE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		EE550E861D56517A00C19603 /* State */ = {
 			isa = PBXGroup;
 			children = (
 				EE550E7E1D564F7100C19603 /* AppState.swift */,
-				EE550E801D564FCC00C19603 /* AppReducer.swift */,
 				EC6C3BEF1D611EEC0083ECF1 /* SpotifyState.swift */,
 				EC6C3BF11D611EF50083ECF1 /* LocalMusicState.swift */,
+				ECF41C761DED3FC9007A58A1 /* RecorderState.swift */,
 				EC6C3BEB1D6045BE0083ECF1 /* Middleware.swift */,
 			);
 			name = State;
@@ -197,11 +355,11 @@
 			isa = PBXGroup;
 			children = (
 				EE6975151D55481900D91587 /* Main.storyboard */,
-				EE6975131D55481900D91587 /* ViewController.swift */,
+				ECF5061A1E6F2F4A000F34CE /* ParentViewController.swift */,
+				EE6975131D55481900D91587 /* MainViewController.swift */,
 				EC4FF1C21D5E345900DDAF4C /* PlaylistsDataSource.swift */,
 				EC4FF1C41D5E376B00DDAF4C /* PlaylistCell.swift */,
-				EC23D1251D64430D0069DEA1 /* PlaybackViewController.swift */,
-				EC3959181D7B724700164B30 /* PlaybackView.swift */,
+				EC41AF2C1E734DF800132C7A /* Playback */,
 				EC6C3BEA1D5F8F7F0083ECF1 /* Playlist Details */,
 				EC6C3BE91D5F8F6E0083ECF1 /* Settings */,
 			);
@@ -211,11 +369,8 @@
 		EE550E881D56518A00C19603 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				EC4FF1C01D5E2AD100DDAF4C /* GenericActions.swift */,
 				EE550E821D56507100C19603 /* SpotifyService.swift */,
-				EC6C3BED1D6114560083ECF1 /* MusicService.swift */,
-				EC6C3BDA1D5E84180083ECF1 /* SettingsService.swift */,
-				EC6C3BE71D5F7DFF0083ECF1 /* RecordingService.swift */,
+				EC6C3BE71D5F7DFF0083ECF1 /* TimerController.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -225,6 +380,7 @@
 			children = (
 				EE550E841D5650B300C19603 /* SpotifyNetworkAccess.swift */,
 				EC80D78C1DECE9FB000DE3F7 /* Shuffle.swift */,
+				ECF41C781DED480D007A58A1 /* Volume.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -257,6 +413,7 @@
 				EE550E861D56517A00C19603 /* State */,
 				EE550E871D56518500C19603 /* UI */,
 				EE550E881D56518A00C19603 /* Service */,
+				ECF5061F1E6F36F3000F34CE /* Commands */,
 				EE550E891D56519500C19603 /* Data */,
 				EC6C3BDC1D5E8A7B0083ECF1 /* Infrastructure */,
 				EC80D7731DE66E42000DE3F7 /* Resources */,
@@ -285,10 +442,12 @@
 		EE6975491D554A4A00D91587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC41AF2D1E735BF900132C7A /* Kingfisher.framework */,
+				ECF5061C1E6F317C000F34CE /* Reactor.framework */,
+				ECD8CE221E6E4314000248F6 /* Hero.framework */,
 				ECE3E0DF1DE6430800EBA024 /* SpotifyMetadata.framework */,
 				ECE3E0DB1DE62AC300EBA024 /* SpotifyAudioPlayback.framework */,
 				ECE3E0DC1DE62AC300EBA024 /* SpotifyAuthentication.framework */,
-				EE550E7B1D564E2C00C19603 /* ReSwift.framework */,
 				EE6975431D55492300D91587 /* SystemConfiguration.framework */,
 				EE6975411D55491C00D91587 /* AVFoundation.framework */,
 			);
@@ -306,6 +465,7 @@
 				EE69750B1D55481900D91587 /* Frameworks */,
 				EE69750C1D55481900D91587 /* Resources */,
 				EE550E7D1D564E4F00C19603 /* ShellScript */,
+				ECD8CE251E6E4314000248F6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -412,6 +572,7 @@
 				EE69751C1D55481900D91587 /* LaunchScreen.storyboard in Resources */,
 				EE6975191D55481900D91587 /* Assets.xcassets in Resources */,
 				EE6975171D55481900D91587 /* Main.storyboard in Resources */,
+				ECF506191E6F23B3000F34CE /* Sources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,8 +599,10 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)//Carthage/Build/iOS/ReSwift.framework",
 				"$(SRCROOT)//Carthage/Build/iOS/Whisper.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Reactor.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			outputPaths = (
 			);
@@ -455,31 +618,58 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC1BFA0A1D64EEE000734E10 /* CollectionType+Extensions.swift in Sources */,
+				ECF5063B1E6F82F9000F34CE /* PlaySpotifyPlaylist.swift in Sources */,
+				ECF506451E6F88BC000F34CE /* EnableLocalShuffle.swift in Sources */,
+				EC41AF271E71C16100132C7A /* PauseSpotify.swift in Sources */,
 				EC80D78D1DECE9FB000DE3F7 /* Shuffle.swift in Sources */,
+				ECF5064F1E6F8DB6000F34CE /* UpdateLocalTrackProgress.swift in Sources */,
 				EE550E831D56507100C19603 /* SpotifyService.swift in Sources */,
+				ECF41C771DED3FC9007A58A1 /* RecorderState.swift in Sources */,
+				ECF506291E6F3E8D000F34CE /* RecordingEvents.swift in Sources */,
 				EC6C3BE01D5E8D390083ECF1 /* Float+Extensions.swift in Sources */,
+				ECF506511E6F8F0B000F34CE /* UpdateRecording.swift in Sources */,
+				ECF506351E6F7F5E000F34CE /* PlaySelectedSpotifyPlaylist.swift in Sources */,
+				ECF506251E6F3E58000F34CE /* SetupRecording.swift in Sources */,
+				ECF5064D1E6F8D26000F34CE /* AdvanceToPreviousLocalTrack.swift in Sources */,
 				EE550E7F1D564F7100C19603 /* AppState.swift in Sources */,
+				ECF506471E6F88D5000F34CE /* DisableLocalShuffle.swift in Sources */,
 				EC23D1261D64430D0069DEA1 /* PlaybackViewController.swift in Sources */,
 				EC6C3BE21D5EE94D0083ECF1 /* PlaylistDetailViewController.swift in Sources */,
+				ECF5063F1E6F885A000F34CE /* GetLocalPlaylists.swift in Sources */,
 				EC6C3BF01D611EEC0083ECF1 /* SpotifyState.swift in Sources */,
-				EC3959191D7B724700164B30 /* PlaybackView.swift in Sources */,
 				EC6C3BE61D5EEBFE0083ECF1 /* TracksDataSource.swift in Sources */,
-				EC6C3BE81D5F7DFF0083ECF1 /* RecordingService.swift in Sources */,
-				EC6C3BEE1D6114560083ECF1 /* MusicService.swift in Sources */,
+				ECF5061B1E6F2F4A000F34CE /* ParentViewController.swift in Sources */,
+				EC6C3BE81D5F7DFF0083ECF1 /* TimerController.swift in Sources */,
+				ECF506391E6F8091000F34CE /* UnshuffleSpotifyPlaylist.swift in Sources */,
+				EC41AF2B1E71C38500132C7A /* AdvanceToPreviousSpotifyTrack.swift in Sources */,
+				EC6C3BEE1D6114560083ECF1 /* LocalMusicEvents.swift in Sources */,
 				EC4FF1C51D5E376B00DDAF4C /* PlaylistCell.swift in Sources */,
+				ECF506411E6F8879000F34CE /* PlayLocalSelectedPlaylist.swift in Sources */,
+				ECF506491E6F8B5F000F34CE /* UpdateLocalPlayPause.swift in Sources */,
+				ECF506331E6F7C70000F34CE /* GetSpotifyPlaylistDetails.swift in Sources */,
 				EC6C3BE41D5EEAC10083ECF1 /* TrackCell.swift in Sources */,
 				EC6C3BD91D5E7E270083ECF1 /* SettingsViewController.swift in Sources */,
+				ECF5062D1E6F7067000F34CE /* LoginPlayer.swift in Sources */,
+				ECF506311E6F7C4C000F34CE /* GetSpotifyPlaylists.swift in Sources */,
+				EC41AF291E71C36200132C7A /* AdvanceToNextSpotifyTrack.swift in Sources */,
+				ECF506431E6F8895000F34CE /* PlaySelectedLocalTrack.swift in Sources */,
 				EC6C3BEC1D6045BE0083ECF1 /* Middleware.swift in Sources */,
 				EC6C3BDE1D5E8A9F0083ECF1 /* ViewController+Extensions.swift in Sources */,
-				EE6975141D55481900D91587 /* ViewController.swift in Sources */,
+				EE6975141D55481900D91587 /* MainViewController.swift in Sources */,
+				EC41AF251E71C14A00132C7A /* PlaySpotify.swift in Sources */,
+				ECF5062F1E6F7081000F34CE /* HandleAuth.swift in Sources */,
+				ECF41C791DED480D007A58A1 /* Volume.swift in Sources */,
 				EC4FF1C11D5E2AD100DDAF4C /* GenericActions.swift in Sources */,
 				EC4FF1C31D5E345900DDAF4C /* PlaylistsDataSource.swift in Sources */,
-				EC6C3BDB1D5E84180083ECF1 /* SettingsService.swift in Sources */,
-				EE550E811D564FCC00C19603 /* AppReducer.swift in Sources */,
+				ECF506271E6F3E6F000F34CE /* RequestPermissionToRecord.swift in Sources */,
 				EE6975121D55481900D91587 /* AppDelegate.swift in Sources */,
 				EC6C3BF21D611EF50083ECF1 /* LocalMusicState.swift in Sources */,
 				EC80D7721DE66A22000DE3F7 /* UITableView+Extensions.swift in Sources */,
+				ECF5064B1E6F8D04000F34CE /* AdvanceToNextLocalTrack.swift in Sources */,
 				EE550E851D5650B300C19603 /* SpotifyNetworkAccess.swift in Sources */,
+				ECF506371E6F805E000F34CE /* ShuffleSpotifyPlaylist.swift in Sources */,
+				ECF5062B1E6F6F46000F34CE /* LoginToSpotify.swift in Sources */,
+				ECF5063D1E6F856C000F34CE /* RefreshSpotifySession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +821,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 92H4P6C5WB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/boatify",
@@ -638,9 +829,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = boatify/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatify;
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "boatify/boatify-Bridging-Header.h";
@@ -657,6 +849,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 92H4P6C5WB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/boatify",
@@ -664,9 +857,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = boatify/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatify;
+				PRODUCT_BUNDLE_IDENTIFIER = derikflanary.boatly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "boatify/boatify-Bridging-Header.h";

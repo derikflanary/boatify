@@ -1,0 +1,3 @@
+framework module Reactor {
+    header "Reactor-Swift.h"
+}

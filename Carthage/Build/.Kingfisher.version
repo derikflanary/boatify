@@ -1,0 +1,28 @@
+{
+  "commitish" : "3.9.1",
+  "iOS" : [
+    {
+      "hash" : "c76c0a7452e2337d362815e8a58fec297728f7d441400b597aefc53867bb53d2",
+      "name" : "Kingfisher"
+    }
+  ],
+  "xcodeVersion" : "Xcode 8.3.2\nBuild version 8E2002",
+  "watchOS" : [
+    {
+      "hash" : "12da3271908861f703e14576b0f0be063cd317c66994a6adb4c56578214e8a16",
+      "name" : "Kingfisher"
+    }
+  ],
+  "tvOS" : [
+    {
+      "hash" : "679add372764b5c25ec7cc0091ad6b9de8fc1e9fdd37517a4d8ee54926f06d78",
+      "name" : "Kingfisher"
+    }
+  ],
+  "Mac" : [
+    {
+      "hash" : "ec7b450dea82322433ad4b52ed269c901906dc09dab230a6f8f33ebf87dafb7a",
+      "name" : "Kingfisher"
+    }
+  ]
+}

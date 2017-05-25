@@ -7,53 +7,52 @@
 //
 
 import Foundation
-import ReSwift
+import Reactor
 
-struct SpotifyState {
+struct SpotifyState: State {
     
     var session: SPTSession?
+    var player = SPTAudioStreamingController.sharedInstance()
     var playlists = [SPTPartialPlaylist]()
-    var playlistImages = [UIImage]()
     var selectedPlaylist: SPTPartialPlaylist?
     var currentPlaylist: SPTPartialPlaylist?
     var tracks = [SPTPartialTrack]()
     var selectedTrack: SPTPartialTrack?
     let auth = SPTAuth.defaultInstance()
     var shuffle = Shuffle.off
-    var isPlaying: Bool {
-        guard SPTAudioStreamingController.sharedInstance().playbackState != nil else { return false }
-        return SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
-    }
+    var playback = Playback.stopped
     
     
-    func reduce(_ action: Action) -> SpotifyState {
-        var state = self
+    mutating func react(to event: Event) {
         
-        switch action {
+        switch event {
         case _ as AppLaunched:
-            state.session = auth?.session
-        case let action as Retrieved<SPTSession?>:
-            state.session = action.item
-        case let action as Loaded<SPTPartialPlaylist>:
-            state.playlists = action.items
-        case let action as Loaded<UIImage>:
-            state.playlistImages = action.items
-        case let action as Selected<SPTPartialPlaylist>:
-            state.selectedPlaylist = action.item
-        case let action as Loaded<SPTPartialTrack>:
-            state.tracks = action.items
-        case let action as Selected<SPTPartialTrack>:
-            state.selectedTrack = action.item
-        case let action as Play<SPTPartialPlaylist>:
-            state.currentPlaylist = action.item
-        case let action as Updated<Shuffle>:
-            state.shuffle = action.item
+            session = auth?.session
+        case let event as Retrieved<SPTSession>:
+            session = event.item
+        case let event as Loaded<SPTPartialPlaylist>:
+            playlists = event.items
+        case let event as Selected<SPTPartialPlaylist>:
+            selectedPlaylist = event.item
+        case let event as Loaded<SPTPartialTrack>:
+            tracks = event.items
+        case let event as Selected<SPTPartialTrack>:
+            selectedTrack = event.item
+        case let event as Play<SPTPartialPlaylist>:
+            currentPlaylist = event.item
+            playback = .playing
+        case let event as Updated<Playback>:
+            playback = event.item
+        case let event as Updated<Volume>:
+            guard let player = SPTAudioStreamingController.sharedInstance(), session != nil else { break }
+            player.setVolume(event.item.current, callback: nil)
+        case let event as Updated<Shuffle>:
+            shuffle = event.item
         case _ as Reset<SPTPartialPlaylist>:
-            state.selectedPlaylist = nil
+            selectedPlaylist = nil
         default:
             break
         }
-        return state
     }
-    
+
 }

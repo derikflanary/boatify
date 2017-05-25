@@ -7,96 +7,42 @@
 //
 
 import UIKit
-import ReSwift
+import Reactor
 import AVFoundation
 import MediaPlayer
+import Hero
 
 class PlaylistDetailViewController: UIViewController {
     
-    typealias StoreSubscriberStateType = AppState
-    var store = AppState.sharedStore
-    var spotifyService = SpotifyService()
-    var musicService = MusicService()
-    var musicState = MusicState.none
-    var audioRecorder: AVAudioRecorder?
-    var timer: Timer?
-    var maxVolume: Double = 1.0
-    var minVolume: Double = 0.5
     
-    var midVolume: Double {
-        return (maxVolume + minVolume) / 2
-    }
-
+    var core = App.sharedCore
+    var spotifyService = SpotifyService()
+    var musicState = MusicState.none
+    var timer: Timer?
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var tracksDataSource: TracksDataSource!
     
     
-    // MARK: - View life cycle
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self)
+        core.add(subscriber: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         switch musicState {
         case .spotify:
-            store.dispatch(Reset<SPTPartialPlaylist>())
+            core.fire(event: Reset<SPTPartialPlaylist>())
         case .local:
-            store.dispatch(Reset<MPMediaPlaylist>())
+            core.fire(event: Reset<MPMediaPlaylist>())
         case .none:
             break
         }
-        store.unsubscribe(self)
+        core.remove(subscriber: self)
     }
     
-    
-    // MARK: - Recording
-    
-    func startRecording() {
-        guard let audioRecorder = audioRecorder else { return }
-        audioRecorder.isMeteringEnabled = true
-        audioRecorder.record()
-        audioRecorder.updateMeters()
-        startMeter()
-    }
-    
-    func stopRecording() {
-        audioRecorder?.stop()
-        timer?.invalidate()
-    }
-    
-    func startMeter() {
-        timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
-    }
-    
-    func updateMeter() {
-        func updateMeter() {
-            guard let audioRecorder = audioRecorder else { return }
-            audioRecorder.updateMeters()
-            let averagePower = audioRecorder.averagePower(forChannel: 0)
-            var volume: Double
-            if averagePower < -22.5 {
-                volume = minVolume
-            } else if averagePower < -15.0 {
-                volume = midVolume
-            } else {
-                volume = maxVolume
-            }
-            print("average: \(averagePower)")
-            switch musicState {
-            case .spotify:
-                spotifyService.update(volume)
-            case .local:
-                store.dispatch(musicService.update(Float(volume)))
-            case .none:
-                break
-            }
-        }
-    }
-
 }
 
 
@@ -109,13 +55,12 @@ extension PlaylistDetailViewController: UITableViewDelegate {
         switch musicState {
         case .spotify:
             let track = tracksDataSource.spotifyTracks[indexPath.row]
-            store.dispatch(spotifyService.select(track))
-            store.dispatch(spotifyService.playSelectedPlaylist(at: indexPath.row))
-            startRecording()
+            core.fire(event: Selected(item: track))
+            core.fire(command: PlaySelectedSpotifyPlaylist(startingTrackPosition: indexPath.row))
         case .local:
             let track = tracksDataSource.localTracks[indexPath.row]
-            store.dispatch(musicService.select(track))
-            store.dispatch(musicService.playTrack)
+            core.fire(event: Selected(item: track))
+            core.fire(command: PlaySelectedLocalTrack())
         case .none:
             break
         }
@@ -123,14 +68,11 @@ extension PlaylistDetailViewController: UITableViewDelegate {
 }
 
 
-// MARK: - Store subscriber
+// MARK: - Subscriber
 
-extension PlaylistDetailViewController: StoreSubscriber {
+extension PlaylistDetailViewController: Subscriber {
     
-    func newState(state: AppState) {
-        audioRecorder = state.audioRecorder
-        minVolume = state.minVolume
-        maxVolume = state.maxVolume
+    func update(with state: AppState) {
         musicState = state.musicState
         tracksDataSource.musicState = state.musicState
         

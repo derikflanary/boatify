@@ -1,0 +1,19 @@
+{
+  "commitish" : "5.0.0",
+  "iOS" : [
+    {
+      "hash" : "9017bcff23c05f970681417bed12509db330dc590973cdd020253986429b3742",
+      "name" : "Whisper"
+    }
+  ],
+  "xcodeVersion" : "Xcode 8.3.2\nBuild version 8E2002",
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "Mac" : [
+
+  ]
+}

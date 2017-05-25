@@ -7,44 +7,42 @@
 //
 
 import UIKit
-import ReSwift
-
-protocol SettingsDelegate {
-    func volumeChanged(_ minVolume: Double, maxVolume: Double)
-}
+import Reactor
 
 class SettingsViewController: UIViewController {
 
-    let settingsService = SettingsService()
-    var store = AppState.sharedStore
-    var originalMinVolume: Double?
-    var originalMaxVolume: Double?
-    var delegate: SettingsDelegate?
+    var core = App.sharedCore
+    var originalVolume: Volume?
+    var originalSensitivity: Sensitivity?
     
     @IBOutlet weak var maxSlider: UISlider!
     @IBOutlet weak var minSlider: UISlider!
     @IBOutlet weak var maxPercentLabel: UILabel!
     @IBOutlet weak var minPercentLabel: UILabel!
+    @IBOutlet weak var sensitivtyLabel: UILabel!
+    @IBOutlet weak var sensitivitySlider: UISlider!
     
     
     // MARK: - View life cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self)
+        core.add(subscriber: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        store.unsubscribe(self)
+        core.remove(subscriber: self)
     }
     
     
     // MARK: - Interface actions
+    
+    @IBAction func sensitivitySliderChangedValue(_ sender: Any) {
+        sensitivtyLabel.text = "\(sensitivitySlider.value.percentForm)%"
+        core.fire(event: Updated(item: Sensitivity(constant: sensitivitySlider.value)))
+    }
     
     @IBAction func maxSliderChangedValue(_ sender: AnyObject) {
         if maxSlider.value <= minSlider.value + 0.1 {
@@ -52,7 +50,7 @@ class SettingsViewController: UIViewController {
             showTemporaryMessage("Max volume must be higher than minimum")
         }
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
-        delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
+        core.fire(event: UpdatedVolumeSettings(newMin: Double(minSlider.value), newMax: Double(maxSlider.value)))
     }
     
     @IBAction func minSliderChangedValue(_ sender: AnyObject) {
@@ -61,30 +59,29 @@ class SettingsViewController: UIViewController {
             showTemporaryMessage("Minimum volume must be lower than max")
         }
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
-        delegate?.volumeChanged(Double(minSlider.value), maxVolume: Double(maxSlider.value))
+        core.fire(event: UpdatedVolumeSettings(newMin: Double(minSlider.value), newMax: Double(maxSlider.value)))
     }
     
     @IBAction func doneTapped(_ sender: UIBarButtonItem) {
-        store.dispatch(settingsService.updateVolumes(minVolume: minSlider.value, maxVolume: maxSlider.value))
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
-        guard let minVolume = originalMinVolume, let maxVolume = originalMaxVolume else { return }
+        guard let originalVolume = originalVolume else { return }
         
-        if minVolume != Double(minSlider.value) || maxVolume != Double(maxSlider.value) {
-            store.dispatch(settingsService.updateVolumes(minVolume: Float(minVolume), maxVolume: Float(maxVolume)))
+        if originalVolume.min != Double(minSlider.value) || originalVolume.max != Double(maxSlider.value) {
+            core.fire(event: Updated(item: originalVolume))
         }
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func resetButtonTapped() {
-        guard let minVolume = originalMinVolume, let maxVolume = originalMaxVolume else { return }
-        delegate?.volumeChanged(minVolume, maxVolume: maxVolume)
-        minSlider.setValue(Float(minVolume), animated: true)
-        maxSlider.setValue(Float(maxVolume), animated: true)
+        guard let originalVolume = originalVolume else { return }
+        minSlider.setValue(Float(originalVolume.min), animated: true)
+        maxSlider.setValue(Float(originalVolume.max), animated: true)
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
+        core.fire(event: UpdatedVolumeSettings(newMin: originalVolume.min, newMax: originalVolume.max))
     }
     
 }
@@ -92,15 +89,22 @@ class SettingsViewController: UIViewController {
 
 // MARK: - Store subscriber
 
-extension SettingsViewController: StoreSubscriber {
+extension SettingsViewController: Subscriber {
     
-    func newState(state: AppState) {
-        maxSlider.setValue(Float(state.maxVolume), animated: true)
-        minSlider.setValue(Float(state.minVolume), animated: true)
+    func update(with state: AppState) {
+        maxSlider.setValue(Float(state.recorderState.volume.max), animated: true)
+        minSlider.setValue(Float(state.recorderState.volume.min), animated: true)
+        sensitivitySlider.setValue(state.recorderState.sensitivity.constant, animated: true)
         maxPercentLabel.text = "\(maxSlider.value.percentForm)%"
         minPercentLabel.text = "\(minSlider.value.percentForm)%"
-        originalMaxVolume = state.maxVolume
-        originalMinVolume = state.minVolume
+        sensitivtyLabel.text = "\(sensitivitySlider.value.percentForm)%"
+        
+        if originalVolume == nil {
+            originalVolume = state.recorderState.volume
+        }
+        if originalSensitivity == nil {
+            originalSensitivity = state.recorderState.sensitivity
+        }
     }
     
 }
