@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Hero"
-  s.version          = "0.3.3"
+  s.version          = "0.3.6"
   s.summary          = "Elegant transition library for iOS"
 
   s.description      = <<-DESC
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/lkzhao/Hero"
-  s.screenshots      = "https://github.com/lkzhao/Hero/blob/master/Resources/HeroLogo@2x.png?raw=true"
+  s.screenshots      = "https://github.com/lkzhao/Hero/blob/master/Resources/Hero.png?raw=true"
   s.license          = 'MIT'
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/Hero.git", :tag => s.version.to_s }
@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/**/*.swift'
 end

@@ -1,0 +1,28 @@
+{
+  "commitish" : "0.9",
+  "iOS" : [
+    {
+      "hash" : "dc205043bb1db8e151623ccdbdf605b6982e3c56d133a9b44bd49960e4a1fb6f",
+      "name" : "Reactor"
+    }
+  ],
+  "xcodeVersion" : "Xcode 8.3.2\nBuild version 8E2002",
+  "watchOS" : [
+    {
+      "hash" : "765ea4ef48bad11dd21c1a45f3efb3048d08f868ec96be6e120f8da2655c0da8",
+      "name" : "Reactor"
+    }
+  ],
+  "tvOS" : [
+    {
+      "hash" : "c8bd6afb4fa74b64555bf5585b82c51e46203e1adf1fc680a9a9f523933115bb",
+      "name" : "Reactor"
+    }
+  ],
+  "Mac" : [
+    {
+      "hash" : "0d55332df29cf89cb344b40c001839431c1a93492ec7f7361c812c78848a7095",
+      "name" : "Reactor"
+    }
+  ]
+}

@@ -18,6 +18,7 @@ struct SetupRecording: Command {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try audioSession.setActive(true)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
             
             let fileManager = FileManager.default
             let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
