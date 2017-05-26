@@ -138,8 +138,9 @@ class PlaybackViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? ExpandedPlaybackViewController else { return }
-        destinationVC.artist = artistLabel.text!
-        destinationVC.track = trackLabel.text!
+        guard let artist = artistLabel.text, let track = trackLabel.text else { return }
+        destinationVC.artist = artist
+        destinationVC.track = track
         switch core.state.musicState {
         case .local:
             destinationVC.progress = progressView.progress
